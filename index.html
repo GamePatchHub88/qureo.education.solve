@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حلول منصة كيريو – الصف الأول الثانوي 2026-2027</title>
+<meta name="description" content="حلول الفصول من 1 إلى 15 من منصة كيريو لمادة البرمجة والذكاء الاصطناعي للصف الأول الثانوي.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#"><img class="logo-img" src="icon.svg" alt="" width="36" height="36"> كيريو مصر</a>
+  <button id="theme" class="icon" aria-label="تبديل الوضع">☀</button>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>حلول منصة كيريو<br>للصف الأول الثانوي</h1>
+    <p>البرمجة والذكاء الاصطناعي · عام 2026-2027. اختر الفصل، افتح الدرس، وانسخ الكود جاهزًا.</p>
+    <div class="stats" id="stats"></div>
+  </div>
+  <div class="mac hero-mac" aria-hidden="true">
+    <div class="bar"><i></i><i></i><i></i><span>helmy.js</span></div>
+    <pre dir="ltr"><code><span class="c">// محمد أحمد حلمي</span>
+<span class="k">let</span> author = <span class="s">"محمد أحمد حلمي"</span>;
+console.<span class="f">log</span>(author);<span class="cur"></span></code></pre>
+  </div>
+</section>
+
+<main>
+  <div class="picker">
+    <label for="lvl">اختر الفصل</label>
+    <div class="picker-row">
+      <button id="next" class="nav" aria-label="الفصل التالي">›</button>
+      <select id="lvl" aria-label="اختيار الفصل"></select>
+      <button id="prev" class="nav" aria-label="الفصل السابق">‹</button>
+    </div>
+    <small id="lvlInfo"></small>
+  </div>
+  <div class="tools">
+    <input id="q" type="search" placeholder="ابحث في الأسئلة والأكواد…">
+    <button id="toggleAll" class="ghost">إظهار كل الإجابات</button>
+  </div>
+  <div id="chapter"></div>
+  <p id="empty" class="empty" hidden>لا توجد نتائج. جرّب كلمة أخرى.</p>
+</main>
+
+<footer>
+  موقع تعليمي مستقل، وليس الموقع الرسمي لمنصة QUREO أو وزارة التربية والتعليم. جميع العلامات التجارية ملك لأصحابها.
+  <p class="rights">© 2026 جميع الحقوق محفوظة — محمد أحمد حلمي</p>
+</footer>
+<div id="toast" role="status"></div>
+<script src="script.js"></script>
+</body>
+</html>
