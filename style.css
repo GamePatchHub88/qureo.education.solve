@@ -183,10 +183,6 @@ footer{text-align:center;padding:26px 5vw calc(26px + env(safe-area-inset-bottom
 }
 
 /* ===== Tips & Author ===== */
-.tips{background:var(--panel);border:1px solid var(--line);border-inline-start:5px solid var(--accent);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 22px;margin-bottom:20px}
-.tips h2{margin:0 0 8px;font-size:clamp(17px,2.4vw,21px)}
-.tips ul{margin:0;padding-inline-start:22px;color:var(--mute)}
-.tips li{margin:4px 0}
 .author{display:flex;align-items:center;justify-content:center;gap:20px;padding:34px 5vw;background:var(--panel);border-top:1px solid var(--line)}
 .author img,.author .ph{width:104px;height:104px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);box-shadow:var(--shadow-up);flex:none}
 .author .ph{display:grid;place-items:center;font-size:42px;font-weight:800;background:var(--navy);color:#fff}
@@ -194,3 +190,15 @@ footer{text-align:center;padding:26px 5vw calc(26px + env(safe-area-inset-bottom
 .author .nm{margin:2px 0 0;font-size:clamp(20px,3vw,26px);font-weight:800}
 @media(max-width:480px){.author{flex-direction:column;text-align:center;gap:12px}}
 @media print{.author{display:none}}
+
+/* ===== Tips (light) ===== */
+.tips{margin-bottom:20px;padding:14px clamp(14px,2.5vw,20px) 16px;border-radius:14px;border:1px solid var(--line);background:var(--panel)}
+.tips-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tips-ico{font-size:18px;line-height:1}
+.tips h2{margin:0;font-size:clamp(15px,2.2vw,18px);font-weight:700;line-height:1.5;color:var(--ink)}
+.tips-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:4px 20px}
+.tips-grid li{display:flex;align-items:baseline;gap:10px;padding:5px 0}
+.tips-grid .n{flex:none;min-width:22px;height:22px;display:inline-grid;place-items:center;border-radius:50%;font-size:12px;font-weight:700;color:var(--mute);background:var(--panel-2);border:1px solid var(--line)}
+.tips-grid p{margin:0;font-size:clamp(13.5px,1.8vw,15px);line-height:1.7;color:var(--mute)}
+.tips-grid b{color:var(--ink);font-weight:700}
+@media(max-width:640px){.tips-grid{grid-template-columns:1fr}}

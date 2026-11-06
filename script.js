@@ -993,6 +993,208 @@ p {
 ["حدد نتيجة التنفيذ: let weather = \"sunny\"; let group = \"B group\"; if (weather == \"sunny\") { if (group == \"A group\") { console.log(\"Destination is the park\"); } else { console.log(\"Destination is the amusement park\"); } } else { console.log(\"Destination is the aquarium\"); }", "Destination is the amusement park"],
 ["غيّر الوجهة حسب الوقت إذا كان الطقس ممطرًا، وإلا نزهة", "امسح الكود أو عدّله ليصبح هكذا (السطر الثالث فارغ كما هو موضح).", "let weather = \"rain\";\nlet time = \"morning\";\nif (weather == \"rain\") {\n  if (time == \"morning\") {\n    console.log(\"Let's go to the movie theater\");\n  } else if (time == \"noon\") {\n    console.log(\"Let's go to the library\");\n  } else {\n    console.log(\"Let's stay at home\");\n  }\n} else {\n  console.log(\"Let's go for a walk\");\n}"]],"",1]
 ]}
+,{id:31,title:"الفصل 31",sub:"الدوال بأكثر من معامل",lessons:[
+["الدرس 1: دالة تجمع قيمتين",[["أنشئ دالة sum بالمعاملين freestyle و breaststroke تُرجع مجموعهما في result", "", "function sum(freestyle, breaststroke) {\n  let result = freestyle + breaststroke;\n  return result;\n}"],
+["استدعِ الدالة sum بالوسيطين 39.5 و 60.5 واطبع الناتج", "اكتب في المكان المخصص: console.log(sum(39.5, 60.5));", "function sum(freestyle, breaststroke) {\n  let result = freestyle + breaststroke;\n  return result;\n}\nconsole.log(sum(39.5, 60.5));"],
+["أعلن teamRed وأسند إليه sum(39.5, 60.5) ثم اطبعه (من السطر 6)", "اكتب في السطر السادس والسابع بعد الأكواد المكتوبة.", "function sum(freestyle, breaststroke) {\n  let time = freestyle + breaststroke;\n  return time;\n}\n//Write your program below.\nlet teamRed = sum(39.5, 60.5);\nconsole.log(teamRed);"]]],
+["الدرس 2: ثلاثة معاملات",[["أضف المعامل backstroke إلى مجموع المعاملات ومرّر 58.5 عند الاستدعاء", "اكتب في الأماكن المخصصة: backstroke ثم backstroke ثم 58.5", "function sum(freestyle, breaststroke, backstroke) {\n  let time = freestyle + breaststroke + backstroke;\n  return time;\n}\nlet teamRed = sum(39.5, 60.5, 58.5);\nconsole.log(teamRed);"],
+["أعلن teamBlue وأسند إليه sum(40, 62, 58) ثم اطبعه (من السطر 7)", "اكتب في السطرين السابع والثامن بعد الكود المكتوب.", "function sum(freestyle, breaststroke, backstroke) {\n  let time = freestyle + breaststroke + backstroke;\n  return time;\n}\nlet teamRed = sum(39.5, 60.5, 58.5);\nconsole.log(teamRed);\nlet teamBlue = sum(40, 62, 58);\nconsole.log(teamBlue);"],
+["أعلن teamGreen وأسند إليه sum(41, 59.5, 60) ثم اطبعه (من السطر 9)", "اكتب في السطرين التاسع والعاشر بعد الكود المكتوب.", "function sum(freestyle, breaststroke, backstroke) {\n  let time = freestyle + breaststroke + backstroke;\n  return time;\n}\nlet teamRed = sum(39.5, 60.5, 58.5);\nconsole.log(teamRed);\nlet teamBlue = sum(40, 62, 58);\nconsole.log(teamBlue);\nlet teamGreen = sum(41, 59.5, 60);\nconsole.log(teamGreen);"]]],
+["الدرس 3: Math.min",[["اضغط على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["اعرض أسرع زمن: Math.min(158.5, 160, 160.5) (السطر 11)", "اكتب في المكان المخصص في آخر سطر: Math.min(158.5, 160, 160.5)", "function sum(freestyle, breaststroke, backstroke) {\n  let time = freestyle + breaststroke + backstroke;\n  return time;\n}\nlet teamRed = sum(39.5, 60.5, 58.5);\nconsole.log(teamRed);\nlet teamBlue = sum(40, 62, 58);\nconsole.log(teamBlue);\nlet teamGreen = sum(41, 59.5, 60);\nconsole.log(teamGreen);\nconsole.log(\"The fastest time is\" + Math.min(158.5, 160, 160.5));"],
+["اعرض أسرع زمن باستخدام المتغيرات (السطر 11)", "اكتب في آخر سطر: Math.min(teamRed, teamBlue, teamGreen)", "function sum(freestyle, breaststroke, backstroke) {\n  let time = freestyle + breaststroke + backstroke;\n  return time;\n}\nlet teamRed = sum(39.5, 60.5, 58.5);\nconsole.log(teamRed);\nlet teamBlue = sum(40, 62, 58);\nconsole.log(teamBlue);\nlet teamGreen = sum(41, 59.5, 60);\nconsole.log(teamGreen);\nconsole.log(\"The fastest time is\" + Math.min(teamRed, teamBlue, teamGreen));"]]],
+["مراجعة الفصل 31",[["أنشئ الدالة calculation3 بالمعاملات a و b و c تُرجع a×b×c", "امسح الكود أو عدّله ليصبح هكذا.", "function calculation3(a, b, c) {\n  let result = a * b * c;\n  return result;\n}\nconsole.log(calculation3(2, 3, 4));"],
+["اختر البرنامج الذي يمرر الوسائط 3 و5 و10 إلى calculation3 ويعرض الناتج", "", "console.log(calculation3(3, 5, 10));"],
+["أعلن num1 وأسند إليه calculation3(5, 10, 15) (السطر الخامس)", "امسح الكود أو عدّله ليصبح هكذا.", "function calculation3(a, b, c) {\n  let result = a * b * c;\n  return result;\n}\nlet num1 = calculation3(5, 10, 15);\nconsole.log(num1);"],
+["أعلن num2 وأسند إليه calculation3(4, 4, 4) ثم اطبعه (من السطر السابع)", "امسح الكود أو عدّله ليصبح هكذا.", "function calculation3(a, b, c) {\n  let result = a * b * c;\n  return result;\n}\nlet num1 = calculation3(5, 10, 15);\nconsole.log(num1);\nlet num2 = calculation3(4, 4, 4);\nconsole.log(num2);"],
+["اختر البرنامج الذي يعرض أصغر قيمة بين num1 و num2 و num3", "", "console.log(Math.min(num1, num2, num3));"]],"",1]
+]}
+,{id:32,title:"الفصل 32",sub:"المخطط الانسيابي",lessons:[
+["الدرس 1: عدّ القيم في المصفوفة",[["اطبع جميع القيم الموجودة في المصفوفة", "اكتب في المكان المخصص: let day of volunteerList", "let volunteerList = [\"Yes\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"Yes\", \"No\"];\nfor (let day of volunteerList) {\n  console.log(day);\n}"],
+["احسب واطبع عدد مرات القيمة \"Yes\" في المصفوفة (من السطر الرابع)", "امسح الكود أو عدّله ليصبح هكذا.", "let volunteerList = [\"Yes\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"Yes\", \"No\"];\nlet count = 0;\nfor (let day of volunteerList) {\n  if (day == \"Yes\") {\n    count++;\n  }\n}\nconsole.log(count);"],
+["احسب واطبع عدد مرات القيمة \"No\" باستخدام عامل الزيادة (increment)", "امسح الكود أو عدّله ليصبح هكذا.", "let volunteerList = [\"Yes\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"Yes\", \"No\"];\nlet count = 0;\nfor (let day of volunteerList) {\n  if (day == \"No\") {\n    count++;\n  }\n}\nconsole.log(count);"]]],
+["الدرس 2: الشطائر (if / else)",[["إذا كان sandwichType هو \"savory\" فاطبع \"Check what's inside the sandwich\"، وإلا \"Eat strawberry jam sandwich\"", "اكتب من السطر الثاني.", "let sandwichType = \"strawberry jam\";\nif (sandwichType == \"savory\") {\n  console.log(\"Check what's inside the sandwich\");\n} else {\n  console.log(\"Eat strawberry jam sandwich\");\n}"],
+["إذا كانت الشطيرة مالحة: اطبع \"Exchange with Cody\" إذا كانت تونة، وإلا \"Eat ham sandwich\" (من السطر الرابع)", "امسح الكود أو عدّله ليصبح هكذا.", "let sandwichType = \"savory\";\nlet savory = \"tuna\";\nif (sandwichType == \"savory\") {\n  if (savory == \"tuna\") {\n    console.log(\"Exchange with Cody\");\n  } else {\n    console.log(\"Eat ham sandwich\");\n  }\n} else {\n  console.log(\"Eat strawberry jam sandwich\");\n}"]]],
+["مراجعة الفصل 32",[["اختر التعبير المناسب داخل القوسين في جملة for لعرض قيم scoreList: let scoreList = [70, 80, 66, 88, 92]; for ( ) { console.log(score); }", "", "let score of scoreList"],
+["اختر ناتج الإخراج: let scoreList = [70, 80, 66, 88, 92]; for (let score of scoreList) { if (score >= 80) { console.log(score); } }", "80 ثم 88 ثم 92"],
+["اكتب برنامجًا يعرض فقط القيم من heightList التي تساوي أو تزيد عن 150 (لا تحذف الأصلي)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ كما هو واضح).", "let heightList = [154, 138, 140, 180, 170];\nfor (let height of heightList) {\n  if (height >= 150) {\n    console.log(height);\n  }\n}"],
+["يُستخدم المخطط الانسيابي لتحديد هل يستطيع الشخص ركوب الأفعوانية. اختر العبارة غير الصحيحة بناءً على المخطط (الأفعوانية)", "إذا كان طولك 140 سم أو أكثر، يمكنك الركوب بمفردك."],
+["أنشئ برنامجًا متداخلًا بناءً على المخطط الانسيابي (height و age)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثالث فارغ كما هو واضح).", "let height = 148;\nlet age = 14;\nif (height >= 140) {\n  if (age >= 12) {\n    console.log(\"You can ride alone\");\n  } else {\n    console.log(\"Please ride with someone who is 18 years or older\");\n  }\n} else {\n  console.log(\"You cannot ride\");\n}"]],"",1]
+]}
+,{id:33,title:"الفصل 33",sub:"مراجعة الفصلين 31 و32",lessons:[
+["الدرس 1: مراجعة الفصلين 31 و32",[["أنشئ دالة sum بالمعاملات freestyle و breaststroke و backstroke تُرجع مجموعها في result", "", "function sum(freestyle, breaststroke, backstroke) {\n  let result = freestyle + breaststroke + backstroke;\n  return result;\n}"],
+["أعلن teamRed وأسند إليه sum(39.5, 60.5, 58.5) ثم اطبعه (من السطر الخامس)", "اكتب في السطرين الخامس والسادس بعد الأكواد المكتوبة.", "function sum(freestyle, breaststroke, backstroke) {\n  let result = freestyle + breaststroke + backstroke;\n  return result;\n}\nlet teamRed = sum(39.5, 60.5, 58.5);\nconsole.log(teamRed);"],
+["أعلن teamBlue (40, 62, 58) و teamGreen (41, 59.5, 60) واطبعهما (من السطر 7)", "اكتب من السطر السابع إلى العاشر بعد الأكواد المكتوبة.", "function sum(freestyle, breaststroke, backstroke) {\n  let time = freestyle + breaststroke + backstroke;\n  return time;\n}\nlet teamRed = sum(39.5, 60.5, 58.5);\nconsole.log(teamRed);\nlet teamBlue = sum(40, 62, 58);\nconsole.log(teamBlue);\nlet teamGreen = sum(41, 59.5, 60);\nconsole.log(teamGreen);"],
+["اطبع أسرع زمن إجمالي بين الفرق الثلاثة (السطر 11)", "اكتب في السطر الأخير: Math.min(teamRed, teamBlue, teamGreen)", "function sum(freestyle, breaststroke, backstroke) {\n  let time = freestyle + breaststroke + backstroke;\n  return time;\n}\nlet teamRed = sum(39.5, 60.5, 58.5);\nconsole.log(teamRed);\nlet teamBlue = sum(40, 62, 58);\nconsole.log(teamBlue);\nlet teamGreen = sum(41, 59.5, 60);\nconsole.log(teamGreen);\nconsole.log(\"The fastest time is\" + Math.min(teamRed, teamBlue, teamGreen));"],
+["اطبع جميع القيم الموجودة في المصفوفة", "اكتب في المكان المخصص: let day of volunteerList", "let volunteerList = [\"Yes\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"Yes\", \"No\"];\nfor (let day of volunteerList) {\n  console.log(day);\n}"],
+["احسب واطبع عدد مرات \"Yes\" في المصفوفة (من السطر الرابع)", "امسح الكود أو عدّله ليصبح هكذا.", "let volunteerList = [\"Yes\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"No\", \"Yes\", \"Yes\", \"Yes\", \"No\", \"Yes\", \"No\"];\nlet count = 0;\nfor (let day of volunteerList) {\n  if (day == \"Yes\") {\n    count++;\n  }\n}\nconsole.log(count);"],
+["بناءً على المخطط الانسيابي: إذا كان weather = \"sunny\" فاطبع \"exercise\"، وإلا \"read a book\"", "اكتب من السطر الثاني.", "let weather = \"sunny\";\nif (weather == \"sunny\") {\n  console.log(\"exercise\");\n} else {\n  console.log(\"read a book\");\n}"],
+["إذا كانت الشطيرة مالحة: \"Exchange with Cody\" إذا كانت تونة، وإلا \"Eat ham sandwich\" (من السطر 4)", "امسح الكود أو عدّله ليصبح هكذا.", "let sandwichType = \"savory\";\nlet savory = \"tuna\";\nif (sandwichType == \"savory\") {\n  if (savory == \"tuna\") {\n    console.log(\"Exchange with Cody\");\n  } else {\n    console.log(\"Eat ham sandwich\");\n  }\n} else {\n  console.log(\"Eat strawberry jam sandwich\");\n}"]]],
+["مراجعة الفصل 33 (اختبار منتصف الطريق)",[["اختر البرنامج الذي يمرّر 3 و5 و10 إلى calc3 ويعرض الناتج", "", "console.log(calc3(3, 5, 10));"],
+["أعلن num1 وأسند إليه calc3(5, 10, 15) (السطر الخامس)", "امسح الكود أو عدّله ليصبح هكذا.", "function calc3(a, b, c) {\n  let result = a * b * c;\n  return result;\n}\nlet num1 = calc3(5, 10, 15);\nconsole.log(num1);"],
+["أعلن num2 وأسند إليه calc3(4, 4, 4) ثم اطبعه (من السطر السابع)", "امسح الكود أو عدّله ليصبح هكذا.", "function calc3(a, b, c) {\n  let result = a * b * c;\n  return result;\n}\nlet num1 = calc3(5, 10, 15);\nconsole.log(num1);\nlet num2 = calc3(4, 4, 4);\nconsole.log(num2);"],
+["اختر البرنامج الذي يعرض أصغر قيمة بين num1 و num2 و num3", "", "console.log(Math.min(num1, num2, num3));"],
+["اختر ناتج الإخراج: let scoreList = [70, 80, 66, 88, 92]; for (let score of scoreList) { if (score >= 80) { console.log(score); } }", "80 ثم 88 ثم 92"],
+["اكتب برنامجًا يعرض فقط القيم من heightList التي تساوي أو تزيد عن 150", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ كما هو واضح).", "let heightList = [154, 138, 140, 180, 170];\nfor (let height of heightList) {\n  if (height >= 150) {\n    console.log(height);\n  }\n}"],
+["يُستخدم المخطط الانسيابي لتحديد هل يستطيع الشخص ركوب الأفعوانية. اختر العبارة غير الصحيحة بناءً على المخطط (الأفعوانية)", "إذا كان عمرك 12 سنة أو أكثر وكان طولك 140 سم أو أكثر، يمكنك الركوب بمفردك."]],"",1]
+]}
+,{id:34,title:"الفصل 34",sub:"HTML (القوائم والصور والنماذج)",lessons:[
+["الدرس 1: برنامج البطولة الرياضية",[["أظهر العنوان: <h1>Sports Tournament Program</h1>", "", "<h1>Sports Tournament Program</h1>"],
+["أضف عنوان الأحداث في السطر الثاني: <p>Events</p>", "اكتب في السطر الثاني.", "<h1>Sports Tournament Program</h1>\n<p>Events</p>"],
+["أضف قائمة الأحداث (Frisbee, Softball, Bread-eating race) من السطر الثالث", "اكتب من السطر الثالث.", "<h1>Sports Tournament Program</h1>\n<p>Events</p>\n<ul>\n  <li>Frisbee</li>\n  <li>Softball</li>\n  <li>Bread-eating race</li>\n</ul>"],
+["أضف صورة في السطر الثامن: <img src=\"sports.png\">", "اكتب في السطر الثامن بعد الأكواد المكتوبة.", "<h1>Sports Tournament Program</h1>\n<p>Events</p>\n<ul>\n  <li>Frisbee</li>\n  <li>Softball</li>\n  <li>Bread-eating race</li>\n</ul>\n<img src=\"sports.png\">"]]],
+["الدرس 2: وسم span والأصناف (class)",[["انقر على تشغيل الكود دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["انقر على تشغيل الكود دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["انقر على تشغيل الكود دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["غيّر لون كلمة sea في السطر الأول إلى الأزرق باستخدام span", "اكتب <span> و </span> في الأماكن المخصصة في السطر الأول.", "<p>Let's go to the <span>sea</span></p>\n<p class=\"mountain\">Let's go to the mountains</p>"],
+["غيّر لون sea إلى الأزرق و mountain إلى الأخضر", "اكتب في الأماكن المخصصة: class=\"sea\" ثم class=\"mountain\"", "<p>Let's go to the <span class=\"sea\">sea</span></p>\n<p>Let's go to the <span class=\"mountain\">mountain</span></p>"],
+["غيّر لون Apple إلى الأحمر و Giraffe إلى الأصفر و Light blue sneakers إلى الأزرق الفاتح (span + class)", "امسح الكود أو عدّله ليصبح هكذا.", "<p>My favorite fruit is <span class=\"apple\">Apple</span></p>\n<p>My favorite animal is <span class=\"giraffe\">Giraffe</span></p>\n<p>Today's shoes are <span class=\"sneaker\">Light blue sneakers</span></p>"]]],
+["الدرس 3: حقل الإدخال والزر",[["انقر على تشغيل الكود دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["أظهر حقل إدخال الرأي في السطر الثالث", "اكتب في السطر الثالث.", "<h1>Event Content Survey</h1>\n<p>Opinion</p>\n<input type=\"text\">"],
+["أظهر زرًّا بجانب حقل الإدخال في السطر الرابع", "اكتب في السطر الرابع.", "<h1>Event Content Survey</h1>\n<p>Opinion</p>\n<input type=\"text\">\n<input type=\"button\">"],
+["اجعل الزر مكتوبًا عليه Submit (عدّل السطر الرابع)", "امسح الكود أو عدّله ليصبح هكذا.", "<h1>Event Content Survey</h1>\n<p>Opinion</p>\n<input type=\"text\">\n<input type=\"button\" value=\"Submit\">"],
+["أظهر حقل إدخال رأي وزر Submit من السطر الثالث", "اكتب في السطرين الثالث والرابع.", "<h1>Event Content Survey</h1>\n<p>Opinion</p>\n<input type=\"text\">\n<input type=\"button\" value=\"Submit\">"]]],
+["مراجعة الفصل 34",[["أنشئ قائمة نقطية (ul) بالعناصر Hamburger و Pizza و Sandwich أسفل كلمة Menu", "امسح الكود أو عدّله ليصبح هكذا.", "<p>Menu</p>\n<ul>\n  <li>Hamburger</li>\n  <li>Pizza</li>\n  <li>Sandwich</li>\n</ul>"],
+["اختر كود HTML الصحيح الذي يعرض صورة باسم الملف cody.png", "", "<img src=\"cody.png\">"],
+["اختر النتيجة الصحيحة عند تنفيذ: <p><span class=\"tomato\">Tomato</span>Hamburger</p> مع .tomato { color: red; }", "يتم عرض النص \"Tomato\" باللون الأحمر"],
+["اختر كود HTML الذي يُعرض كما في الصورة (Phone Number + حقل + زر Enter)", "", "<p>Phone Number</p>\n<input type=\"text\">\n<input type=\"button\" value=\"Enter\">"],
+["أضف السمة value إلى كود HTML واجعل القيمة \"Submit\"", "امسح الكود أو عدّله ليصبح هكذا.", "<input type=\"button\" value=\"Submit\">"]],"",1]
+]}
+,{id:35,title:"الفصل 35",sub:"CSS (الألوان والتحويل والإطارات)",lessons:[
+["الدرس 1: ألوان وخطوط قائمة الواجبات",[["انقر على «تشغيل الكود» دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["اجعل عنوان Homework List باللون الأحمر", "", "h1 {\n  color: red;\n}"],
+["اجعل لون خلفية العنوان ورديًا", "اكتب في السطر الثالث: background-color: pink;", "h1 {\n  color: red;\n  background-color: pink;\n}"],
+["غيّر حجم النص وسمكه لعناصر القائمة (من السطر الخامس)", "اكتب من السطر الخامس إلى الثامن.", "h1 {\n  color: red;\n  background-color: pink;\n}\nli {\n  font-size: 24px;\n  font-weight: 900;\n}"],
+["أضف خاصية class إلى عنصر Math Practice (عدّل السطر الرابع)", "امسح الكود أو عدّله ليصبح هكذا.", "<h1>Homework List</h1>\n<ul>\n  <li>History Study</li>\n  <li class=\"blue\">Math Practice</li>\n  <li>Essay</li>\n</ul>"],
+["اجعل نص Math Practice فقط أزرق (من السطر التاسع)", "اكتب بعد الأكواد المكتوبة من السطر التاسع.", "h1 {\n  color: red;\n  background-color: pink;\n}\nli {\n  font-size: 24px;\n  font-weight: 900;\n}\n.blue {\n  color: blue;\n}"]]],
+["الدرس 2: تأثير hover",[["انقر على «تشغيل الكود» دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["انقر على «تشغيل الكود» دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["اجعل زر First one باللون الأزرق الفاتح", "اكتب في المكان المخصص: background-color: aqua;", ".btn1 {\n  background-color: aqua;\n}"],
+["اجعل زر Second one يتحول إلى الأصفر عند تمرير الفأرة فقط (من السطر الرابع)", "اكتب من السطر الرابع.", ".btn1 {\n  background-color: aqua;\n}\n.btn2:hover {\n  background-color: yellow;\n}"],
+["اجعل زر First one يتحول إلى الأصفر المخضر (lime) عند تمرير الفأرة", "امسح الكود أو عدّله ليصبح هكذا (الأسطر من 1 إلى 3).", ".btn1:hover {\n  background-color: lime;\n}\n.btn2:hover {\n  background-color: yellow;\n}"]]],
+["الدرس 3: الانتقال التدريجي (transition)",[["انقر على «تشغيل الكود» دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["انقر على «تشغيل الكود» دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["اجعل تحوّل First one تدريجيًا خلال ثانيتين", "امسح الكود أو عدّله ليصبح هكذا.", ".btn1:hover {\n  background-color: lime;\n  transition: 2s;\n}\n.btn2:hover {\n  background-color: yellow;\n}"],
+["اجعل تحوّل Second one تدريجيًا خلال خمس ثوانٍ", "امسح الكود أو عدّله ليصبح هكذا.", ".btn1:hover {\n  background-color: lime;\n  transition: 2s;\n}\n.btn2:hover {\n  background-color: yellow;\n  transition: 5s;\n}"]]],
+["الدرس 4: الإطار (border)",[["انقر على «تشغيل الكود» دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["انقر على «تشغيل الكود» دون إجراء أي تغييرات", "اضغط تشغيل الكود فقط."],
+["أضف خطًا واحدًا كإطار حول العنوان Packing List", "امسح الكود أو عدّله ليصبح هكذا.", "h1 {\n  border: solid;\n}"],
+["أضف إطارًا مزدوج الخطوط", "امسح الكود أو عدّله ليصبح هكذا.", "h1 {\n  border: double;\n}"],
+["اجعل الإطار المزدوج أكثر سُمكًا", "اكتب في المكان المخصص: 10px", "h1 {\n  border: 10px double;\n}"],
+["اجعل الإطار المزدوج باللون الأزرق", "اكتب في المكان المخصص: blue", "h1 {\n  border: 10px double blue;\n}"],
+["اجعل الإطار بخط أحمر واحد: النوع solid والسُمك 5px واللون red (بترتيب السُمك، النوع، اللون)", "امسح الكود أو عدّله ليصبح هكذا.", "h1 {\n  border: 5px solid red;\n}"]]],
+["مراجعة الفصل 35",[["اختر الطريقة الصحيحة لإضافة خاصية class إلى <p>CAT</p>", "", "<p class=\"cat\">CAT</p>"],
+["اختر كود CSS الذي يجعل الزر (class=\"btn\") يتحول إلى الأحمر عند لمس الفأرة له", "", ".btn:hover {\n  background-color: red;\n}"],
+["اختر كود CSS الذي يغيّر لون الزر إلى الأحمر خلال 5 ثوانٍ عند لمس الفأرة له", "", ".btn:hover {\n  background-color: red;\n  transition: 5s;\n}"],
+["اختر القيمة التي تضيف حدًّا مزدوج الخطوط في خاصية border", "", "double"],
+["اختر كود CSS الذي يضيف حدًا إلى h1: خط واحد، 10px، أزرق", "", "h1 {\n  border: 10px solid blue;\n}"]],"",1]
+]}
+,{id:36,title:"الفصل 36",sub:"مراجعة الفصلين 34 و35",lessons:[
+["الدرس 1: مراجعة الفصلين 34 و35",[["اعرض العنوان h1 «Sports Festival Program» ثم الصورة sports.png", "", "<h1>Sports Festival Program</h1>\n<img src=\"sports.png\">"],
+["غيّر لون Apple إلى الأحمر و Giraffe إلى الأصفر (span + class)", "امسح الكود أو عدّله ليصبح هكذا.", "<p>My favorite fruit is <span class=\"apple\">Apple</span></p>\n<p>My favorite animal is <span class=\"giraffe\">Giraffe</span></p>"],
+["أظهر خانة إدخال الرأي وزر Submit (من السطر الثالث)", "اكتب في السطرين الثالث والرابع.", "<h1>Event Content Survey</h1>\n<p>Opinion</p>\n<input type=\"text\">\n<input type=\"button\" value=\"Submit\">"],
+["زيّن قائمة الواجبات: خلفية h1 pink، وخط li bold، ولون العنصر ذي الفئة red أحمر", "امسح الكود أو عدّله ليصبح هكذا.", "h1 {\n  background-color: pink;\n}\nli {\n  font-weight: bold;\n}\n.red {\n  color: red;\n}"],
+["اجعل First one يتحول إلى lime، و Second one إلى yellow خلال ثانيتين عند لمس الفأرة", "امسح الكود أو عدّله ليصبح هكذا.", ".btn1:hover {\n  background-color: lime;\n}\n.btn2:hover {\n  background-color: yellow;\n  transition: 2s;\n}"],
+["أحط عنوان Packing List بإطار: border: 10px double red;", "امسح الكود أو عدّله ليصبح هكذا.", "h1 {\n  border: 10px double red;\n}"]]],
+["مراجعة الفصل 36 (اختبار منتصف الطريق)",[["أنشئ قائمة نقطية (ul) بالعناصر Hamburger و Pizza و Sandwich أسفل العنوان Menu", "امسح الكود أو عدّله ليصبح هكذا.", "<p>Menu</p>\n<ul>\n  <li>Hamburger</li>\n  <li>Pizza</li>\n  <li>Sandwich</li>\n</ul>"],
+["اختر النتيجة الصحيحة عند تنفيذ: <p><span class=\"tomato\">Tomato</span>Hamburger</p> مع .tomato { color: red; }", "يتم عرض النص \"Tomato\" باللون الأحمر"],
+["اختر كود HTML الذي يُعرض كما في الصورة (Phone Number + حقل + زر Enter)", "", "<p>Phone Number</p>\n<input type=\"text\">\n<input type=\"button\" value=\"Enter\">"],
+["أضف خاصية value إلى كود HTML واجعل القيمة \"Submit\"", "امسح الكود أو عدّله ليصبح هكذا.", "<input type=\"button\" value=\"Submit\">"],
+["اختر كود CSS الذي يجعل الزر (Agree) يتحول إلى الأحمر عند لمس الفأرة", "", ".btn:hover {\n  background-color: red;\n}"],
+["اختر كود CSS الذي يجعل لون الزر يتحول إلى الأحمر خلال 5 ثوانٍ عند لمس الفأرة", "", ".btn:hover {\n  background-color: red;\n  transition: 5s;\n}"],
+["اختر القيمة التي تضيف إطارًا مزدوج الخطّين", "", "double"],
+["اختر كود CSS لإضافة إطار إلى h1: خط واحد، سماكة 10px، أزرق", "", "h1 {\n  border: 10px solid blue;\n}"]],"",1]
+]}
+,{id:37,title:"الفصل 37",sub:"جمل switch",lessons:[
+["الدرس 1: التنبؤ بالحظ بـ if / else if",[["اضغط على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["إذا كانت فصيلة الدم A فاعرض \"Today's fortune is decent\" (من السطر الثالث)", "اكتب من السطر الثالث واترك السطر الثاني فارغًا.", "let bloodType = \"A\";\nif (bloodType == \"A\") {\n  console.log(\"Today's fortune is decent\");\n}"],
+["أضف فصائل الدم B و O و AB باستخدام else if (من السطر الخامس)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let bloodType = \"B\";\nif (bloodType == \"A\") {\n  console.log(\"Today's fortune is decent\");\n} else if (bloodType == \"B\") {\n  console.log(\"Today's fortune is excellent!\");\n} else if (bloodType == \"O\") {\n  console.log(\"Today's fortune looks good!\");\n} else if (bloodType == \"AB\") {\n  console.log(\"Today's fortune might not be so good...\");\n}"],
+["اعرض \"Let's find out your blood type!\" إذا لم يتحقق أي شرط (من السطر 11)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let bloodType = \"Unknown\";\nif (bloodType == \"A\") {\n  console.log(\"Today's fortune is decent\");\n} else if (bloodType == \"B\") {\n  console.log(\"Today's fortune is excellent!\");\n} else if (bloodType == \"O\") {\n  console.log(\"Today's fortune looks good!\");\n} else if (bloodType == \"AB\") {\n  console.log(\"Today's fortune might not be so good...\");\n} else {\n  console.log(\"Let's find out your blood type!\");\n}"]]],
+["الدرس 2: جملة switch",[["اضغط على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["تم تعيين القيمة C للمتغير bloodType. اضغط «تشغيل الكود» دون تعديل", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["أكمل البرنامج باستخدام switch و case و break (bloodType = \"B\")", "اكتب في الأماكن المخصصة: switch ثم case ثم break", "let bloodType = \"B\";\nswitch (bloodType) {\n  case \"A\":\n    console.log(\"Today's fortune is decent\");\n    break;\n  case \"B\":\n    console.log(\"Today's fortune is excellent!\");\n    break;\n  case \"O\":\n    console.log(\"Today's fortune looks good!\");\n    break;\n  case \"AB\":\n    console.log(\"Today's fortune might not be so good...\");\n    break;\n  default:\n    console.log(\"Let's find out your blood type!\");\n    break;\n}"],
+["أضف الحالة default من السطر 16 (bloodType = \"C\")", "اكتب في الأماكن المخصصة في السطور 16–18: default ثم break", "let bloodType = \"C\";\nswitch (bloodType) {\n  case \"A\":\n    console.log(\"Today's fortune is decent\");\n    break;\n  case \"B\":\n    console.log(\"Today's fortune is excellent!\");\n    break;\n  case \"O\":\n    console.log(\"Today's fortune looks good!\");\n    break;\n  case \"AB\":\n    console.log(\"Today's fortune might not be so good...\");\n    break;\n  default:\n    console.log(\"Let's find out your blood type!\");\n    break;\n}"]]],
+["الدرس 3: بناء switch خطوة بخطوة",[["اعرض \"Today's fortune is decent\" إذا كانت فصيلة الدم A باستخدام switch", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let bloodType = \"A\";\nswitch (bloodType) {\n  case \"A\":\n    console.log(\"Today's fortune is decent\");\n    break;\n}"],
+["أضف الحالة B: \"Today's fortune is excellent!\" (السطران 7 و9)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let bloodType = \"B\";\nswitch (bloodType) {\n  case \"A\":\n    console.log(\"Today's fortune is decent\");\n    break;\n  case \"B\":\n    console.log(\"Today's fortune is excellent!\");\n    break;\n}"],
+["أضف فصيلتي O و AB (من السطر 10 ومن السطر 13) (bloodType = \"AB\")", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let bloodType = \"AB\";\nswitch (bloodType) {\n  case \"A\":\n    console.log(\"Today's fortune is decent\");\n    break;\n  case \"B\":\n    console.log(\"Today's fortune is excellent!\");\n    break;\n  case \"O\":\n    console.log(\"Today's fortune looks good!\");\n    break;\n  case \"AB\":\n    console.log(\"Today's fortune might not be so good...\");\n    break;\n}"],
+["أضف default لعرض \"Let's find out your blood type!\" (bloodType = \"Unknown\")", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let bloodType = \"Unknown\";\nswitch (bloodType) {\n  case \"A\":\n    console.log(\"Today's fortune is decent\");\n    break;\n  case \"B\":\n    console.log(\"Today's fortune is excellent!\");\n    break;\n  case \"O\":\n    console.log(\"Today's fortune looks good!\");\n    break;\n  case \"AB\":\n    console.log(\"Today's fortune might not be so good...\");\n    break;\n  default:\n    console.log(\"Let's find out your blood type!\");\n    break;\n}"],
+["جدول اليوم بـ switch: Saturday → \"Go to lessons\"، Sunday → \"Go shopping\"، غير ذلك → \"Go to school\"", "اكتب في الأماكن المخصصة: switch ثم day ثم case ثم break ثم case ثم break ثم default ثم break", "let day = \"Sunday\";\nswitch (day) {\n  case \"Saturday\":\n    console.log(\"Go to lessons\");\n    break;\n  case \"Sunday\":\n    console.log(\"Go shopping\");\n    break;\n  default:\n    console.log(\"Go to school\");\n    break;\n}"]]],
+["مراجعة الفصل 37",[["أضف من السطر الخامس: إذا كان color = \"blue\" فاطبع \"Blue\"، وإذا \"green\" فاطبع \"Green\" باستخدام else if", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let color = \"green\";\nif (color == \"red\") {\n  console.log(\"Red\");\n} else if (color == \"blue\") {\n  console.log(\"Blue\");\n} else if (color == \"green\") {\n  console.log(\"Green\");\n}"],
+["في أي الحالات تُنفَّذ العملية المكتوبة في قسم default من عبارة switch؟", "عندما لا تتطابق القيمة مع أيٍّ من الحالات (cases)"],
+["اختر نتيجة الإخراج: let era = \"Medieval\"; switch (era) { case \"Modern\": console.log(\"1900~\"); break; case \"Industrial\": console.log(\"1760~1900\"); break; case \"Medieval\": console.log(\"500~1500\"); break; case \"Ancient\": console.log(\"3000 BC ~ 500 AD\"); break; }", "500~1500"],
+["أنشئ switch على letter: A → \"Well done!\"، B → \"Keep up the good work\"، C → \"Let's try a little harder\"", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let letter = \"B\";\nswitch (letter) {\n  case \"A\":\n    console.log(\"Well done!\");\n    break;\n  case \"B\":\n    console.log(\"Keep up the good work\");\n    break;\n  case \"C\":\n    console.log(\"Let's try a little harder\");\n    break;\n}"],
+["أضف default يطبع \"The notation is incorrect\" (letter = \"D\")", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let letter = \"D\";\nswitch (letter) {\n  case \"A\":\n    console.log(\"Well done!\");\n    break;\n  case \"B\":\n    console.log(\"Keep up the good work\");\n    break;\n  case \"C\":\n    console.log(\"Let's try a little harder\");\n    break;\n  default:\n    console.log(\"The notation is incorrect\");\n    break;\n}"]],"",1]
+]}
+,{id:38,title:"الفصل 38",sub:"الباقي (Modulo)",lessons:[
+["الدرس 1: عامل الباقي %",[["أخرج قيمة cookies مقسومة على 3 (20 قطعة بسكويت)", "اكتب في المكان المخصص: cookies / 3", "let cookies = 20;\nconsole.log(cookies / 3);"],
+["اضغط على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["أخرج الباقي عند قسمة snacks على 6 (35 وجبة)", "اكتب في المكان المخصص: snacks % 6", "let snacks = 35;\nconsole.log(snacks % 6);"]]],
+["الدرس 2: الباقي مع الشرط",[["أخرج الباقي عند قسمة members على 6 (40 شخصًا)", "امسح الكود أو عدّله ليصبح هكذا.", "let members = 40;\nconsole.log(members % 6);"],
+["اطبع \"Rick gets it\" إذا وُجد باقي عند قسمة 13 وجبة على 3", "اكتب من السطر الثاني إلى الرابع.", "let snacks = 13;\nif (snacks % 3 > 0) {\n  console.log(\"Rick gets it\");\n}"]]],
+["الدرس 3: الباقي مع switch",[["اضغط على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["اعرض \"Let's clean up the trash neatly\" عندما يكون الباقي 0 (من السطر الثالث)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let donuts = 20;\nswitch (donuts % 3) {\n  case 0:\n    console.log(\"Let's clean up the trash neatly\");\n    break;\n}"],
+["أضف الحالتين: الباقي 1 → \"Give it to Mom\"، والباقي 2 → \"Give it to Mom and Dad\" (من السطر السابع)", "اكتب من السطر السابع إلى الثاني عشر، وبعده في السطر الثالث عشر قوس الإغلاق.", "let donuts = 20;\nswitch (donuts % 3) {\n  case 0:\n    console.log(\"Let's clean up the trash neatly\");\n    break;\n  case 1:\n    console.log(\"Give it to Mom\");\n    break;\n  case 2:\n    console.log(\"Give it to Mom and Dad\");\n    break;\n}"]]],
+["مراجعة الفصل 38",[["اختر ناتج التشغيل: console.log(5 % 4);", "1"],
+["اختر التعبير الشرطي الذي يعني: year قابلة للقسمة على 12 بدون باقي", "", "year % 12 == 0"],
+["اطبع \"Let's eat a hamburger!\" إذا كان باقي قسمة dayCount على 7 يساوي 0", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let dayCount = 14;\nif (dayCount % 7 == 0) {\n  console.log(\"Let's eat a hamburger!\");\n}"],
+["باستخدام switch: الباقي 0 → \"Let's eat a hamburger!\"، والباقي 4 → \"Let's eat steak!\"", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let dayCount = 11;\nswitch (dayCount % 7) {\n  case 0:\n    console.log(\"Let's eat a hamburger!\");\n    break;\n  case 4:\n    console.log(\"Let's eat steak!\");\n    break;\n}"],
+["باستخدام switch: باقي قسمة number على 3: 0 → \"Group A\"، 1 → \"Group B\"، 2 → \"Group C\"", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let number = 20;\nswitch (number % 3) {\n  case 0:\n    console.log(\"Group A\");\n    break;\n  case 1:\n    console.log(\"Group B\");\n    break;\n  case 2:\n    console.log(\"Group C\");\n    break;\n}"]],"",1]
+]}
+,{id:39,title:"الفصل 39",sub:"مراجعة الفصلين 37 و38",lessons:[
+["الدرس 1: مراجعة الفصلين 37 و38",[["انقر على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["أكمل switch للتنبؤ بالحظ: A → decent، B → excellent!، وغير ذلك default (bloodType = \"Unknown\")", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let bloodType = \"Unknown\";\nswitch (bloodType) {\n  case \"A\":\n    console.log(\"Today's fortune is decent\");\n    break;\n  case \"B\":\n    console.log(\"Today's fortune is excellent!\");\n    break;\n  default:\n    console.log(\"Let's find out your blood type!\");\n    break;\n}"],
+["أخرج باقي قسمة cookies (20) على 3", "امسح الكود أو عدّله ليصبح هكذا.", "let cookie = 20;\nconsole.log(cookie % 3);"],
+["اطبع \"Cody gets it\" إذا كان باقي قسمة cookies على 3 أكبر من 0 (في السطر 2)", "امسح الكود أو عدّله ليصبح هكذا.", "let cookie = 20;\nif (cookie % 3 > 0) {\n  console.log(\"Cody gets it\");\n}"],
+["اقسم 85 برتقالة على 3 أشخاص: الباقي 1 → \"Give it to Grandma\"، والباقي 2 → \"Give it to the neighbors\" (من السطر 7 والسطر 10)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let orange = 85;\nswitch (orange % 3) {\n  case 0:\n    console.log(\"They were divided equally\");\n    break;\n  case 1:\n    console.log(\"Give it to Grandma\");\n    break;\n  case 2:\n    console.log(\"Give it to the neighbors\");\n    break;\n}"]]],
+["مراجعة الفصل 39 (اختبار منتصف الطريق)",[["في أي الحالات تُنفَّذ العملية المكتوبة في قسم default من جملة switch؟", "عندما لا تتطابق القيمة مع أي من الحالات"],
+["اختر الناتج الصحيح: let era = \"Medieval\"; switch (era) { case \"Modern\": console.log(\"1900~\"); break; case \"Industrial\": console.log(\"1760~1900\"); break; case \"Medieval\": console.log(\"500~1500\"); break; case \"Ancient\": console.log(\"3000 BC ~ 500 AD\"); break; }", "500~1500"],
+["أنشئ switch على letter: A → \"Well done!\"، B → \"Keep up the good work\"، C → \"Let's try a little harder\"", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let letter = \"B\";\nswitch (letter) {\n  case \"A\":\n    console.log(\"Well done!\");\n    break;\n  case \"B\":\n    console.log(\"Keep up the good work\");\n    break;\n  case \"C\":\n    console.log(\"Let's try a little harder\");\n    break;\n}"],
+["اختر ناتج الإخراج: console.log(5 % 4);", "1"],
+["اطبع \"Let's eat a hamburger!\" إذا كان باقي قسمة dayCount على 7 يساوي 0 (باستخدام if)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let dayCount = 14;\nif (dayCount % 7 == 0) {\n  console.log(\"Let's eat a hamburger!\");\n}"],
+["اطبع \"Group A\" أو \"Group B\" أو \"Group C\" حسب باقي قسمة number على 3 (باستخدام switch)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "let number = 20;\nswitch (number % 3) {\n  case 0:\n    console.log(\"Group A\");\n    break;\n  case 1:\n    console.log(\"Group B\");\n    break;\n  case 2:\n    console.log(\"Group C\");\n    break;\n}"]],"",1]
+]}
+,{id:40,title:"الفصل 40",sub:"const وعدم المساواة !=",lessons:[
+["الدرس 1: let و const",[["انقر على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["أسند 3 إلى num ثم أعد إسناد 5 إليه واطبع النتيجة (باستخدام let)", "اكتب في المكان المخصص: let", "let num = 3;\nnum = 5;\nconsole.log(num);"],
+["أسند 3 إلى الثابت num ثم حاول إعادة إسناد 5 واطبع (باستخدام const)", "اكتب في المكان المخصص: const", "const num = 3;\nnum = 5;\nconsole.log(num);"]]],
+["الدرس 2: متى نستخدم const؟",[["أيٌّ مما يلي هو تعريف ثابت؟", "const"],
+["انقر على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["اطبع عدد الأيام في الأسبوع: أعلن day بالقيمة 7 في سطر واحد", "اكتب في السطر الأول.", "const day = 7;\nconsole.log(\"One week is \" + day + \" days\");"],
+["اطبع عدد أيام الشهر الحالي: أعلن day بالقيمة 30 (ستتغير قيمته لاحقًا)", "اكتب في السطر الأول.", "let day = 30;\nconsole.log(\"September has \" + day + \" days\");\nday = 31;\nconsole.log(\"October has \" + day + \" days\");"],
+["اطبع تاريخ الميلاد: أعلن الثابت myBirthday بالقيمة September 1st", "اكتب في السطر الأول.", "const myBirthday = \"September 1st\";\nconsole.log(\"My birthday is \" + myBirthday);"]]],
+["الدرس 3: عامل عدم المساواة !=",[["اطبع \"Play soccer\" إذا لم تكن قيمة الثابت weather هي \"Rainy\" (weather = Cloudy)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "const weather = \"Cloudy\";\nif (weather != \"Rainy\"){\n  console.log(\"Play soccer\");\n}"],
+["اطبع \"Aim for a perfect score!\" إذا لم تكن درجتك 100 (الثابت myScore)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "const myScore = 90;\nif (myScore != 100){\n  console.log(\"Aim for a perfect score!\");\n}"]]],
+["مراجعة الفصل 40",[["اكتب تعبير الشرط لبرنامج يطبع \"Let's review once more!\" عندما تكون answer1 و answer2 مختلفتين (باستخدام !=)", "", "answer1 != answer2"],
+["اختر طريقة الإعلان التي تُستخدم عند الحاجة لإعادة الإسناد (reassignment)", "let"],
+["شغّل البرنامج وتأكد من ظهور خطأ، ثم أعد كتابة طريقة الإعلان في السطر 1 بشكل صحيح", "امسح الكود أو عدّله ليصبح هكذا.", "let num;\nnum = 3;\nnum = 5;\nconsole.log(num);"],
+["اختر تعبير الشرط الذي يعني أن قيمة a ليست مساوية لـ 100", "", "a != 100"],
+["اكتب البرنامج الكامل: اطبع \"Let's review once more!\" عندما تكون answer1 و answer2 مختلفتين", "امسح الكود أو عدّله ليصبح هكذا (السطر الثالث فارغ).", "const answer1 = 1023;\nconst answer2 = 1024;\nif (answer1 != answer2) {\n  console.log(\"Let's review once more!\");\n}"]],"",1]
+]}
+,{id:41,title:"الفصل 41",sub:"حلقة while",lessons:[
+["الدرس 2: حلقة while الأساسية",[["انقر على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["اعرض المبلغ المتبقي بعد شراء القصص المصورة طالما أن money أكبر من سعر comics", "اكتب في الأماكن المخصصة: while ثم money > comics", "let money = 7500;\nconst comics = 425;\nwhile (money > comics) {\n  money = money - comics;\n  console.log(money);\n}"]]],
+["الدرس 3: عدّ مرات التكرار",[["ماذا يجب أن نأكل؟", "اختر ما يناسبك، على سبيل المثال: هامبرغر."],
+["انقر على «تشغيل الكود» دون تعديل البرنامج", "اضغط «تشغيل الكود» فقط دون تعديل."],
+["كرّر عملية الادخار حتى يصل المال إلى 3800 وأظهر عدد مرات المساعدة (while عندما money < 3800)", "امسح الكود أو عدّله ليصبح هكذا.", "let money = 520;\nlet count = 0;\nwhile (money < 3800) {\n  count ++;\n  money += 450;\n}\nconsole.log(\"Save for \" + count + \" times\");"]]],
+["مراجعة الفصل 41",[["اطبع \"Programming\" ثلاث مرات (المتغير i يبدأ من 0 مع عامل الزيادة)", "امسح الكود أو عدّله ليصبح هكذا.", "for (let i = 0; i < 3; i++) {\n  console.log(\"Programming\");\n}"],
+["اختر الوصف الصحيح للبرنامج الذي يُكرر عمليةً طالما أن شرطًا معينًا متحقق", "", "while ( condition ) {\n  process;\n}"],
+["اختر ناتج الإخراج: let numA = 0; let numB = 3; while (numA < numB) { console.log(numA); numA = numA + 1; }", "0 ثم 1 ثم 2 (كل رقم في سطر)"],
+["اشترِ الوجبات الخفيفة طالما أن money أكبر من سعر snacks", "امسح الكود أو عدّله ليصبح هكذا.", "let money = 1000;\nconst snacks = 230;\nwhile (money > snacks) {\n  money = money - snacks;\n  console.log(money);\n}"],
+["احسب عدد الأشهر اللازمة للوصول إلى 4000 كودي كوين (while عندما money < 4000)", "امسح الكود أو عدّله ليصبح هكذا.", "let money = 600;\nlet month = 0;\nwhile (money < 4000) {\n  month ++;\n  money += 800;\n}\nconsole.log(\"Save for \" + month + \" months\");"]],"",1]
+]}
+,{id:42,title:"الفصل 42",sub:"مراجعة الفصلين 40 و41",lessons:[
+["الدرس 1: مراجعة الفصلين 40 و41",[["أيٌّ منها هو تعريف ثابت (constant)؟", "const"],
+["اعرض الفصل الحالي: عرّف season في السطر 1 (ستتغير قيمته)", "اكتب في المكان المخصص: let", "let season = \"spring\";\nconsole.log(\"The current season is \" + season);\nseason = \"summer\";\nconsole.log(\"The next season is \" + season);"],
+["اعرض عدد الأيام في الأسبوع: عرّف day بالقيمة 7 في سطر واحد", "اكتب في السطر الأول.", "const day = 7;\nconsole.log(\"One week is \" + day + \" days\");"],
+["اطبع \"Play soccer\" إذا كانت قيمة الثابت weather لا تساوي Rainy (weather = Cloudy)", "امسح الكود أو عدّله ليصبح هكذا (السطر الثاني فارغ).", "const weather = \"Cloudy\";\nif (weather != \"Rainy\"){\n  console.log(\"Play soccer\");\n}"],
+["كرّر عملية الادخار حتى يصل المال إلى 3800 وأظهر عدد المرات (while عندما money < 3800)", "امسح الكود أو عدّله ليصبح هكذا.", "let money = 520;\nlet count = 0;\nwhile (money < 3800) {\n  count ++;\n  money += 450;\n}\nconsole.log(\"Save for \" + count + \" times\");"]]],
+["مراجعة الفصل 42 (اختبار منتصف الطريق)",[["اختر طريقة التعريف التي تُستخدم عند الحاجة إلى إعادة الإسناد", "let"],
+["شغّل البرنامج وتأكد من حدوث خطأ، ثم أعد كتابة طريقة التعريف في السطر 1 بشكل صحيح", "امسح الكود أو عدّله ليصبح هكذا.", "let num;\nnum = 3;\nnum = 5;\nconsole.log(num);"],
+["اختر تعبير الشرط الذي يمثل أن قيمة a لا تساوي 100", "", "a != 100"],
+["اختر الوصف الصحيح للبرنامج الذي يُكرر عمليةً طالما أن الشرط متحقق", "", "while ( condition ) {\n  process;\n}"],
+["اشترِ الوجبات الخفيفة طالما أن money أكبر من سعر snacks (money = 1000، snacks = 230)", "امسح الكود أو عدّله ليصبح هكذا.", "let money = 1000;\nconst snacks = 230;\nwhile (money > snacks) {\n  money = money - snacks;\n  console.log(money);\n}"],
+["احسب عدد الأشهر اللازمة للوصول إلى 4000 كودي كوين (money = 600، month = 0)", "امسح الكود أو عدّله ليصبح هكذا.", "let money = 600;\nlet month = 0;\nwhile (money < 4000) {\n  month ++;\n  money += 800;\n}\nconsole.log(\"Save for \" + month + \" months\");"]],"",1]
+]}
 ];
 
 const $=s=>document.querySelector(s);
