@@ -441,44 +441,496 @@ log("Math.round(9.8)")+"\n"+log("Math.round(10.3)")+"\n"+log("Math.round(9.2)")]
 [ "حدّد نوع البيانات لـ \"7\" واطبعه في وحدة التحكم","",log('typeof "7"')]
 ],"",1]
 ]}
+,{id:16,title:"الفصل 16",sub:"المصفوفات (Arrays)",lessons:[
+[ "الدرس 1: مقدمة المصفوفات",[
+[ "اضغط على «تشغيل الكود» دون تعديل البرنامج","اضغط تشغيل الكود فقط."],
+[ "اضغط على «تشغيل الكود» دون تعديل البرنامج","اضغط تشغيل الكود فقط."]
+]],
+[ "الدرس 2: الوصول إلى عناصر المصفوفة",[
+[ "أنشئ برنامجك: let tempList = [36, 36, 26, 27, 28, 33, 36];","","let tempList = [36, 36, 26, 27, 28, 33, 36];"],
+[ "أدخل البرنامج: console.log(tempList[2]);","اكتب في السطر الثاني: console.log(tempList[2]);","let tempList = [36, 36, 26, 27, 28, 33, 36];\nconsole.log(tempList[2]);"],
+[ "استخرج العنصر 33 من tempList وأخرجه إلى وحدة التحكم","اكتب في السطر الثاني: console.log(tempList[5]);","let tempList = [36, 36, 26, 27, 28, 33, 36];\nconsole.log(tempList[5]);"],
+[ "أخرج قيمة المتغير tempList إلى وحدة التحكم","اكتب في السطر الثاني: console.log(tempList);","let tempList = [36, 36, 26, 27, 28, 33, 36];\nconsole.log(tempList);"]
+],"الفهرس يبدأ من 0؛ لذلك tempList[2] هو العنصر الثالث."],
+[ "الدرس 3: حساب المجموع والمتوسط",[
+[ "أنشئ برنامجك: let tempList = [36, 36, 26, 27, 28, 33, 36];","","let tempList = [36, 36, 26, 27, 28, 33, 36];"],
+[ "أدخل نفس البرنامج لحساب المجموع (حلقة for)","اكتب الكود من السطر الثاني واترك السطر الأول كما هو.","let tempList = [36, 36, 26, 27, 28, 33, 36];\nlet total = 0;\nfor(let i = 0; i < 7; i++){\n total = total + tempList[i];\n}\nconsole.log(total);"],
+[ "أدخل نفس البرنامج: console.log(total / 7);","ضع total / 7 داخل console.log في آخر سطر.","let tempList = [36, 36, 26, 27, 28, 33, 36];\nlet total = 0;\nfor(let i = 0; i < 7; i++){\n total = total + tempList[i];\n}\nconsole.log(total / 7);"]
+]],
+[ "الدرس 4: متوسط مسافة الجري والخطوات",[
+[ "المسافات: 5، 2، 4، 1، 3، 3 كم. أسند مصفوفة إلى runLogs","","let runLogs = [5, 2, 4, 1, 3, 3];"],
+[ "احسب مجموع المسافات (السطور 2 إلى 5)","اكتب الكود من السطر الثاني إلى الخامس.","let runLogs = [5, 2, 4, 1, 3, 3];\nlet total = 0;\nfor (let i = 0; i < 6; i++) {\ntotal = total + runLogs[i];\n}\nconsole.log(total);"],
+[ "أدخل البرنامج: console.log(total / 6);","اكتبه في السطر السادس.","let runLogs = [5, 2, 4, 1, 3, 3];\nlet total = 0;\nfor (let i = 0; i < 6; i++) {\n total = total + runLogs[i];\n}\nconsole.log(total / 6);"],
+[ "احسب متوسط عدد الخطوات خلال 6 أيام","اكتب من السطر الثاني: صرّح عن total وأسند 0، كرر الجمع ست مرات، ثم اقسم على 6.","let steps = [16000, 12000, 14605, 9920, 13805, 14500];\nlet total = 0;\nfor (let i = 0; i < 6; i++) {\n total = total + steps[i];\n}\nconsole.log(total / 6);"]
+]],
+[ "الدرس 5: إضافة عناصر وطول المصفوفة",[
+[ "أضف القيم 30 و28 و29 إلى المصفوفة","اكتب الأرقام في المكان المطلوب: 30, 28, 29","let tempList = [36, 36, 26, 27, 28, 33, 36, 30, 28, 29];"],
+[ "أدخل البرنامج: console.log(tempList.length);","اكتب في السطر الثاني: console.log(tempList.length);","let tempList = [36, 36, 26, 27, 28, 33, 36, 30, 28, 29];\nconsole.log(tempList.length);"],
+[ "أخرج طول المصفوفة إلى وحدة التحكم","اكتب في السطر الثاني: console.log(tempList.length);","let tempList = [36, 36, 26, 27, 28, 33, 36, 30, 28, 29, 26, 30, 31, 28];\nconsole.log(tempList.length);"]
+]],
+[ "مراجعة الفصل 16",[
+[ "ضع القيم 5 و10 و15 في المصفوفة (لن يظهر ناتج)","اكتب ما بداخل الأقواس فقط.","let num = [5, 10, 15];"],
+[ "اختر ناتج: let num = [5, 10, 15, 20, 25]; console.log(num[2]);","15"],
+[ "اطبع جميع القيم في المصفوفة (لا تدخل القيم مباشرة)","اكتب في المكان المخصص: num","let num = [5, 10, 15, 20, 25];\nconsole.log(num);"],
+[ "اختر ناتج: مجموع عناصر [1, 2, 3] بالحلقة for","6"],
+[ "اطبع طول المصفوفة (لا تدخل القيمة العددية مباشرة)","اكتب في المكان المخصص: num.length","let num = [5, 10, 15, 20, 25];\nconsole.log(num.length);"]
+],"",1]
+]}
+,{id:17,title:"الفصل 17",sub:"مراجعة الفصلين 15 و16",lessons:[
+[ "مراجعة من الفصل 15 إلى 16",[
+[ "أدخل نفس البرنامج كما هو موضح","","console.log(typeof 500);\nconsole.log(typeof \"500codycoins\");"],
+[ "أدخل نفس البرنامج: console.log(1 === \"1\");","","console.log(1 === \"1\");"],
+[ "أدخل البرنامج: تحويل \"5\" إلى رقم و10 إلى نص","","console.log(Number(\"5\"));\nconsole.log(String(10));"],
+[ "درجات الحرارة: 10، 15، 13، 16، 14، 12، 17 — أدخل نفس البرنامج","","let tempList = [10, 15, 13, 16, 14, 12, 17];\nconsole.log(tempList[2]);"],
+[ "درجات الحرارة: 5، 8، 7، 10، 6، 9 — أسند مصفوفة إلى tempList","","let tempList = [5, 8, 7, 10, 6, 9];"],
+[ "أخرج متوسط درجة الحرارة خلال 6 أيام","اكتب من السطر الثاني بعد سطر المصفوفة.","let tempList = [5, 8, 7, 10, 6, 9];\nlet total = 0;\nfor (let i = 0; i < 6; i++) {\n total = total + tempList[i];\n}\nconsole.log(total / 6);"],
+[ "أخرج عدد القيم في المصفوفة (اطبع الطول)","اكتب في المكان المخصص: tempList.length","let tempList = [5, 8, 7, 10, 6, 9, 10, 7, 6, 11, 13, 8, 8, 7];\nconsole.log(tempList.length);"]
+],"",1],
+[ "مراجعة الفصل 17",[
+[ "اختر نوع البيانات الصحيح: console.log(\"11\");","String"],
+[ "اختر البرنامج الصحيح الذي يُخرج \"string\"","",log('typeof \"50\"')],
+[ "اختر ناتج: console.log(200 === 20);","false"],
+[ "اختر ناتج: console.log(Number(\"value\"));","NaN"],
+[ "حدّد نوع البيانات 100 واطبعه في وحدة التحكم","",log("typeof 100")],
+[ "ضع القيم 10, 50, 100, 150 في المصفوفة (لن يظهر ناتج)","اكتب بين القوسين: 10, 50, 100, 150","let num = [10, 50, 100, 150];"],
+[ "اختر ناتج: let num = [5, 10, 15, 20, 25]; console.log(num[3]);","20"],
+[ "اطبع جميع القيم في المصفوفة (لا تدخل القيم مباشرة)","اكتب بين القوسين في السطر الثاني: num","let num = [2, 4, 6, 8, 10];\nconsole.log(num);"],
+[ "اختر ناتج: مجموع عناصر [2, 4, 6] بالحلقة for","12"],
+[ "اطبع طول المصفوفة (لا تدخل الطول مباشرة)","اكتب بين القوسين في السطر الثاني: num.length","let num = [2, 4, 6, 8, 10];\nconsole.log(num.length);"]
+],"",1]
+]}
+,{id:18,title:"الفصل 18",sub:"مقدمة HTML",lessons:[
+[ "الدرس 2: العناوين والفقرات",[
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "اعرض النص في المتصفح: <h1>Cody's Notepad</h1>","اكتب في الخانات الفارغة: <h1> و </h1>",`<h1>Cody's Notepad</h1>`],
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "اعرض النص: h3 وh6","اكتب في الخانات الفارغة: <h3> </h3> <h6> </h6>",`<h3>Cody's Notepad</h3>
+<h6>Today's shopping list</h6>`],
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "اكتب في السطر الثالث: <p>Bread</p>","اكتب في السطر الثالث واترك أول سطرين كما هما.",`<h1>Cody's Notepad</h1>
+<h2>Today's shopping list</h2>
+<p>Bread</p>`],
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "اكتب وسم <br> في السطرين الثالث والرابع","اكتب <br> في الفراغين المطلوبين.",`<h1>Cody's Notepad</h1>
+<h2>Today's shopping list</h2>
+<p>Bread<br>
+ Ham<br>
+ Cheese</p>`]
+]],
+[ "الدرس 3: القوائم",[
+[ "أنشئ قائمة تسوق: h1 وh2 وp مع br","",`<h1>Rick's Notebook</h1>
+<h2>Shopping List</h2>
+<p>Tomato<br>
+ Onion<br>
+ Mushroom<br>
+ Garlic</p>`],
+[ "أنشئ قائمة نقطية (اكتب الكود كما هو موضح)","",`<h1>Shopping List</h1>
+<ul>
+ <li>Tomato</li>
+ <li>Onion</li>
+ <li>Mushroom</li>
+ <li>Garlic</li>
+</ul>`],
+[ "حوّل الكلمات إلى قائمة نقطية باستخدام ul وli","امسح الكود أو عدّله ليصبح هكذا.",`<h1>Shopping List</h1>
+<ul>
+ <li>Tomato</li>
+ <li>Onion</li>
+ <li>Mushroom</li>
+ <li>Garlic</li>
+</ul>`],
+[ "أنشئ جدول الحصص (قائمة مرقّمة)","",`<h1>Tomorrow's Schedule</h1>
+<ol>
+ <li>Science</li>
+ <li>Math</li>
+ <li>Music</li>
+ <li>History</li>
+ <li>Physical Education</li>
+</ol>`],
+[ "أنشئ جدول حصص باستخدام ol وli","امسح الكود أو عدّله ليصبح هكذا.",`<h1>Tomorrow's Schedule</h1>
+<ol>
+ <li>Science</li>
+ <li>Math</li>
+ <li>Music</li>
+ <li>History</li>
+ <li>Physical Education</li>
+</ol>`]
+]],
+[ "الدرس 4: الصور",[
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "اعرض صورة كاري رايس (السطر الثالث)","اكتب في الخانة المخصصة: <img>",`<h1>Cooking Wishlist</h1>
+<ul>
+ <li>Curry rice<img></li>
+ <li>Japanese rice omelette</li>
+</ul>`],
+[ "اعرض صورة كاري رايس: <img src=\"curry.png\">","امسح الكود أو عدّله ليصبح هكذا.",`<h1>Cooking Wishlist</h1>
+<ul>
+ <li>Curry rice<img src="curry.png"></li>
+ <li>Japanese rice omelette</li>
+</ul>`],
+[ "أضف <br> قبل الصورة","اكتب <br> في الخانة المخصصة في السطر الثالث.",`<h1>Cooking Wishlist</h1>
+<ul>
+ <li>Curry rice<br><img src="curry.png"></li>
+ <li>Japanese rice omelette</li>
+</ul>`],
+[ "اعرض صورة أومليت الأرز (omelette.png) في السطر الرابع","امسح الكود أو عدّله ليصبح هكذا.",`<h1>Cooking Wishlist</h1>
+<ul>
+ <li>Curry rice<br><img src="curry.png"></li>
+ <li>Japanese rice omelette<br><img src="omelette.png"></li>
+</ul>`],
+[ "اعرض صورة المعكرونة (pasta.png)","امسح الكود أو عدّله ليصبح هكذا.",`<h1>Cooking Wishlist</h1>
+<ul>
+ <li>Curry rice<br><img src="curry.png"></li>
+ <li>Japanese rice omelette<br><img src="omelette.png"></li>
+ <li>Pasta<br><img src="pasta.png"></li>
+</ul>`],
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "أضف وصفًا للصور (alt) في السطرين 3 و4","اكتب في السطرين الثالث والرابع: alt=\"Rice with spicy sauce\" ثم alt=\"Japanese rice omelette with ketchup\"",`<h1>Cooking Wishlist</h1>
+<ul>
+ <li>Curry rice<br><img src="miss.png" alt="Rice with spicy sauce"></li>
+ <li>Japanese rice omelette<br><img src="miss.png" alt="Japanese rice omelette with ketchup"></li>
+ <li>Pasta<br><img src="pasta.png" alt="Tomato sauce pasta"></li>
+</ul>`]
+]],
+[ "الدرس 5: قائمة المشروبات والتعليقات",[
+[ "اعرض قائمة المشروبات: h1 وp وbr","اكتب بالترتيب في الخانات الفارغة: <h1> </h1> <p> <br> </p>",`<h1>Drink Menu</h1>
+<p>Orange juice: 200 codycoins<br>
+ Apple juice: 150 codycoins</p>`],
+[ "اجعل السطر الأول من النص تعليقًا","اكتب في الخانات الناقصة: <!-- و -->",`<!-- Prices will be revised next week. -->
+<h1>Drink Menu</h1>
+<p>Orange juice: 200 codycoins<br>
+ Apple juice: 150 codycoins</p>`],
+[ "كيف كانت تجربتك الأولى مع HTML؟","لقد كانت ممتعة!"]
+]],
+[ "مراجعة الفصل 18",[
+[ "أحِط النص المكتوب بوسم h1","",`<h1>Hello</h1>`],
+[ "اختر الطريقة الصحيحة لكتابة وسم p","",`<p>Hello</p>`],
+[ "اختر الوسم المناسب لكسر السطر","br tag"],
+[ "اختر الوسم المناسب لإنشاء قائمة منقّطة","ul tag"],
+[ "اختر ما سيتم عرضه: ol مع Cut ingredients وStir-fry وAdd seasonings","1. Cut ingredients\n2. Stir-fry\n3. Add seasonings"],
+[ "اختر الوسم لعرض صورة باسم image.png","",`<img src="image.png">`],
+[ "اختر الطريقة الصحيحة لكتابة الخاصية alt","",`<img alt="This is an image.">`],
+[ "اكتب تعليقًا على السطر الأول من النص","اكتب في الخانات الناقصة: <!-- و -->",`<!--The h1 tag is a heading.-->
+<h1>Hello</h1>`]
+],"",1]
+]}
+,{id:19,title:"الفصل 19",sub:"مقدمة CSS",lessons:[
+[ "الدرس 1: لون النص والخلفية",[
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "غيّر لون النص داخل وسم h1 إلى الأحمر","",`h1{
+ color: red;
+}`],
+[ "غيّر لون النص في وسم h1 إلى الأزرق","امسح الكود أو عدّله ليصبح هكذا.",`h1{
+color: blue;
+}`],
+[ "غيّر لون نص وسم p إلى الأحمر (من السطر الرابع)","اترك أول ثلاثة أسطر كما هي واكتب من السطر الرابع.",`h1{
+ color: blue;
+}
+p{
+color: red;
+}`],
+[ "غيّر لون خلفية وسم h1 إلى الأصفر","اكتب في السطر الثالث في المكان المخصص: background-color: yellow;",`h1{
+ color: blue;
+ background-color: yellow;
+}
+p{
+ color: red;
+}`],
+[ "غيّر لون خلفية وسم p إلى البرتقالي","اكتب في السطر السابع في المكان المخصص: background-color: orange;",`h1{
+ color: blue;
+ background-color: yellow;
+}
+p{
+ color: red;
+ background-color: orange;
+}`]
+],"في مقالة المدونة الأصلية ظهرت ألوان الكود النهائي في السؤال الأخير مبدّلة (h1 أحمر وp أزرق)، والصحيح ما هو موضح هنا لأنه يتبع إجاباتك السابقة."],
+[ "الدرس 2: سُمك الخط وحجمه",[
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "اجعل خط وسم p عريضًا","",`p {
+ font-weight: bold;
+}`],
+[ "اجعل حروف وسم p بسُمك عادي","امسح الكود أو عدّله ليصبح هكذا.",`p {
+font-weight: normal;
+}`],
+[ "أدخل أي قيمة رقمية لسُمك الخط (أدخل 900)","اكتب في الخانة الفارغة: 900",`p {
+ font-weight: 900;
+}`],
+[ "صغّر حجم النص داخل وسم p","",`p {
+font-size : 10px;
+}`],
+[ "كبّر حجم النص داخل وسم p","",`p {
+font-size : 50px;
+}`]
+]],
+[ "الدرس 3: الأصناف (class)",[
+[ "انقر على «تشغيل الكود» دون تعديل","اضغط تشغيل الكود فقط."],
+[ "ليكن لون نص وسم p أزرق وأخضر","",`p{
+color: blue;
+}
+p{
+color: green;
+}`],
+[ "أضف اسم صنف (class) لوسم p: sea وmountains","اكتب في الخانات الفارغة: class=\"sea\" ثم class=\"mountains\"",`<p class="sea">Let's go to the sea.</p>
+<p class="mountains">Let's go to the mountains.</p>`],
+[ "اجعل لون p أزرق وأخضر باستخدام أسماء الأصناف","اكتب في الخانات الفارغة: .sea ثم .mountains",`.sea{
+ color: blue;
+}
+.mountains{
+ color: green;
+}`],
+[ "أضف اسم صنف: apple وwatermelon","اكتب في الخانات الفارغة: class=\"apple\" ثم class=\"watermelon\"",`<p class="apple">Apple</p>
+<p class="watermelon">Watermelon</p>`],
+[ "غيّر لون الصنفين apple وwatermelon","",`.apple{
+color:red;
+}
+.watermelon{
+color:green;
+}`]
+]],
+[ "الدرس 4: التعليقات",[
+[ "ماذا تود أن تصنع في المستقبل؟","موقع إلكتروني"],
+[ "أضف تعليقًا في المحرر (CSS)","اكتب في الخانات الفارغة: /* و */",`/* Change the color of the text of the h1 tag to red. */
+h1{
+ color: red;
+}`],
+[ "اجعل السطر الأول من نص HTML تعليقًا","اكتب في الخانات الفارغة: <!-- و -->",`<!-- Let's give a class name -->
+<p class="apple">Apple</p>
+<p class="watermelon">Watermelon</p>`]
+]],
+[ "مراجعة الفصل 19",[
+[ "حدّد الـ selector كـ h1 (لن يظهر شيء)","اكتب في البداية: h1",`h1{
+ color: red;
+}`],
+[ "حدّد القيمة blue (لن يظهر شيء)","اكتب في السطر الثاني: blue;",`h1 {
+ color:blue;
+}`],
+[ "اختر الوصف الصحيح لخاصية color","تغيير لون النص"],
+[ "اختر الوصف الصحيح لخاصية background-color","تغيير لون الخلفية"],
+[ "اختر الوصف الصحيح لقيمة font-weight عند كتابتها bold","يصبح النص عريضًا"],
+[ "اختر القيمة الصحيحة لخاصية font-size","font-size: 10px;"],
+[ "اكتب CSS لتغيير كلمة \"Dog\" إلى الأزرق","اكتب في أول الكود: .dog",`.dog{
+ color: blue;
+}`],
+[ "اترك تعليقًا في السطر الأول من النص","اكتب في الخانات الفارغة: /* و */",`/* Change the text color to navy. */
+p {
+ color: navy;
+}`]
+],"",1]
+]}
+,{id:20,title:"الفصل 20",sub:"مراجعة الفصلين 18 و19",lessons:[
+[ "مراجعة من الفصل 18 إلى 19",[
+[ "أنشئ خطة سفر: h1 لعرض Travel Itinerary وh2 لعرض Packing List","",`<h1>Travel Itinerary</h1>
+<h2>Packing List</h2>`],
+[ "استخدم وسم p لعرض Wallet وHat وHandkerchief مع br بعد Wallet وHat","",`<h1>Travel Itinerary</h1>
+<h2>Packing List</h2>
+<p>Wallet<br>
+ Hat<br>
+ Handkerchief</p>`],
+[ "اكتب HTML ابتداءً من السطر الثالث (قائمة نقطية)","امسح الكود أو عدّله ليصبح هكذا.",`<h1>Travel Itinerary</h1>
+<h2>Packing List</h2>
+<ul>
+ <li>Wallet</li>
+ <li>Hat</li>
+ <li>Handkerchief</li>
+</ul>`],
+[ "أنشئ قائمة مرقّمة لطريقة عمل حساء الطماطم (ol وli)","",`<h1>How to Make Tomato Soup</h1>
+<ol>
+ <li>Boil water</li>
+ <li>Add ingredients</li>
+ <li>Adjust the seasoning</li>
+</ol>`],
+[ "اعرض صورة كودي في السطر الثالث: <img src=\"cody.png\">","",`<h1>Cody's Page</h1>
+<p>My name is Cody.</p>
+<img src="cody.png">`],
+[ "اعرض صورة كودي مع alt في السطر الثالث","",`<h1>Cody's Page</h1>
+<p>My name is Cody.</p>
+<img src="miss.png" alt="Cody's striking pose">`],
+[ "غيّر لون النص داخل وسم h1 إلى الأحمر","",`h1{ color: red; }`],
+[ "غيّر خلفية h1 إلى الأصفر واجعل نص p عريضًا (لا تحذف CSS الأصلي)","",`h1 {
+ color: red;
+ background-color: yellow;
+}
+p {
+ font-weight: bold;
+}`],
+[ "حدّد اسم صنف (class) داخل وسم p ابتداءً من السطر الثاني","",`<h1>Greetings of the World</h1>
+<p class="japanese">Konnichiwa</p>
+<p class="english">Hello</p>
+<p class="french">Bonjour</p>`],
+[ "غيّر لون كل سطر بتحديد اسم الصنف، ابتداءً من السطر الثامن","اكتب الكود التالي من السطر الثامن، واترك ما قبله كما هو.",`h1 {
+ color: red;
+ background-color: yellow;
+}
+p {
+ font-weight: bold;
+}
+.japanese{
+ color: lime;
+}
+.english{
+ color: purple;
+}
+.french{
+ color: navy;
+}`]
+]],
+[ "مراجعة الفصل 20",[
+[ "ضع النص المكتوب داخل وسم p","",`<p>Good morning</p>`],
+[ "اختر الوسم المناسب لكسر السطر","br tag"],
+[ "اختر الوسم المناسب لعرض صورة باسم image.png","",`<img src="image.png">`],
+[ "اختر نوع العرض: ul مع strawberry وcherry وorange","・strawberry\n・cherry\n・orange"],
+[ "حدّد القيمة yellow (لن يظهر شيء)","اكتب في الفراغ: yellow",`h1 {
+ color: yellow;
+}`],
+[ "اختر الوصف الصحيح لخاصية background-color","تغيير لون الخلفية"],
+[ "اختر الوصف الصحيح لقيمة font-weight عندما تكون bold","يصبح الخط عريضًا"],
+[ "حدّد المنتقي (selector) كـ h3 (لن يظهر شيء)","اكتب في أول الكود: h3",`h3{
+ color: red;
+}`],
+[ "اكتب CSS لجعل كلمة \"fish\" باللون الأزرق (class=\"fish\")","",`.fish{
+ color: blue;
+}`]
+],"",1]
+]}
 ];
 
-const $=s=>document.querySelector(s),esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const sp=(c,t)=>`<span class="${c}">${esc(t)}</span>`;
 let cur=0,term="";
-const hl=c=>esc(c).replace(/(\/\/.*$)|("[^"\n]*")|\b(let|const|var)\b|\b(\d+)\b|\b(log)\b/gm,
- (m,a,b,k,n,f)=>a?`<span class="c">${a}</span>`:b?`<span class="s">${b}</span>`:k?`<span class="k">${k}</span>`:n?`<span class="n">${n}</span>`:`<span class="f">${f}</span>`);
-const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),1600)};
+
+/* ---------- Syntax highlighting (HTML / CSS / JS) ---------- */
+function scan(code,rules){
+  let out="",plain="",i=0;
+  const flush=()=>{if(plain){out+=esc(plain);plain=""}};
+  while(i<code.length){
+    let hit=null;
+    for(const [cls,re] of rules){re.lastIndex=i;const m=re.exec(code);if(m&&m[0]){hit=[cls,m[0]];break}}
+    if(hit){flush();out+=sp(hit[0],hit[1]);i+=hit[1].length}else plain+=code[i++];
+  }
+  flush();return out;
+}
+const JS_RULES=[
+ ["c",/\/\/[^\n]*|\/\*[\s\S]*?\*\//y],
+ ["s",/"(?:[^"\\\n]|\\.)*"?|'(?:[^'\\\n]|\\.)*'?|`(?:[^`\\]|\\[\s\S])*`?/y],
+ ["n",/\b\d+(?:\.\d+)?\b/y],
+ ["k",/\b(?:let|const|var|if|else|for|while|do|function|return|break|continue|switch|case|default|new|true|false|null|undefined|typeof|of|in)\b/y],
+ ["b",/\b(?:console|Math|Number|String|Array|Boolean|Object|JSON|Date|document|window)\b/y],
+ ["f",/[A-Za-z_$][\w$]*(?=\s*\()/y],
+ ["o",/[=+\-*\/%<>!&|?:]+|[{}()\[\];,.]/y]
+];
+const CSS_SEL=[
+ ["sel",/[.#][\w-]+/y],["ps",/::?[\w-]+(?:\([^)]*\))?/y],["tg",/[A-Za-z][\w-]*/y],["o",/[>+~*,\[\]=]/y]
+];
+const CSS_VAL=[
+ ["s",/"[^"]*"?|'[^']*'?/y],["n",/#[0-9a-fA-F]{3,8}\b/y],["n",/-?\d*\.?\d+(?:px|em|rem|%|vh|vw|s|ms|deg|pt|fr)?/y],
+ ["k",/!important/y],["f",/[A-Za-z-]+(?=\()/y],["v",/[A-Za-z][\w-]*/y],["o",/[(),\/]/y]
+];
+function hlJS(c){return scan(c,JS_RULES)}
+function hlAttrs(a){
+  return a.replace(/(\s+)|([^\s="'<>\/]+)(?:(\s*=\s*)("[^"]*"|'[^']*'|[^\s"'<>]+))?|([^\s])/g,
+   (m,ws,name,eq,val,other)=>ws?ws:name?sp("a",name)+(eq?sp("o",eq)+sp("s",val):""):esc(other));
+}
+function hlHTML(c){
+  return c.replace(/(<!--[\s\S]*?-->)|(<\/?)([A-Za-z][\w-]*)((?:"[^"]*"|'[^']*'|[^>"'])*)(\/?>)|([^<]+|<)/g,
+   (m,cm,open,tag,attrs,close,text)=>cm?sp("c",cm):text!==undefined?esc(text):sp("o",open)+sp("tg",tag)+hlAttrs(attrs)+sp("o",close));
+}
+function hlCSS(c){
+  const re=/\/\*[\s\S]*?\*\/|[{};]|[^{};\/]+|\//y;let out="",depth=0,i=0,m;
+  while(i<c.length){
+    re.lastIndex=i;m=re.exec(c);if(!m){out+=esc(c[i++]);continue}
+    const t=m[0];i+=t.length;
+    if(t.startsWith("/*"))out+=sp("c",t);
+    else if(t==="{"){depth++;out+=sp("o",t)}
+    else if(t==="}"){depth=Math.max(0,depth-1);out+=sp("o",t)}
+    else if(t===";")out+=sp("o",t);
+    else if(depth===0)out+=scan(t,CSS_SEL);
+    else{
+      const d=/^(\s*)([\w-]+)(\s*:)([\s\S]*)$/.exec(t);
+      out+=d?esc(d[1])+sp("p",d[2])+sp("o",d[3])+scan(d[4],CSS_VAL):esc(t);
+    }
+  }
+  return out;
+}
+function detect(c){
+  if(/^\s*<[A-Za-z!]/.test(c))return"html";
+  if(/\b(console|let|const|var|function|return|if|else|for|while)\b/.test(c))return"js";
+  if(/\{[\s\S]*:[\s\S]*\}/.test(c)&&/^\s*[.#\w*][^;{}()]*\{/.test(c))return"css";
+  return"js";
+}
+const LANG={html:["index.html",hlHTML],css:["style.css",hlCSS],js:["main.js",hlJS]};
+const hl=c=>LANG[detect(c)][1](c);
+window.__hl={hlHTML,hlCSS,hlJS,detect};
+
+/* ---------- UI helpers ---------- */
+const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.id);toast.id=setTimeout(()=>t.classList.remove("on"),1600)};
+const mark=t=>{
+  if(!term)return esc(t);
+  const l=t.toLowerCase();let o="",i=0,j;
+  while((j=l.indexOf(term,i))>-1){o+=esc(t.slice(i,j))+"<mark>"+esc(t.slice(j,j+term.length))+"</mark>";i=j+term.length}
+  return o+esc(t.slice(i));
+};
+async function copyText(txt){
+  try{await navigator.clipboard.writeText(txt);return true}catch(e){}
+  try{const ta=document.createElement("textarea");ta.value=txt;ta.setAttribute("readonly","");ta.style.cssText="position:fixed;opacity:0;top:0";document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,txt.length);const ok=document.execCommand("copy");ta.remove();return ok}catch(e){return false}
+}
 
 function render(){
   const ch=DATA[cur];let any=false;
-  $("#lvl").value=cur;$("#prev").disabled=cur==0;$("#next").disabled=cur==DATA.length-1;$("#lvlInfo").textContent=`${cur+1} / ${DATA.length}`;
-  const h=document.createDocumentFragment(),box=document.createElement("div");
+  $("#lvl").value=cur;$("#prev").disabled=cur==0;$("#next").disabled=cur==DATA.length-1;
+  $("#lvlInfo").textContent=`${cur+1} / ${DATA.length}`;
+  const box=document.createElement("div");
   box.innerHTML=ch.lessons.map(([name,qs,note,rev],li)=>{
-    const f=qs.filter(([q,a,c])=>!term||(q+a+(c||"")).toLowerCase().includes(term));
+    const f=qs.filter(([q,a,c])=>!term||(q+(a||"")+(c||"")).toLowerCase().includes(term));
     if(!f.length)return"";any=true;
-    return `<details class="lesson ${rev?"review":""}" ${term||li==0?"open":""}><summary>${name}<span class="count">${f.length} أسئلة</span><span class="chev">‹</span></summary><div class="qs">`+
-    f.map(([q,a,c])=>`<article class="qcard"><h4>${q}</h4><button class="reveal">إظهار الإجابة</button><div class="ans">${a?`<p class="t">${a}</p>`:""}${c?`<div class="mac"><div class="bar"><i></i><i></i><i></i><span>main.js</span><button class="copy">نسخ</button></div><pre dir="ltr"><code>${hl(c)}</code></pre></div>`:""}</div></article>`).join("")+
-    (note?`<p class="note">ملحوظة: ${note}</p>`:"")+`</div></details>`}).join("");
+    return `<details class="lesson ${rev?"review":""}" ${term||li==0?"open":""}><summary>${esc(name)}<span class="count">${f.length} أسئلة</span><span class="chev">‹</span></summary><div class="qs">`+
+    f.map(([q,a,c])=>{
+      const lang=c?LANG[detect(c)]:null;
+      return `<article class="qcard"><h4><span>${mark(q)}</span></h4><button class="reveal">إظهار الإجابة</button><div class="ans">${a?`<p class="t">${esc(a)}</p>`:""}${c?`<div class="mac"><div class="bar"><i></i><i></i><i></i><span>${lang[0]}</span><button class="copy">نسخ</button></div><pre dir="ltr"><code>${lang[1](c)}</code></pre></div>`:""}</div></article>`}).join("")+
+    (note?`<p class="note">ملحوظة: ${esc(note)}</p>`:"")+`</div></details>`}).join("");
   $("#chapter").replaceChildren(box);
   $("#empty").hidden=any;
 }
-$("#lvl").innerHTML=DATA.map((c,i)=>`<option value="${i}">${c.title} — ${c.sub}</option>`).join("");
-const go=i=>{if(i<0||i>=DATA.length)return;cur=i;history.replaceState(null,"","#"+DATA[i].id);render();window.scrollTo({top:$("main").offsetTop-60,behavior:"smooth"})};
+$("#lvl").innerHTML=DATA.map((c,i)=>`<option value="${i}">${esc(c.title)} — ${esc(c.sub)}</option>`).join("");
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const go=i=>{if(i<0||i>=DATA.length)return;cur=i;store.set("lvl",DATA[i].id);history.replaceState(null,"","#"+DATA[i].id);render();window.scrollTo({top:$("main").offsetTop-60,behavior:"smooth"})};
 $("#lvl").onchange=e=>go(+e.target.value);
 $("#prev").onclick=()=>go(cur-1);
 $("#next").onclick=()=>go(cur+1);
-const h0=DATA.findIndex(c=>"#"+c.id==location.hash);if(h0>=0)cur=h0;
+let h0=DATA.findIndex(c=>"#"+c.id==location.hash);
+if(h0<0){const s=store.get("lvl");h0=DATA.findIndex(c=>String(c.id)===s)}
+if(h0>=0)cur=h0;
+window.addEventListener("hashchange",()=>{const i=DATA.findIndex(c=>"#"+c.id==location.hash);if(i>=0&&i!==cur){cur=i;render()}});
 $("#q").oninput=e=>{term=e.target.value.trim().toLowerCase();render()};
 $("#chapter").onclick=e=>{
   const r=e.target.closest(".reveal");
   if(r){const c=r.closest(".qcard");c.classList.toggle("show");r.textContent=c.classList.contains("show")?"إخفاء الإجابة":"إظهار الإجابة"}
   const b=e.target.closest(".copy");
-  if(b){navigator.clipboard.writeText(b.closest(".mac").querySelector("code").textContent).then(()=>toast("تم نسخ الكود"))}
+  if(b){copyText(b.closest(".mac").querySelector("code").textContent).then(ok=>{
+    toast(ok?"تم نسخ الكود":"تعذّر النسخ، حدّد الكود يدويًا");
+    if(ok){b.textContent="تم ✓";b.classList.add("done");setTimeout(()=>{b.textContent="نسخ";b.classList.remove("done")},1500)}})}
 };
 let all=false;
-$("#toggleAll").onclick=e=>{all=!all;document.querySelectorAll(".qcard").forEach(c=>{c.classList.toggle("show",all);c.querySelector(".reveal").textContent=all?"إخفاء الإجابة":"إظهار الإجابة"});
-  document.querySelectorAll("details.lesson").forEach(d=>d.open=all||d.open);e.target.textContent=all?"إخفاء كل الإجابات":"إظهار كل الإجابات"};
-$("#theme").onclick=()=>{const d=document.documentElement,dark=d.dataset.theme=="dark";d.dataset.theme=dark?"":"dark";$("#theme").textContent=dark?"☾":"☀"};
+$("#toggleAll").onclick=e=>{all=!all;
+  document.querySelectorAll(".qcard").forEach(c=>{c.classList.toggle("show",all);c.querySelector(".reveal").textContent=all?"إخفاء الإجابة":"إظهار الإجابة"});
+  document.querySelectorAll("details.lesson").forEach(d=>d.open=all||d.open);
+  e.target.textContent=all?"إخفاء كل الإجابات":"إظهار كل الإجابات"};
+
+/* ---------- Theme ---------- */
+const root=document.documentElement;
+const paintTheme=()=>{const d=root.dataset.theme==="dark";$("#theme").textContent=d?"☀":"☾";$("#theme").setAttribute("aria-label",d?"الوضع الفاتح":"الوضع الداكن");
+  const m=$('meta[name="theme-color"]');if(m)m.content=d?"#0e1531":"#1a2347"};
+$("#theme").onclick=()=>{const d=root.dataset.theme!=="dark";root.dataset.theme=d?"dark":"light";store.set("theme",root.dataset.theme);paintTheme()};
+paintTheme();
+
+/* ---------- Back to top ---------- */
+const topBtn=$("#top");
+addEventListener("scroll",()=>topBtn.classList.toggle("on",scrollY>700),{passive:true});
+topBtn.onclick=()=>scrollTo({top:0,behavior:"smooth"});
+
+/* ---------- Stats ---------- */
 const total=DATA.reduce((s,c)=>s+c.lessons.reduce((a,l)=>a+l[1].length,0),0);
-$("#stats").innerHTML=`<span><b>${DATA.length}</b> فصول</span><span><b>${DATA.reduce((s,c)=>s+c.lessons.length,0)}</b> دروس</span><span><b>${total}</b> سؤالًا محلولًا</span>`;
+$("#stats").innerHTML=`<span><b>${DATA.length}</b> فصلًا</span><span><b>${DATA.reduce((s,c)=>s+c.lessons.length,0)}</b> دروس</span><span><b>${total}</b> سؤالًا محلولًا</span>`;
 render();

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" data-theme="dark">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e1531">
+<script>(function(){var t=null;try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t})()</script>
 <title>حلول منصة كيريو – الصف الأول الثانوي 2026-2027</title>
-<meta name="description" content="حلول الفصول من 1 إلى 15 من منصة كيريو لمادة البرمجة والذكاء الاصطناعي للصف الأول الثانوي.">
+<meta name="description" content="حلول الفصول من 1 إلى 20 من منصة كيريو لمادة البرمجة والذكاء الاصطناعي للصف الأول الثانوي.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -14,7 +16,7 @@
 <body>
 <header class="top">
   <a class="brand" href="#"><img class="logo-img" src="icon.svg" alt="" width="36" height="36"> كيريو مصر</a>
-  <button id="theme" class="icon" aria-label="تبديل الوضع">☀</button>
+  <button id="theme" class="icon" aria-label="تبديل الوضع" type="button">☀</button>
 </header>
 
 <section class="hero">
@@ -35,14 +37,14 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
   <div class="picker">
     <label for="lvl">اختر الفصل</label>
     <div class="picker-row">
-      <button id="next" class="nav" aria-label="الفصل التالي">›</button>
+      <button id="prev" class="nav" type="button" aria-label="الفصل السابق">›</button>
       <select id="lvl" aria-label="اختيار الفصل"></select>
-      <button id="prev" class="nav" aria-label="الفصل السابق">‹</button>
+      <button id="next" class="nav" type="button" aria-label="الفصل التالي">‹</button>
     </div>
     <small id="lvlInfo"></small>
   </div>
   <div class="tools">
-    <input id="q" type="search" placeholder="ابحث في الأسئلة والأكواد…">
+    <input id="q" type="search" placeholder="ابحث في الأسئلة والأكواد…" enterkeyhint="search" autocomplete="off" aria-label="بحث">
     <button id="toggleAll" class="ghost">إظهار كل الإجابات</button>
   </div>
   <div id="chapter"></div>
@@ -53,7 +55,8 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
   موقع تعليمي مستقل، وليس الموقع الرسمي لمنصة QUREO أو وزارة التربية والتعليم. جميع العلامات التجارية ملك لأصحابها.
   <p class="rights">© 2026 جميع الحقوق محفوظة — محمد أحمد حلمي</p>
 </footer>
-<div id="toast" role="status"></div>
+<button id="top" type="button" aria-label="العودة للأعلى">↑</button>
+<div id="toast" role="status" aria-live="polite"></div>
 <script src="script.js"></script>
 </body>
 </html>
