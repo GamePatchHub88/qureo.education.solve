@@ -181,3 +181,16 @@ footer{text-align:center;padding:26px 5vw calc(26px + env(safe-area-inset-bottom
   .ans{display:block!important}
   details.lesson{break-inside:avoid;box-shadow:none}
 }
+
+/* ===== Tips & Author ===== */
+.tips{background:var(--panel);border:1px solid var(--line);border-inline-start:5px solid var(--accent);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 22px;margin-bottom:20px}
+.tips h2{margin:0 0 8px;font-size:clamp(17px,2.4vw,21px)}
+.tips ul{margin:0;padding-inline-start:22px;color:var(--mute)}
+.tips li{margin:4px 0}
+.author{display:flex;align-items:center;justify-content:center;gap:20px;padding:34px 5vw;background:var(--panel);border-top:1px solid var(--line)}
+.author img,.author .ph{width:104px;height:104px;border-radius:50%;object-fit:cover;border:3px solid var(--accent);box-shadow:var(--shadow-up);flex:none}
+.author .ph{display:grid;place-items:center;font-size:42px;font-weight:800;background:var(--navy);color:#fff}
+.author h2{margin:0;font-size:14px;color:var(--mute);font-weight:600}
+.author .nm{margin:2px 0 0;font-size:clamp(20px,3vw,26px);font-weight:800}
+@media(max-width:480px){.author{flex-direction:column;text-align:center;gap:12px}}
+@media print{.author{display:none}}
