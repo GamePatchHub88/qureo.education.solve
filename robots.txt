@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://qureoeducationsolve.vercel.app/sitemap.xml
