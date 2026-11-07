@@ -1,5 +1,5 @@
 /* ===== الصف الثاني الثانوي — جافا سكربت (JavaScript) =====
-   الفصول 43 إلى 45 (HTML / CSS) و46 إلى 50 (JavaScript). نفس صيغة بقية الأقسام: [السؤال، الإجابة النصية، الكود]
+   الفصول 43 إلى 45 (HTML / CSS) و46 إلى 54 (JavaScript). نفس صيغة بقية الأقسام: [السؤال، الإجابة النصية، الكود]
    lang:"web" يجعل تلوين الكود واسم الملف (index.html / style.css) يُحدَّدان تلقائيًا. */
 const WEB_SAME="امسح الكود أو عدّله ليصبح هكذا، وتأكد من عدم وجود أسطر زائدة.";
 const WEB_RUN="اضغط على «تشغيل الكود» دون تعديل البرنامج.";
@@ -493,5 +493,205 @@ for (const score of scoreList) {
   sum += score;
 }
 console.log(sum / scoreList.length);`]],``,1]
+]}
+,
+{id:51,title:"الفصل 51",sub:"مراجعة الفصلين 49 و50",lessons:[
+[`الدرس 1: مراجعة الفصلين 49 و50`,[
+[`أضف 6 كم إلى distance في كل مرة طالما أنها أقل من 100، واطبع المسافة بعد كل إضافة`,`امسح الكود أو عدّله ليصبح هكذا.`,`let distance = 0;
+while (distance < 100) {
+  distance = distance + 6;
+  console.log(distance);
+}`],
+[`ابدأ بمبلغ 20000 واحسب عدد السنوات اللازمة ليتجاوز 50000 (يتضاعف بنسبة 1.2 كل سنتين)`,`امسح الكود أو عدّله ليصبح هكذا.`,`let money = 20000;
+let year = 0;
+while (money <= 50000) {
+  year++;
+  if (year % 2 == 0) {
+    money = money * 1.2;
+  }
+}
+console.log(year);`],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`احسب عدد خطوات يوم السبت (الفهرس 5) بقسمة المسافة على 0.7 في الثابت stepCount`,`امسح الكود أو عدّله ليصبح هكذا.`,`const distanceList = [2870, 2100, 3500, 1470, 4200, 4900, 2450];
+const stepCount = distanceList[5] / 0.7;
+console.log(stepCount);`],
+[`اطبع عدد الخطوات لكل أيام الأسبوع باستخدام for...of (اسم المتغير distance)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const distanceList = [2870, 2100, 3500, 1470, 4200, 4900, 2450];
+for (const distance of distanceList) {
+  const stepCount = distance / 0.7;
+  console.log(stepCount);
+}`]]],
+[`اختبار منتصف الطريق`,[
+[`اطبع كل سنة أولمبية (تقبل القسمة على 4) من 2024 إلى 2200`,`امسح الكود أو عدّله ليصبح هكذا.`,`let year = 2024;
+while (year <= 2200) {
+  if (year % 4 == 0) {
+    console.log(year + " is an Olympic year");
+  }
+  year++;
+}`],
+[`اختر ناتج الإخراج: let num = 0; while (num < 5) { if (num == 2) { num++; continue; } console.log("Count " + num); num++; }`,`Count 0 ثم Count 1 ثم Count 3 ثم Count 4 (كل جملة في سطر)`],
+[`عندما تكون a تساوي 5 زِد a فقط وتخطَّ تحديث b باستخدام continue، وإلا زِد كليهما ثم اطبعهما`,`امسح الكود أو عدّله ليصبح هكذا.`,`let a = 0;
+let b = 0;
+while (a < 10) {
+  if (a == 5) {
+    a++;
+    continue;
+  }
+  a++;
+  b++;
+}
+console.log(a);
+console.log(b);`],
+[`اجمع قيم scoreList في المتغير sum باستخدام for...of (اسم المتغير score)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const scoreList = [40, 55, 67, 52, 120];
+let sum = 0;
+for (const score of scoreList) {
+  sum += score;
+}
+console.log(sum);`],
+[`اطبع متوسط scoreList باستخدام length`,`امسح الكود أو عدّله ليصبح هكذا.`,`const scoreList = [40, 55, 67, 52, 120];
+let sum = 0;
+for (const score of scoreList) {
+  sum += score;
+}
+console.log(sum / scoreList.length);`]],``,1]
+]}
+,{id:52,title:"الفصل 52",sub:"includes و indexOf و sort و reverse",lessons:[
+[`الدرس 1: التحقق من وجود قيمة (includes)`,[
+[`تحقق هل "dag" موجودة في wordList واطبع النتيجة`,`امسح الكود أو عدّله ليصبح هكذا.`,`const wordList = ["dog", "dog", "dog", "dog", "dog", "dag", "dog"];
+console.log(wordList.includes("dag"));`],
+[`تحقق هل "bell" موجودة في wordList واطبع النتيجة`,`امسح الكود أو عدّله ليصبح هكذا.`,`const wordList = ["ball", "ball", "ball", "ball", "ball", "ball", "ball"];
+console.log(wordList.includes("bell"));`]]],
+[`الدرس 2: ترتيب القيمة في المصفوفة (indexOf)`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`اطبع فهرس "sun" في wordList`,`امسح الكود أو عدّله ليصبح هكذا.`,`const wordList = ["sun", "moon", "star", "cloud"];
+console.log(wordList.indexOf("sun"));`],
+[`اطبع فهرس "pen" في wordList (غير موجودة)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const wordList = ["pan", "pan", "pan", "pan"];
+console.log(wordList.indexOf("pen"));`]]],
+[`الدرس 3: ترتيب القيم (sort)`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`رتّب nameList أبجديًا ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const nameList = ["Alex", "Emma", "Oliver", "Sophia"];
+nameList.sort();
+console.log(nameList);`],
+[`رتّب nameList أبجديًا ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const nameList = ["Mia", "Noah", "Liam", "David", "Grace"];
+nameList.sort();
+console.log(nameList);`]]],
+[`الدرس 4: عكس القيم (reverse)`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`اعكس ترتيب rankingList ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const rankingList = ["James", "Luna", "Ethan", "Ava", "Rick"];
+rankingList.reverse();
+console.log(rankingList);`],
+[`اعكس ترتيب rankingList ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const rankingList = ["Mason", "Isabella", "William", "Charlotte", "Rick"];
+rankingList.reverse();
+console.log(rankingList);`]]],
+[`مراجعة الفصل 52`,[
+[`اختر ناتج الإخراج: const score = [80, 55, 90]; console.log(score.includes(67));`,`false`],
+[`اختر ناتج الإخراج: const characterList = ["a", "n", "p"]; console.log(characterList.indexOf("n"));`,`1`],
+[`رتّب fruitList أبجديًا`,`امسح الكود أو عدّله ليصبح هكذا.`,`const fruitList = ["Apple", "Lemon", "Orange", "Grape"];
+fruitList.sort();
+console.log(fruitList);`],
+[`اعكس ترتيب قيم numList`,`امسح الكود أو عدّله ليصبح هكذا.`,`const numList = [1, 2, 3, 4, 5];
+numList.reverse();
+console.log(numList);`],
+[`تحقق هل "Wilson" موجود في guestList`,`امسح الكود أو عدّله ليصبح هكذا.`,`const guestList = ["Johnson", "Smith", "Brown", "Davis", "Wilson"];
+console.log(guestList.includes("Wilson"));`],
+[`رتّب guestList أبجديًا ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const guestList = ["Johnson", "Smith", "Brown", "Davis", "Wilson"];
+guestList.sort();
+console.log(guestList);`]],``,1]
+]}
+,{id:53,title:"الفصل 53",sub:"push و pop و shift و unshift",lessons:[
+[`الدرس 1: الإضافة في النهاية (push)`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`أضف "mayo" إلى نهاية المصفوفة ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const sandwichIngredients = ["bread", "lettuce", "tomato", "cheese"];
+sandwichIngredients.push("mayo");
+console.log(sandwichIngredients);`],
+[`أضف "mayo" و"bacon" معًا إلى نهاية المصفوفة ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const sandwichIngredients = ["bread", "lettuce", "tomato", "cheese"];
+sandwichIngredients.push("mayo", "bacon");
+console.log(sandwichIngredients);`]]],
+[`الدرس 2: حذف آخر قيمة (pop)`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`احذف آخر قيمة من المصفوفة ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const sandwichIngredients = ["bread", "lettuce", "tomato", "cheese", "mayo", "bacon", "cupcakes"];
+sandwichIngredients.pop();
+console.log(sandwichIngredients);`]]],
+[`الدرس 3: حذف أول قيمة (shift)`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`احذف أول قيمة من burgerIngredients ثم اطبع العنوان والمصفوفة`,`امسح الكود أو عدّله ليصبح هكذا.`,`const burgerIngredients = ["lettuce", "tomato", "cheese", "meat"];
+burgerIngredients.shift();
+console.log("Cody's burger ingredients");
+console.log(burgerIngredients);`]]],
+[`الدرس 4: الإضافة في البداية (unshift)`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`احذف آخر قيمة من rankingList ثم أضف "Rick" إلى بدايتها واطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const rankingList = ["Lily", "Noah", "Mason", "Ethan"];
+rankingList.pop();
+rankingList.unshift("Rick");
+console.log(rankingList);`],
+[`أضف "Rick" و"Cody" معًا إلى بداية rankingList ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const rankingList = ["Lily", "Noah", "Mason"];
+rankingList.unshift("Rick", "Cody");
+console.log(rankingList);`]]],
+[`مراجعة الفصل 53`,[
+[`أضف "dog" إلى نهاية letterList`,`امسح الكود أو عدّله ليصبح هكذا.`,`const letterList = ["cat", "bird"];
+letterList.push("dog");
+console.log(letterList);`],
+[`احذف آخر قيمة من letterList`,`امسح الكود أو عدّله ليصبح هكذا.`,`const letterList = ["cat", "bird", "dog"];
+letterList.pop();
+console.log(letterList);`],
+[`اختر ناتج الإخراج: const list = ["dog", "cat", "bird"]; list.shift(); console.log(list);`,`cat,bird (أي ["cat", "bird"])`],
+[`أضف "diary" إلى بداية letterList`,`امسح الكود أو عدّله ليصبح هكذا.`,`const letterList = ["cat", "bird"];
+letterList.unshift("diary");
+console.log(letterList);`],
+[`اطبع الكلمة program من letterList (احذف الحرف الأخير ثم اجمع الحروف)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const letterList = ["p", "r", "o", "g", "r", "a", "m", "y"];
+letterList.pop();
+console.log(letterList.join(""));`],
+[`أضف "green" في الفهرس 0 من colorList`,`امسح الكود أو عدّله ليصبح هكذا.`,`const colorList = ["red", "blue", "yellow"];
+colorList.unshift("green");
+console.log(colorList);`]],``,1]
+]}
+,{id:54,title:"الفصل 54",sub:"مراجعة الفصلين 52 و53",lessons:[
+[`الدرس 1: مراجعة الفصلين 52 و53`,[
+[`تحقق هل "bell" موجودة في wordList واطبع النتيجة`,`اكتب في السطر الثالث فقط.`,`const wordList = ["ball", "ball", "ball", "ball", "bell", "ball", "ball"];
+const result = wordList.includes("bell");
+console.log(result);`],
+[`اطبع فهرس "pen" في wordList`,`اكتب في السطر الثالث فقط.`,`const wordList = ["pan", "pan", "pen", "pan", "pan"];
+const index = wordList.indexOf("pen");
+console.log(index);`],
+[`رتّب nameList أبجديًا ثم اطبعها`,`اكتب في السطر الثالث فقط.`,`const nameList = ["Mia", "Noah", "Liam", "David", "Grace"];
+nameList.sort();
+console.log(nameList);`],
+[`اعكس ترتيب rankingList ثم اطبعها`,`اكتب في السطر الثالث فقط.`,`const rankingList = ["James", "Luna", "Ethan", "Ava", "Rick"];
+rankingList.reverse();
+console.log(rankingList);`],
+[`أضف "mayo" إلى نهاية sandwichIngredients ثم اطبع العنوان والمصفوفة`,`اكتب في السطر الثالث فقط.`,`const sandwichIngredients = ["bread", "lettuce", "tomato", "cheese"];
+sandwichIngredients.push("mayo");
+console.log("Sandwich ingredients");
+console.log(sandwichIngredients);`],
+[`احذف آخر مكوّن من ingredientsList ثم اطبع العنوان والمصفوفة`,`اكتب في السطر الثالث فقط.`,`const ingredientsList = ["pasta", "tomatoes", "garlic", "cheese", "ice cream"];
+ingredientsList.pop();
+console.log("Pasta ingredients");
+console.log(ingredientsList);`],
+[`احذف أول مكوّن من burgerIngredients ثم اطبع العنوان والمصفوفة`,`اكتب في السطر الثالث فقط.`,`const burgerIngredients = ["cucumber", "sauce", "shrimp", "mayo"];
+burgerIngredients.shift();
+console.log("Burger ingredients");
+console.log(burgerIngredients);`],
+[`أضف "mushroom" إلى بداية burgerIngredients ثم اطبع العنوان والمصفوفة`,`اكتب في السطر الثالث فقط.`,`const burgerIngredients = ["cucumber", "sauce", "shrimp", "mayo"];
+burgerIngredients.unshift("mushroom");
+console.log("Burger ingredients");
+console.log(burgerIngredients);`]]],
+[`اختبار منتصف الطريق`,[
+[`اختر الطريقة التي تعكس ترتيب قيم numList`,``,`numList.reverse()`],
+[`اختر ناتج الإخراج: const letterList = ["o", "g", "o", "o", "o", "o"]; console.log(letterList.indexOf("g"));`,`1`],
+[`احذف أول فاكهة ثم اطبع المصفوفة`,`امسح الكود أو عدّله ليصبح هكذا.`,`const fruitList = ["apple", "orange", "banana"];
+fruitList.shift();
+console.log(fruitList);`],
+[`اختر الطريقة التي تضيف "apple" إلى نهاية المصفوفة`,``,`list.push("apple")`],
+[`تحقق هل "Wilson" موجود في guestList`,`امسح الكود أو عدّله ليصبح هكذا.`,`const guestList = ["Johnson", "Smith", "Brown", "Davis", "Wilson"];
+console.log(guestList.includes("Wilson"));`],
+[`رتّب guestList أبجديًا ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const guestList = ["Johnson", "Smith", "Brown", "Davis", "Wilson"];
+guestList.sort();
+console.log(guestList);`],
+[`اطبع الكلمة program من letterList`,`امسح الكود أو عدّله ليصبح هكذا.`,`const letterList = ["p", "r", "o", "g", "r", "a", "m", "y"];
+letterList.pop();
+console.log(letterList.join(""));`],
+[`أضف "green" في بداية colorList ثم اطبعها`,`امسح الكود أو عدّله ليصبح هكذا.`,`const colorList = ["red", "blue", "yellow"];
+colorList.unshift("green");
+console.log(colorList);`]],``,1]
 ]}
 ];
