@@ -1340,6 +1340,8 @@ const SEC={
       h1:"حلول كيريو · بايثون<br>للصف الثاني الثانوي",
       p:"البرمجة والذكاء الاصطناعي · لغة بايثون (Python). اختر الفصل، افتح الدرس، وانسخ الكود جاهزًا.",
       title:"حلول منصة كيريو – الصف الثاني الثانوي – بايثون"},
+  books:{grade:0,data:[],file:"helmy.js",code:heroJS,store:"lvl_books",
+      h1:"الكتب",p:"كتب PDF مجانية للمنهج.",title:"الكتب – حلول منصة كيريو"},
   g2js:{grade:2,data:G2JS,file:"helmy.js",code:heroJS,store:"lvl_g2js",
       h1:"حلول كيريو · جافا سكربت<br>للصف الثاني الثانوي",
       p:"البرمجة والذكاء الاصطناعي · لغة جافا سكربت (JavaScript). الفصول من 43 إلى 54.",
@@ -1348,6 +1350,7 @@ const SEC={
 let curSec="g1";
 const hashFor=(k,i)=>k==="g1"?"#"+DATA[i].id:DATA.length?"#"+k+"-"+DATA[i].id:"#"+k;
 function parseHash(h){
+  if(h==="#books")return{key:"books",idx:-1};
   let m=/^#(\d+)$/.exec(h);
   if(m)return{key:"g1",idx:G1.findIndex(c=>String(c.id)===m[1])};
   m=/^#g2(py|js)(?:-(\d+))?$/.exec(h);
@@ -1357,6 +1360,7 @@ function parseHash(h){
 function fillSelect(){$("#lvl").innerHTML=DATA.map((c,i)=>`<option value="${i}">${esc(c.title)} — ${esc(c.sub)}</option>`).join("")}
 function paintStats(){
   const t=DATA.reduce((s,c)=>s+c.lessons.reduce((a,l)=>a+l[1].length,0),0);
+  if(curSec==="books"){$("#stats").innerHTML=`<span><b>1</b> كتاب</span>`;return}
   $("#stats").innerHTML=DATA.length?`<span><b>${DATA.length}</b> ${DATA.length>=3&&DATA.length<=10?"فصول":"فصلًا"}</span><span><b>${DATA.reduce((s,c)=>s+c.lessons.length,0)}</b> دروس</span><span><b>${t}</b> سؤالًا محلولًا</span>`:`<span>قريبًا</span>`;
 }
 function setSection(key,idx,fromHash){
@@ -1368,7 +1372,10 @@ function setSection(key,idx,fromHash){
   $("#subLang1").hidden=sec.grade!==1;
   $("#g2jsNote").hidden=key!=="g2js";
   const empty=!DATA.length;
-  $("#soon").hidden=!empty;
+  const isBooks=key==="books";
+  $("#soon").hidden=!empty||isBooks;
+  $("#books").hidden=!isBooks;
+  const tipsEl=document.querySelector(".tips");if(tipsEl)tipsEl.hidden=isBooks;
   document.querySelectorAll(".picker,.tools,#chapter").forEach(e=>e.hidden=empty);
   $("#empty").hidden=true;
   store.set("sec",key);
@@ -1389,6 +1396,7 @@ let lastG2="g2py";
 document.querySelectorAll("[data-sec]").forEach(b=>b.onclick=()=>{
   let k=b.dataset.sec;if(k==="g2")k=lastG2;
   if(k.startsWith("g2"))lastG2=k;
+  if(k==="books"){if(curSec!=="books"){setSection(k,null,false);codeToast("grade","الكتب","",k)}return}
   if(k!==curSec){setSection(k,null,false);const g=SEC[k].grade===1?"الصف الأول الثانوي":"الصف الثاني الثانوي";const l=k==="g2py"?"بايثون":"جافا سكربت";codeToast(b.closest(".seg-sub")||k==="g1"?(SEC[k].grade===1?"grade":"lang"):"grade",g,l,k)}
 });
 $("#g2jsBack").onclick=()=>{

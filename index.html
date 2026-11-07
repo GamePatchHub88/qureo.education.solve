@@ -64,6 +64,7 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
     <div class="seg" role="tablist" aria-label="الصف الدراسي">
       <button type="button" role="tab" data-sec="g1" class="on" aria-selected="true">الصف الأول الثانوي</button>
       <button type="button" role="tab" data-sec="g2" aria-selected="false">الصف الثاني الثانوي</button>
+      <button type="button" role="tab" data-sec="books" aria-selected="false">📚 الكتب</button>
     </div>
     <div class="seg seg-sub" id="subLang1" role="tablist" aria-label="لغة البرمجة">
       <button type="button" role="tab" data-sec="g1" class="on" aria-selected="true"><svg class="lgo" viewBox="0 0 128 128" aria-hidden="true"><rect width="128" height="128" rx="10" fill="#F7DF1E"/><path d="M60 56V96Q60 110 48 110Q38 110 33 100M114 66Q110 56 98 56Q84 56 84 68Q84 77 98 83Q114 90 114 100Q114 112 98 112Q86 112 81 102" fill="none" stroke="#000" stroke-width="10.5" stroke-linecap="round" stroke-linejoin="round"/></svg> جافا سكربت</button>
@@ -109,6 +110,25 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
     <h2>جافا سكربت للصف الثاني الثانوي</h2>
     <p>الفصول قيد الإضافة وستظهر هنا قريبًا. يمكنك الآن استخدام حلول <b>بايثون</b> للصف الثاني الثانوي.</p>
     <button type="button" class="ghost" data-sec="g2py">الانتقال إلى بايثون</button>
+  </section>
+  <section id="books" class="books" aria-labelledby="booksT" hidden>
+    <h2 id="booksT" class="books-t">📚 الكتب</h2>
+    <p class="books-sub">كتب PDF مجانية تشرح المنهج من الصفر مع الأسئلة والحلول.</p>
+    <div class="books-grid">
+      <!-- ===== كتاب: الصف الأول الثانوي ===== -->
+      <article class="book">
+        <div class="book-cover" aria-hidden="true"><span class="bc-top">الصف الأول الثانوي</span><b>تعلّم البرمجة<br>من الصفر</b><span class="bc-by">محمد أحمد حلمي</span></div>
+        <div class="book-body">
+          <h3>كتاب الصف الأول الثانوي</h3>
+          <p>جافا سكربت وHTML وCSS: شرح مبسّط لكل فصل لمن لا يعرف شيئًا، ثم كل الأسئلة بحلولها وشرح كل سطر.</p>
+          <ul class="book-meta"><li>42 فصلًا</li><li>163 درسًا</li><li>728 سؤالًا محلولًا</li><li>PDF</li></ul>
+          <div class="book-actions">
+            <a class="book-btn main" href="grade1-book.pdf" target="_blank" rel="noopener">فتح الكتاب</a>
+            <a class="book-btn" href="grade1-book.pdf" download="كتاب-الصف-الأول-كيريو.pdf">تحميل PDF</a>
+          </div>
+        </div>
+      </article>
+    </div>
   </section>
   <p id="empty" class="empty" hidden>لا توجد نتائج. جرّب كلمة أخرى.</p>
 </main>
