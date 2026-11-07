@@ -1,4 +1,4 @@
-/* ===== المحرر الحر — جافا سكربت ===== */
+/* ===== المحرر الحر — جافا سكربت · بايثون · HTML/CSS ===== */
 .icon.ed-open{width:auto;padding:0 12px;display:inline-flex;align-items:center;gap:7px;font:600 13px 'Noto Kufi Arabic',sans-serif;white-space:nowrap}
 .icon.ed-open b{font:600 14px 'JetBrains Mono',ui-monospace,monospace;color:var(--accent);direction:ltr}
 @media(max-width:520px){.icon.ed-open span{display:none}.icon.ed-open{padding:0 10px}}
@@ -9,7 +9,6 @@ body.ed-lock{overflow:hidden}
 .ed-box{width:min(1280px,100%);height:min(900px,100%);display:flex;flex-direction:column;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-up);overflow:hidden}
 .ed-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--panel-2)}
 .ed-head h2{margin:0;font-size:16px;font-weight:800;margin-inline-end:auto;display:flex;align-items:center;gap:8px}
-.ed-head h2 small{font:400 12px 'Noto Kufi Arabic',sans-serif;color:var(--mute)}
 .ed-btn{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:600 13px 'Noto Kufi Arabic',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
 .ed-btn:hover{border-color:var(--accent);background:var(--panel-2)}
 .ed-btn:active{transform:scale(.96)}
@@ -29,7 +28,7 @@ body.ed-lock{overflow:hidden}
 .ed-bar{display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--code-bar);color:#9ba6c8;font:12.5px 'JetBrains Mono',ui-monospace,monospace;direction:ltr}
 .ed-bar i{width:11px;height:11px;border-radius:50%;background:#ff5f57;flex:none}
 .ed-bar i:nth-child(2){background:#febc2e}.ed-bar i:nth-child(3){background:#28c840}
-.ed-bar span{margin-inline-start:6px;margin-inline-end:auto}
+.ed-bar>span{margin-inline-start:6px;margin-inline-end:auto}
 .ed-bar button{border:1px solid #ffffff1a;border-radius:7px;min-height:26px;min-width:30px;padding:0 8px;background:#ffffff14;color:#dfe6fb;font:12px 'JetBrains Mono',monospace;cursor:pointer}
 .ed-bar button:hover{background:var(--accent);color:var(--accent-ink)}
 
@@ -76,3 +75,33 @@ body.ed-lock{overflow:hidden}
 .ac-l b{color:var(--accent);font-weight:700}
 .ac-d{flex:none;max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#8f9bc4;font:11.5px 'Noto Kufi Arabic',sans-serif;direction:rtl}
 @media(max-width:520px){.ac-d{display:none}.ed-ac{min-width:180px}}
+
+/* ===== بايثون و HTML/CSS ===== */
+.ed-sel#edLang{font-weight:600;max-width:140px}
+/* تبويبات الملفات (HTML / CSS / JS) */
+.ed-tabs{display:flex;align-items:center;gap:4px;margin-inline-start:6px;margin-inline-end:auto;min-width:0;overflow-x:auto;scrollbar-width:none}
+.ed-tabs::-webkit-scrollbar{display:none}
+.ed-fn{white-space:nowrap}
+.ed-bar .ed-tab{flex:none;min-height:26px;padding:0 10px;border:1px solid #ffffff1a;border-radius:7px;background:transparent;color:#9ba6c8;font:12px 'JetBrains Mono',ui-monospace,monospace;cursor:pointer;white-space:nowrap}
+.ed-bar .ed-tab:hover{background:#ffffff14;color:#fff}
+.ed-bar .ed-tab.on{background:var(--accent);border-color:transparent;color:var(--accent-ink);font-weight:600}
+.ed-bar .ed-tab:focus-visible,.ed-stdin textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
+/* المعاينة (وضع HTML/CSS فقط) */
+.ed-pv-bar,.ed-frame{display:none}
+.ed-frame{flex:1.5 1 0;min-height:0;width:100%;border:0;background:#fff;color-scheme:light}
+#ed[data-mode=web] .ed-pv-bar{display:flex}
+#ed[data-mode=web] .ed-frame{display:block}
+#ed[data-mode=web] .ed-out{flex:.55 1 0;min-height:70px}
+#ed[data-mode=web] .ed-pane+.ed-pane .ed-bar+.ed-frame+.ed-bar{border-top:1px solid var(--line)}
+
+/* خانة المدخلات (بايثون فقط) */
+.ed-stdin{display:none}
+#ed[data-mode=py] .ed-stdin{display:flex;flex-direction:column;gap:4px;padding:8px 12px;border-top:1px solid var(--line);background:var(--panel-2)}
+.ed-stdin label{font-size:12.5px;font-weight:600;color:var(--ink)}
+.ed-stdin label small{font-weight:400;color:var(--mute)}
+.ed-stdin textarea{width:100%;min-height:52px;max-height:120px;resize:vertical;box-sizing:border-box;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--code-bg);color:var(--code-ink);font:14px/1.6 'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;direction:ltr;text-align:left}
+@media(max-width:520px){.ed-stdin textarea{font-size:16px}.ed-sel#edLang{max-width:118px}}
+
+/* أيقونات الإكمال الجديدة */
+.k-tag{background:#f7768e33;color:#f7768e}
