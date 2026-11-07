@@ -245,3 +245,19 @@ span.me.ph{display:grid;place-items:center;background:var(--navy-2);color:#fff;f
 .seg .lgo{width:36px;height:36px;flex:none;display:block;filter:drop-shadow(0 2px 4px #0003)}
 .seg button:not(.on) .lgo{opacity:.9}
 @media(max-width:640px){.seg-sub button{min-height:56px;font-size:14px;gap:8px}.seg .lgo{width:32px;height:32px}}
+
+/* الصف الأول: جافا سكربت موجود فقط بدون إضاءة */
+#subLang1 button.on{background:transparent;color:var(--ink);box-shadow:none;cursor:default}
+#subLang1 button.on:hover{background:transparent}
+/* إشعار بشكل نافذة كود في الأعلى */
+#codeToast{position:fixed;top:calc(14px + env(safe-area-inset-top));left:50%;transform:translate(-50%,-140%);width:min(92vw,360px);background:#0e1531;color:#e6e9f5;border:1px solid #ffffff1f;border-radius:14px;overflow:hidden;box-shadow:0 18px 40px -12px #000a;opacity:0;transition:transform .35s cubic-bezier(.2,.9,.3,1.1),opacity .25s;z-index:70;pointer-events:none}
+#codeToast.on{transform:translate(-50%,0);opacity:1}
+#codeToast .bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:#ffffff0d;font:600 12px 'JetBrains Mono',monospace;color:#9aa3c7}
+#codeToast .bar i{width:10px;height:10px;border-radius:50%;background:#ff5f57}
+#codeToast .bar i:nth-child(2){background:#febc2e}
+#codeToast .bar i:nth-child(3){background:#28c840}
+#codeToast .bar span{margin-inline-start:auto}
+#codeToast pre{margin:0;padding:10px 14px;font:13px/1.7 'JetBrains Mono',monospace;white-space:pre-wrap;text-align:left}
+#codeToast .k{color:#c792ea}#codeToast .s{color:#c3e88d}#codeToast .c{color:#6b7599}
+#codeToast .msg{padding:8px 14px 11px;border-top:1px solid #ffffff14;font:700 14px 'Noto Kufi Arabic',sans-serif;color:#7ee0a3;text-align:right}
+@media print{#codeToast{display:none!important}}

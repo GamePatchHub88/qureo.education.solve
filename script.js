@@ -1278,6 +1278,17 @@ window.__hl={hlHTML,hlCSS,hlJS,hlPY,detect};
 
 /* ---------- UI helpers ---------- */
 const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.id);toast.id=setTimeout(()=>t.classList.remove("on"),1600)};
+
+const codeToast=(kind,g,l,k)=>{
+  const t=$("#codeToast");if(!t)return;
+  const isPy=k==="g2py",file=isPy?"main.py":"main.js";
+  const line=kind==="grade"
+    ?(isPy?`<span class="k">grade</span> = <span class="s">"${g}"</span>`:`<span class="k">const</span> grade = <span class="s">"${g}"</span>;`)
+    :(isPy?`<span class="k">lang</span> = <span class="s">"${l}"</span>`:`<span class="k">const</span> lang = <span class="s">"${l}"</span>;`);
+  const msg=kind==="grade"?`تم التغيير إلى ${g}`:`تم التغيير إلى ${l}`;
+  t.innerHTML=`<div class="bar"><i></i><i></i><i></i><span>${file}</span></div><pre dir="ltr"><code><span class="c">// ${isPy?"changed":"changed"} ✓</span>\n${line}</code></pre><div class="msg">${msg}</div>`;
+  t.classList.add("on");clearTimeout(codeToast.id);codeToast.id=setTimeout(()=>t.classList.remove("on"),2400);
+};
 const mark=t=>{
   if(!term)return esc(t);
   const l=t.toLowerCase();let o="",i=0,j;
@@ -1369,7 +1380,7 @@ let lastG2="g2py";
 document.querySelectorAll("[data-sec]").forEach(b=>b.onclick=()=>{
   let k=b.dataset.sec;if(k==="g2")k=lastG2;
   if(k.startsWith("g2"))lastG2=k;
-  if(k!==curSec){setSection(k,null,false);window.scrollTo({top:$("main").offsetTop-60,behavior:"smooth"})}
+  if(k!==curSec){setSection(k,null,false);const g=SEC[k].grade===1?"الصف الأول الثانوي":"الصف الثاني الثانوي";const l=k==="g2py"?"بايثون":"جافا سكربت";codeToast(b.closest(".seg-sub")||k==="g1"?(SEC[k].grade===1?"grade":"lang"):"grade",g,l,k)}
 });
 window.addEventListener("hashchange",()=>{
   const h=parseHash(location.hash);if(!h)return;
