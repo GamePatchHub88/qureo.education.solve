@@ -293,3 +293,4 @@ span.me.ph{display:grid;place-items:center;background:var(--navy-2);color:#fff;f
 .exp-list code::before{content:counter(l) "  ";color:var(--mute)}
 .exp-list p{margin:0;font-size:13.5px;line-height:1.8;color:var(--ink)}
 .exp-list .x{font-family:ui-monospace,Consolas,monospace;font-size:12px;padding:1px 5px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line)}
+.exp-list .fn{display:block;margin-top:6px;padding:6px 10px;border-radius:8px;background:var(--panel-2);border-inline-start:3px solid var(--ic,#6c8cff);font-size:13px;line-height:1.8}

@@ -217,6 +217,126 @@ function htmlLine(t){
   return ph.join("، ثم ")+".";
 }
 
+
+/* ---------- شرح الدوال: الجاهزة والتي يعرّفها المستخدم ---------- */
+const FN={
+ "console.log":["تطبع ما بين القوسين في وحدة التحكم (شاشة النتائج) لتراه بعد «تشغيل الكود».",'console.log("Hi")  ←  Hi'],
+ "print":["تطبع ما بين القوسين في وحدة التحكم (شاشة النتائج) لتراه بعد «تشغيل الكود».",'print("Hi")  ←  Hi'],
+ "input":["توقف البرنامج وتطلب من المستخدم أن يكتب شيئًا، وتُرجعه كنص.",'name = input("Name? ")'],
+ "prompt":["تفتح مربعًا يكتب فيه المستخدم قيمة، وتُرجعها كنص.",'prompt("Your name?")'],
+ "alert":["تعرض نافذة منبثقة برسالة للمستخدم.",'alert("Hello")'],
+ "range":["تنتج أرقامًا متتالية لتستعملها في حلقة for : range(5) تعطي 0 1 2 3 4، وrange(1, 5) تعطي 1 2 3 4، وrange(0, 10, 2) تعطي 0 2 4 6 8.",""],
+ "random.random":["تُرجع رقمًا عشوائيًا عشريًا بين 0 و1 (يصل إلى 0 ولا يصل إلى 1).","random.random()  ←  0.37"],
+ "Math.random":["تُرجع رقمًا عشوائيًا عشريًا بين 0 و1 (يصل إلى 0 ولا يصل إلى 1).","Math.random()  ←  0.62"],
+ "math.floor":["تقرّب الرقم إلى أقرب عدد صحيح أصغر منه (تحذف الكسر لأسفل).","math.floor(3.9)  ←  3"],
+ "Math.floor":["تقرّب الرقم إلى أقرب عدد صحيح أصغر منه (تحذف الكسر لأسفل).","Math.floor(3.9)  ←  3"],
+ "Math.ceil":["تقرّب الرقم إلى أقرب عدد صحيح أكبر منه (لأعلى).","Math.ceil(3.1)  ←  4"],
+ "Math.round":["تقرّب الرقم إلى أقرب عدد صحيح.","Math.round(3.6)  ←  4"],
+ "round":["تقرّب الرقم إلى أقرب عدد صحيح، أو إلى عدد معيّن من الخانات العشرية إن كتبته.","round(3.14159, 2)  ←  3.14"],
+ "Math.min":["تُرجع أصغر قيمة بين القيم المعطاة.","Math.min(4, 9, 2)  ←  2"],
+ "Math.max":["تُرجع أكبر قيمة بين القيم المعطاة.","Math.max(4, 9, 2)  ←  9"],
+ "min":["تُرجع أصغر قيمة بين القيم المعطاة.","min(4, 9, 2)  ←  2"],
+ "max":["تُرجع أكبر قيمة بين القيم المعطاة.","max(4, 9, 2)  ←  9"],
+ "Math.sqrt":["تُرجع الجذر التربيعي للرقم.","Math.sqrt(16)  ←  4"],
+ "Math.abs":["تُرجع القيمة المطلقة (الرقم بدون إشارته السالبة).","Math.abs(-5)  ←  5"],
+ "Math.pow":["ترفع الرقم الأول إلى قوة الرقم الثاني.","Math.pow(2, 3)  ←  8"],
+ "len":["تُرجع عدد العناصر في القائمة أو عدد الحروف في النص.",'len("abc")  ←  3'],
+ "str":["تحوّل القيمة إلى نص، وهذا مهم عند دمجها بنص آخر باستخدام +.","str(5)  ←  \"5\""],
+ "int":["تحوّل القيمة إلى عدد صحيح (وتحذف الكسر إن وُجد).","int(\"7\")  ←  7"],
+ "float":["تحوّل القيمة إلى عدد عشري.","float(\"2.5\")  ←  2.5"],
+ "type":["تُرجع نوع القيمة (مثل int للعدد الصحيح وstr للنص).","type(5)  ←  <class 'int'>"],
+ "Number":["تحوّل القيمة إلى رقم.","Number(\"5\")  ←  5"],
+ "String":["تحوّل القيمة إلى نص.","String(5)  ←  \"5\""],
+ "parseInt":["تحوّل النص إلى عدد صحيح.","parseInt(\"42\")  ←  42"],
+ "parseFloat":["تحوّل النص إلى عدد عشري.","parseFloat(\"3.5\")  ←  3.5"],
+ "array.array":["تنشئ مصفوفة (قائمة مقيّدة بنوع واحد من الأرقام) من مكتبة array؛ الحرف الأول يحدد النوع مثل 'i' للأعداد الصحيحة.","array.array('i', [1, 2, 3])"],
+ "rgb":["دالة CSS تكوّن لونًا بمزج الأحمر والأخضر والأزرق، وقيمة كل منها من 0 إلى 255.","rgb(255, 0, 0)  ←  أحمر"],
+ ".includes":["تتحقق هل العنصر موجود في القائمة، وتُرجع true (موجود) أو false (غير موجود).","list.includes(\"a\")  ←  true"],
+ ".indexOf":["تُرجع موضع العنصر في القائمة (يبدأ العدّ من 0)، أو -1 إن لم يوجد.","[\"a\",\"b\"].indexOf(\"b\")  ←  1"],
+ ".sort":["ترتّب عناصر القائمة ترتيبًا أبجديًا تصاعديًا وتغيّر القائمة نفسها.",""],
+ ".reverse":["تعكس ترتيب عناصر القائمة (الأخير يصير أولًا) وتغيّر القائمة نفسها.",""],
+ ".push":["تضيف عنصرًا في نهاية القائمة.","list.push(\"x\")"],
+ ".pop":["تحذف آخر عنصر في القائمة وتُرجعه.",""],
+ ".shift":["تحذف أول عنصر في القائمة وتُرجعه.",""],
+ ".unshift":["تضيف عنصرًا في بداية القائمة.","list.unshift(\"x\")"],
+ ".join":["تجمع عناصر القائمة في نص واحد يفصل بينها الفاصل الذي تكتبه.","[\"a\",\"b\"].join(\"-\")  ←  \"a-b\""],
+ ".split":["تقسّم النص إلى قائمة عند كل ظهور للفاصل.","\"a-b\".split(\"-\")  ←  [\"a\",\"b\"]"],
+ ".toUpperCase":["تحوّل حروف النص إلى حروف كبيرة.",""],
+ ".toLowerCase":["تحوّل حروف النص إلى حروف صغيرة.",""],
+ ".trim":["تحذف المسافات الزائدة من بداية النص ونهايته.",""],
+ ".toFixed":["تقرّب الرقم إلى عدد محدد من الخانات العشرية وتُرجعه نصًا.","(3.14159).toFixed(2)  ←  \"3.14\""],
+ ".append":["تضيف عنصرًا في نهاية القائمة.","list.append(\"x\")"],
+ ".upper":["تحوّل حروف النص إلى حروف كبيرة.",""],
+ ".lower":["تحوّل حروف النص إلى حروف صغيرة.",""]
+};
+const RES=/^(if|for|while|function|switch|return|else|def|elif|and|or|not|in|catch|with|class)$/;
+function fnInfo(n){
+  if(FN[n])return FN[n];
+  const i=n.lastIndexOf(".");
+  if(i>0&&FN[n.slice(i)])return FN[n.slice(i)];
+  return null;
+}
+function bodySummary(body){
+  const parts=[];let ctl=false;
+  for(const b of body){
+    const t=b.trim();let m;
+    if(/^(\}?\s*else|if|elif|for|while)\b/.test(t))ctl=true;
+    if((m=/^return\b\s*(.*?);?$/.exec(t))){if(m[1])parts.push("تُرجع "+ex(m[1]));continue}
+    if((m=/^(?:console\.log|print)\((.*)\)\s*;?$/.exec(t))){parts.push("تعرض "+(m[1].trim()?ex(m[1]):"سطرًا فارغًا"));continue}
+  }
+  let r=parts.length?parts.join("، ثم "):"تنفّذ الأسطر التي بداخلها";
+  if(ctl)r+=" (حسب الشروط أو الحلقات الموجودة بداخلها)";
+  return r;
+}
+function parseDefs(lines,kind){
+  const defs={};
+  if(kind==="js"){
+    lines.forEach((l,i)=>{
+      const m=/^function\s+([\w$]+)\s*\((.*)\)\s*\{?$/.exec(l.trim());if(!m)return;
+      let d=1,body=[];
+      for(let j=i+1;j<lines.length&&d>0;j++){
+        const t=lines[j].trim();
+        if(/^\}/.test(t))d--;
+        if(d<=0)break;
+        if(/\{$/.test(t))d++;
+        body.push(t);
+      }
+      defs[m[1]]={sum:bodySummary(body)};
+    });
+  }else if(kind==="py"){
+    lines.forEach((l,i)=>{
+      const m=/^def\s+(\w+)\((.*)\):$/.exec(l.trim());if(!m)return;
+      const ind=l.length-l.trimStart().length;const body=[];
+      for(let j=i+1;j<lines.length;j++){
+        if(!lines[j].trim())continue;
+        if(lines[j].length-lines[j].trimStart().length<=ind)break;
+        body.push(lines[j]);
+      }
+      defs[m[1]]={sum:bodySummary(body)};
+    });
+  }
+  return defs;
+}
+function fnNotes(t,defs,seen){
+  const names=[];
+  outside(t).replace(/([A-Za-z_$][\w$.]*)\s*\(/g,(m,n)=>{if(!RES.test(n)&&!names.includes(n))names.push(n);return m});
+  let out="";
+  for(const n of names){
+    if(seen.has(n))continue;
+    let d=null;
+    if(defs[n])d="دالة عرّفتها في هذا الكود، وفعلها : "+defs[n].sum+".";
+    else{
+      const f=fnInfo(n);
+      if(f)d=f[0]+(f[1]?" مثال : "+c(f[1]):"");
+      else if(n.includes("."))d="دالة جاهزة تُستدعى على الكائن "+c(n.slice(0,n.lastIndexOf(".")))+".";
+      else d="دالة معرّفة في البرنامج (في هذا الدرس أو دروس سابقة) : استدعاؤها ينفّذ الأسطر التي بداخلها، وتحلّ قيمتها المُرجعة محل الاستدعاء.";
+    }
+    seen.add(n);
+    out+='<span class="fn">⚙ الدالة '+c(n+"()")+' : '+d+'</span>';
+  }
+  return out;
+}
+
 /* ---------- الواجهة ---------- */
 const INTRO={js:"يُنفَّذ البرنامج سطرًا بسطر من الأعلى إلى الأسفل. شرح كل سطر :",py:"يُنفَّذ البرنامج سطرًا بسطر من الأعلى إلى الأسفل (والأسطر المُزاحة تتبع السطر الذي فوقها). شرح كل سطر :",css:"كل قاعدة CSS تختار عناصر ثم تضبط خصائصها. شرح كل سطر :",html:"يقرأ المتصفح الوسوم من الأعلى إلى الأسفل ويرسم الصفحة. شرح كل سطر :"};
 const FALL="تعليمة تُنفَّذ كما هي ضمن البرنامج.";
@@ -232,6 +352,7 @@ window.explainCode=function(code,kind){
   if(kind==="js"&&!/\b(console|let|const|var|function|if|for|while)\b/.test(code)&&/[.#\w*][^;{}()]*\{[^{}]*:[^{}]*\}/.test(code))kind="css";
   const lines=kind==="css"?cssLines(code):kind==="js"?jsLines(code):String(code).split("\n");
   const items=[];
+  const defs=parseDefs(lines,kind),seen=new Set();
   for(const raw of lines){
     const t=raw.trim();if(!t)continue;
     let txt=null;
@@ -239,7 +360,13 @@ window.explainCode=function(code,kind){
       for(const [re,fn] of (kind==="js"?JS:PYR)){const m=re.exec(t);if(m){txt=fn(m);break}}
     }else if(kind==="css")txt=cssRule(t);
     else txt=htmlLine(t);
-    items.push('<li><code dir="ltr">'+esc(t)+'</code><p>'+(txt||fallback(t,kind))+'</p></li>');
+    let note="";
+    if(kind==="js"||kind==="py"){
+      const dm=(kind==="js"?/^function\s+([\w$]+)/:/^def\s+(\w+)/).exec(t);
+      if(dm&&defs[dm[1]])note='<span class="fn">⚙ ماذا تفعل الدالة '+c(dm[1]+"()")+' عند استدعائها : '+defs[dm[1]].sum+'.</span>';
+      else note=fnNotes(t,defs,seen);
+    }else if(kind==="css"&&/\(/.test(t)&&!t.startsWith("/*"))note=fnNotes(t,defs,seen);
+    items.push('<li><code dir="ltr">'+esc(t)+'</code><p>'+(txt||fallback(t,kind))+note+'</p></li>');
   }
   return'<p class="exp-intro">'+INTRO[kind]+'</p><ol class="exp-list">'+items.join("")+'</ol>';
 };
