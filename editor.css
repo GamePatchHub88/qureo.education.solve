@@ -1,0 +1,65 @@
+/* ===== المحرر الحر — جافا سكربت ===== */
+.icon.ed-open{width:auto;padding:0 12px;display:inline-flex;align-items:center;gap:7px;font:600 13px 'Noto Kufi Arabic',sans-serif;white-space:nowrap}
+.icon.ed-open b{font:600 14px 'JetBrains Mono',ui-monospace,monospace;color:var(--accent);direction:ltr}
+@media(max-width:520px){.icon.ed-open span{display:none}.icon.ed-open{padding:0 10px}}
+
+body.ed-lock{overflow:hidden}
+#ed{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));background:#050814b8;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+#ed.on{display:flex}
+.ed-box{width:min(1280px,100%);height:min(900px,100%);display:flex;flex-direction:column;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-up);overflow:hidden}
+.ed-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+.ed-head h2{margin:0;font-size:16px;font-weight:800;margin-inline-end:auto;display:flex;align-items:center;gap:8px}
+.ed-head h2 small{font:400 12px 'Noto Kufi Arabic',sans-serif;color:var(--mute)}
+.ed-btn{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:600 13px 'Noto Kufi Arabic',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.ed-btn:hover{border-color:var(--accent);background:var(--panel-2)}
+.ed-btn:active{transform:scale(.96)}
+.ed-btn:focus-visible,.ed-sel:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ed-btn.run{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-ink);border-color:transparent;font-weight:800;padding:0 20px}
+.ed-btn.run:hover{filter:brightness(1.06)}
+.ed-btn.stop{background:#e5484d;color:#fff;border-color:transparent}
+.ed-btn.x{width:38px;padding:0;font-size:18px}
+.ed-btn.done{background:var(--ok-bg);color:var(--ok);border-color:transparent}
+.ed-sel{min-height:38px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:13px 'Noto Kufi Arabic',sans-serif;max-width:170px}
+
+.ed-main{flex:1;min-height:0;display:grid;grid-template-rows:minmax(0,1.25fr) minmax(0,1fr)}
+@media(min-width:900px){.ed-main{grid-template-rows:none;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}}
+.ed-pane{min-width:0;min-height:0;display:flex;flex-direction:column}
+.ed-pane+.ed-pane{border-top:1px solid var(--line)}
+@media(min-width:900px){.ed-pane+.ed-pane{border-top:0;border-inline-start:1px solid var(--line)}}
+.ed-bar{display:flex;align-items:center;gap:8px;padding:7px 12px;background:var(--code-bar);color:#9ba6c8;font:12.5px 'JetBrains Mono',ui-monospace,monospace;direction:ltr}
+.ed-bar i{width:11px;height:11px;border-radius:50%;background:#ff5f57;flex:none}
+.ed-bar i:nth-child(2){background:#febc2e}.ed-bar i:nth-child(3){background:#28c840}
+.ed-bar span{margin-inline-start:6px;margin-inline-end:auto}
+.ed-bar button{border:1px solid #ffffff1a;border-radius:7px;min-height:26px;min-width:30px;padding:0 8px;background:#ffffff14;color:#dfe6fb;font:12px 'JetBrains Mono',monospace;cursor:pointer}
+.ed-bar button:hover{background:var(--accent);color:var(--accent-ink)}
+
+/* منطقة الكتابة: textarea شفاف فوق طبقة التلوين */
+.ed-wrap.mac{flex:1;min-height:0;position:relative;display:flex;border-radius:0;border:0;box-shadow:none;--edfs:15px}
+.ed-gut{flex:none;overflow:hidden;background:#ffffff08;color:#5d6a92;text-align:right;user-select:none;-webkit-user-select:none;border-right:1px solid var(--code-line)}
+.ed-gut div,.mac .ed-pre,#edCode{font:400 max(var(--edfs),16px)/1.75 'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace}
+@media(min-width:700px){.ed-gut div,.mac .ed-pre,#edCode{font-size:var(--edfs)}}
+.ed-gut div{padding:14px 10px 14px 12px;white-space:pre}
+.ed-area{position:relative;flex:1;min-width:0}
+.ed-pre,#edCode{position:absolute;inset:0;margin:0;padding:14px 16px;border:0;white-space:pre;overflow:auto;tab-size:2;-moz-tab-size:2;letter-spacing:0;word-spacing:0;text-align:left;direction:ltr;scrollbar-width:thin;scrollbar-color:#ffffff33 transparent}
+.mac .ed-pre{padding:14px 16px;overflow:hidden;pointer-events:none;color:var(--code-ink);background:none}
+.ed-pre code{font:inherit}
+#edCode{resize:none;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:#fff;outline:0;z-index:1}
+#edCode::selection{background:#4fd4ff55;-webkit-text-fill-color:transparent}
+#edCode::-webkit-scrollbar{width:9px;height:9px}#edCode::-webkit-scrollbar-thumb{background:#ffffff2e;border-radius:9px}
+
+/* الإخراج */
+.ed-out{flex:1;min-height:0;overflow:auto;margin:0;padding:12px 14px;background:var(--code-bg);color:var(--code-ink);font:400 14px/1.7 'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;direction:ltr;text-align:left;scrollbar-width:thin;scrollbar-color:#ffffff33 transparent}
+.ed-out .ln{white-space:pre-wrap;word-break:break-word;padding:1px 0;border-bottom:1px solid #ffffff0a}
+.ed-out .warn{color:var(--t-a)}.ed-out .err{color:var(--t-t)}.ed-out .info{color:var(--t-p)}.ed-out .sys{color:#7f8bb3;font-style:italic;font-family:'Noto Kufi Arabic',sans-serif}
+.ed-out .ph{color:#5d6a92;font-family:'Noto Kufi Arabic',sans-serif;direction:rtl;text-align:right}
+.ed-status{display:flex;align-items:center;gap:10px;padding:7px 12px;border-top:1px solid var(--line);background:var(--panel-2);color:var(--mute);font-size:12.5px;flex-wrap:wrap}
+.ed-status .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
+.ed-status.busy .dot{background:var(--t-a);animation:edp 1s infinite}
+.ed-status.bad .dot{background:#e5484d}
+.ed-status kbd{font:11px 'JetBrains Mono',monospace;padding:1px 6px;border:1px solid var(--line);border-radius:5px;background:var(--panel);color:var(--ink)}
+.ed-status .sp{margin-inline-start:auto}
+@keyframes edp{50%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){.ed-status.busy .dot{animation:none}.ed-btn{transition:none}}
+@media(max-width:520px){#ed{padding:0}.ed-box{border-radius:0;height:100%;border:0}.ed-btn{padding:0 11px}.ed-status .hint{display:none}}
+/* يلغي قاعدة الجوال العامة (pre-wrap) حتى تبقى الأسطر مطابقة لأرقامها */
+.mac .ed-pre{white-space:pre!important;overflow-wrap:normal!important;word-break:normal!important}
