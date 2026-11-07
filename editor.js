@@ -9,7 +9,13 @@ var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}
 var esc=function(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")};
 var KEY_FS="ed_fs",KEY_LANG="ed_lang",KEY_IN="ed_stdin",LIMIT_MS=5000,PY_LIMIT_MS=10000,PY_LOAD_MS=40000;
 /* مصادر Pyodide (يُجرَّب التالي تلقائيًا عند الفشل) */
-var PY_CDNS=["https://cdn.jsdelivr.net/pyodide/v0.26.4/full/","https://cdn.jsdelivr.net/npm/pyodide@0.26.4/","https://unpkg.com/pyodide@0.26.4/"],pyIdx=0;
+var PY_CDNS=[
+ {t:"pyo",u:"https://cdn.jsdelivr.net/pyodide/v0.26.4/full/"},
+ {t:"pyo",u:"https://cdn.jsdelivr.net/npm/pyodide@0.26.4/"},
+ {t:"sk",u:"https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/"},
+ {t:"sk",u:"https://skulpt.org/js/"}
+],pyIdx=parseInt(LS.get("ed_pyidx"),10)||0,pyWhy=[],skNoted=false;
+if(pyIdx<0||pyIdx>=PY_CDNS.length)pyIdx=0;
 
 /* ---------- الأكواد الابتدائية والأمثلة ---------- */
 var START_JS='// اكتب كود جافا سكربت هنا ثم اضغط «تشغيل» (Ctrl + Enter)\nconst numList = [3, 7, 14, 21, 25];\n\nfor (const num of numList) {\n  if (num % 7 == 0) {\n    console.log(num + " يقبل القسمة على 7");\n  }\n}\n';
@@ -185,6 +191,51 @@ function pyWorkerMain(){
     post("done",Date.now()-t0);
   };
 }
+/* ---------- Worker بايثون البديل (Skulpt — مفسّر JavaScript خالص بدون WebAssembly) ---------- */
+function skWorkerMain(){
+  var n=0,MAX=1500,ready=false;
+  function post(t,a){self.postMessage({t:t,a:a})}
+  function line(t,s){if(++n>MAX){if(n===MAX+1)post("err","تجاوز الحد الأقصى للإخراج ("+MAX+" سطر).");return}post(t,s)}
+  self.onmessage=function(e){
+    var m=e.data;
+    if(m&&m.t==="init"){
+      try{
+        importScripts(m.index+"skulpt.min.js",m.index+"skulpt-stdlib.js");
+        if(typeof Sk==="undefined")throw new Error("Skulpt لم يُحمَّل — "+m.index);
+        ready=true;post("ready");
+      }catch(err){post("fail",String(err&&err.message!==undefined?err.message:err))}
+      return;
+    }
+    if(!m||m.t!=="run"||!ready)return;
+    var t0=Date.now(),rows=m.stdin?String(m.stdin).split("\n"):[],ri=0,ob="";
+    n=0;post("start");
+    function flush(all){
+      var i;while((i=ob.indexOf("\n"))>-1){line("log",ob.slice(0,i));ob=ob.slice(i+1)}
+      if(all&&ob){line("log",ob);ob=""}
+    }
+    Sk.configure({
+      output:function(t){ob+=t;flush(false)},
+      read:function(x){
+        if(Sk.builtinFiles===undefined||Sk.builtinFiles["files"][x]===undefined)throw "File not found: '"+x+"'";
+        return Sk.builtinFiles["files"][x];
+      },
+      inputfunTakesPrompt:true,
+      inputfun:function(p){
+        ob+=(p||"");
+        if(ri>=rows.length){flush(true);throw new Error("EOFError: EOF when reading a line (أضف قيم input() في خانة «المدخلات» — كل سطر = قيمة)")}
+        var v=rows[ri++];ob+=v+"\n";flush(false);return v;
+      },
+      __future__:Sk.python3
+    });
+    Sk.misceval.asyncToPromise(function(){return Sk.importMainWithBody("<stdin>",false,m.code,true)}).then(function(){
+      flush(true);post("done",Date.now()-t0);
+    },function(err){
+      flush(true);post("err",String(err&&err.toString?err.toString():err));post("done",Date.now()-t0);
+    });
+  };
+}
+var skURL=null;
+function getSkURL(){if(!skURL)skURL=URL.createObjectURL(new Blob(["("+skWorkerMain.toString()+")()"],{type:"text/javascript"}));return skURL}
 var pyURL=null;
 function getPyURL(){if(!pyURL)pyURL=URL.createObjectURL(new Blob(["("+pyWorkerMain.toString()+")()"],{type:"text/javascript"}));return pyURL}
 
@@ -736,31 +787,34 @@ function sendPy(){
   pw.postMessage({t:"run",code:code.value,stdin:stdin.value});
 }
 function pyRetry(why){
-  /* جرّب المصدر التالي؛ إن انتهت المصادر أظهر الخطأ */
+  /* جرّب المصدر التالي (Pyodide ثم Skulpt)؛ إن انتهت المصادر أظهر الخطأ */
   if(pw){pw.terminate();pw=null}
   clearTimeout(pyLoadT);pyReady=false;
+  pyWhy.push(PY_CDNS[pyIdx].u+" → "+String(why).split("\n")[0].slice(0,160));
+  if(window.console&&console.warn)console.warn("[editor] python load failed:",PY_CDNS[pyIdx].u,why);
   if(pyIdx<PY_CDNS.length-1&&pyBusy){
     pyIdx++;status("جارٍ المحاولة من مصدر بديل ("+(pyIdx+1)+"/"+PY_CDNS.length+")…","busy");
     if(!makePyWorker()){pyIdx=0}
     return;
   }
-  pyIdx=0;pyKill();clearOut();
-  line("err","تعذّر تحميل مفسّر بايثون من كل المصادر.\nيلزم اتصال بالإنترنت عند أول تشغيل، وتأكد أن مانع الإعلانات/الـ VPN لا يحجب cdn.jsdelivr.net أو unpkg.com.\n"+why);
+  var det=pyWhy.join("\n");pyWhy=[];pyIdx=0;LS.set("ed_pyidx","0");pyKill();clearOut();
+  line("err","تعذّر تحميل مفسّر بايثون من كل المصادر.\nيلزم اتصال بالإنترنت عند أول تشغيل، وتأكد أن مانع الإعلانات/الـ VPN لا يحجب cdn.jsdelivr.net أو skulpt.org.\n\n"+det);
   status("فشل التحميل","bad");
 }
 function makePyWorker(){
-  try{pw=new Worker(getPyURL())}catch(e){pyKill();line("err","تعذّر تشغيل بايثون في هذا المتصفح: "+e.message);status("خطأ","bad");return false}
+  try{pw=new Worker(PY_CDNS[pyIdx].t==="sk"?getSkURL():getPyURL())}catch(e){pyKill();line("err","تعذّر تشغيل بايثون في هذا المتصفح: "+e.message);status("خطأ","bad");return false}
   var w=pw;
   w.onmessage=function(e){
     if(w!==pw)return;
     var m=e.data;
     if(m.t==="ready"){
-      clearTimeout(pyLoadT);pyReady=true;
+      clearTimeout(pyLoadT);pyReady=true;pyWhy=[];LS.set("ed_pyidx",String(pyIdx));
       if(pyPending&&pyBusy)sendPy();
     }
     else if(m.t==="fail")pyRetry(m.a);
     else if(m.t==="start"){
       lines=0;out.textContent="";pyErrs=0;status("يعمل…","busy");
+      if(PY_CDNS[pyIdx].t==="sk"&&!skNoted){skNoted=true;line("sys","ℹ️ يعمل الآن مفسّر Skulpt (يدعم أساسيات بايثون: حلقات، دوال، قوائم، math، random…).")}
       clearTimeout(pyT);pyT=setTimeout(function(){
         if(pyBusy){pyKill();line("err","⏱ توقّف التنفيذ بعد "+(PY_LIMIT_MS/1000)+" ثوانٍ (ربما توجد حلقة لا نهائية).");status("تجاوز المهلة","bad")}
       },PY_LIMIT_MS);
@@ -779,7 +833,7 @@ function makePyWorker(){
     else{var msg=e.message||"خطأ غير معروف";pyKill();line("err",msg);status("خطأ","bad")}
   };
   pyLoadT=setTimeout(function(){if(!pyReady)pyRetry("انتهت مهلة التحميل")},PY_LOAD_MS);
-  w.postMessage({t:"init",index:PY_CDNS[pyIdx]});
+  w.postMessage({t:"init",index:PY_CDNS[pyIdx].u});
   return true;
 }
 function runPy(){
