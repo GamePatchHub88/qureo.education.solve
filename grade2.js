@@ -327,6 +327,92 @@ const G2PY=[
 [`اعرض جميع القيم الموجودة في القائمة على الشاشة (لا تُدخل القيم مباشرة)`,`عدّل السطر الثاني فقط. الكود النهائي:`,`num = [5, 10, 15, 20, 25]\nprint(num)`],
 [`اختر نتيجة تشغيل البرنامج: num = [1, 2, 3] ثم sum = 0 ثم for i in range(3): sum = sum + num[i] ثم print(sum)`,`6`],
 [`اعرض طول القائمة على الشاشة (لا تُدخل رقم الطول مباشرة)`,`عدّل السطر الثاني فقط. الكود النهائي:`,`num = [5, 10, 15, 20, 25]\nprint(len(num))`]],``,1]
+]},
+{id:16,lang:"py",title:"الفصل 16",sub:"المصفوفة (2)",lessons:[
+[`الدرس 1: ما هي المصفوفة؟`,[
+[`ضع مستويات التحذير في مصفوفة أعداد صحيحة (2 = خطر، 1 = تحذير): اكتب import array في البداية، وعيّن array.array('i', [2, 2, 1, 1, 2, 1, 2]) إلى warn_array، ثم اطبع العنصرين 0 و5`,`أضف السطرين الرابع والخامس. الكود النهائي:`,`import array\n\nwarn_array = array.array('i', [2, 2, 1, 1, 2, 1, 2])\nprint(warn_array[0])\nprint(warn_array[5])`],
+[`اطبع طول المصفوفة warn_array في وحدة التحكم`,`أضف السطر الرابع. الكود النهائي:`,`import array\n\nwarn_array = array.array('i', [2, 2, 1, 1, 2, 1, 2])\nprint(len(warn_array))`],
+[`أنشئ مصفوفة أعداد صحيحة: اكتب import array في البداية وعيّن array.array('i', [2, 2, 1, 1, 2, 1, 2]) إلى warn_array`,`امسح الكود أو عدّله ليصبح هكذا، مع بقاء السطر الثاني فارغًا:`,`import array\n\nwarn_array = array.array('i', [2, 2, 1, 1, 2, 1, 2])\nprint(warn_array[0])`]]],
+[`الدرس 2: تدريب على المصفوفات`,[
+[`أنشئ مصفوفة لأيام الأسبوع تبدأ من الثلاثاء: 2، 3، 4، 5، 6، 7، 1. اكتب import array وعيّن array.array('i', [2, 3, 4, 5, 6, 7, 1]) إلى day_array`,`عدّل السطر الثالث ليكون هكذا. الكود النهائي:`,`import array\n\nday_array = array.array('i', [2, 3, 4, 5, 6, 7, 1])`],
+[`اطبع العنصر رقم 0 والعنصر رقم 6 من day_array في وحدة التحكم`,`أضف السطرين الرابع والخامس. الكود النهائي:`,`import array\n\nday_array = array.array('i', [2, 3, 4, 5, 6, 7, 1])\nprint(day_array[0])\nprint(day_array[6])`],
+[`اطبع طول المصفوفة day_array على الشاشة`,`أضف السطر الرابع. الكود النهائي:`,`import array\n\nday_array = array.array('i', [2, 3, 4, 5, 6, 7, 1])\nprint(len(day_array))`]]],
+[`مراجعة الفصل 16`,[
+[`اختر البرنامج الصحيح لإنشاء مصفوفة تحتوي على أعداد صحيحة فقط`,``,`import array\nrank_array = array.array('i', [3, 1, 3, 2, 1])`],
+[`اختر مخرجات البرنامج: import array ثم team_array = array.array('i', [10, 20, 30, 40, 50]) ثم print(team_array[2])`,`30`],
+[`اكتب import array في البداية، وعيّن round_array باستخدام array.array('i', [1, 2, 3, 4, 5])، ثم اطبع العنصرين 1 و4`,`عدّل الأسطر الثالث والرابع والخامس. الكود النهائي:`,`import array\n\nround_array = array.array('i', [1, 2, 3, 4, 5])\nprint(round_array[1])\nprint(round_array[4])`],
+[`اختر مخرجات البرنامج: point_array = array.array('i', [8, 12, 15, 9, 11, 14]) ثم print(len(point_array))`,`6`],
+[`اختر مخرجات البرنامج: import numpy ثم read_array = numpy.array([35, 50, 62]) ثم print(read_array + 3)`,`[38 53 65]`]],``,1]
+]},
+{id:17,lang:"py",title:"الفصل 17",sub:"مراجعة الفهم",lessons:[
+[`الدرس 1: مراجعة الفصلين 15 و16`,[
+[`استخرج درجة الحرارة لليوم الثالث من temp_list واطبعها على الشاشة`,`أضف السطر الثاني. الكود النهائي:`,`temp_list = [35, 34, 26, 29, 31, 33, 35]\nprint(temp_list[2])`],
+[`اطبع طول temp_list على الشاشة`,`أضف السطر الثاني. الكود النهائي:`,`temp_list = [35, 34, 26, 29, 31, 33, 35]\nprint(len(temp_list))`],
+[`اجمع درجات الحرارة خلال أسبوع باستخدام for، ثم اقسم المجموع على 7 واطبعه`,`أضف الأسطر من الثالث إلى الخامس، والسطر الرابع يبدأ بمسافة. الكود النهائي:`,`temp_list = [35, 34, 26, 29, 31, 33, 35]\ntotal = 0\nfor i in range(7):\n    total = total + temp_list[i]\nprint(total / 7)`],
+[`ضع مستويات التحذير في مصفوفة: import array ثم warn_array = array.array('i', [2, 2, 1, 1, 2, 1, 2]) ثم اطبع العنصرين 0 و5`,`أضف السطرين الرابع والخامس. الكود النهائي:`,`import array\n\nwarn_array = array.array('i', [2, 2, 1, 1, 2, 1, 2])\nprint(warn_array[0])\nprint(warn_array[5])`],
+[`اطبع طول المصفوفة warn_array على الشاشة`,`أضف السطر الرابع. الكود النهائي:`,`import array\n\nwarn_array = array.array('i', [2, 2, 1, 1, 2, 1, 2])\nprint(len(warn_array))`],
+[`أنشئ مصفوفة أيام الأسبوع: import array ثم day_array = array.array('i', [2, 3, 4, 5, 6, 7, 1]) ثم اطبع العنصرين 0 و6`,`يفضّل تعديل السطرين الأول والثالث أولًا ثم إضافة السطرين الرابع والخامس حتى لا تظهر رسالة خطأ. الكود النهائي:`,`import array\n\nday_array = array.array('i', [2, 3, 4, 5, 6, 7, 1])\nprint(day_array[0])\nprint(day_array[6])`]]],
+[`اختبار منتصف الطريق (الفصل 17)`,[
+[`حدد ناتج: num = [5, 10, 15, 20, 25] ثم print(num[2])`,`15`],
+[`اطبع جميع القيم الموجودة في القائمة على الشاشة (لا تكتب القيم مباشرة)`,`عدّل السطر الثاني فقط. الكود النهائي:`,`num = [5, 10, 15, 20, 25]\nprint(num)`],
+[`حدد ناتج: num = [1, 2, 3] ثم sum = 0 ثم for i in range(3): sum = sum + num[i] ثم print(sum)`,`6`],
+[`حدد ناتج: import array ثم team_array = array.array('i', [10, 20, 30, 40, 50]) ثم print(team_array[2])`,`30`],
+[`اختر البرنامج الصحيح لإنشاء مصفوفة من الأعداد الصحيحة فقط`,``,`import array\nrank_array = array.array('i', [3, 1, 3, 2, 1])`],
+[`حدد ناتج: point_array = array.array('i', [8, 12, 15, 9, 11, 14]) ثم print(len(point_array))`,`6`]],``,1]
+]},
+{id:18,lang:"py",title:"الفصل 18",sub:"bool",lessons:[
+[`الدرس 1: المتغيرات وقيم bool`,[
+[`ماذا ستكون النتيجة؟ (الناتج هو "Practice in the gym")`,`Practice in the gym`],
+[`عيّن True إلى is_sunny واجعل البرنامج يُخرج "Practice on the field"`,`اكتب True في المكان المخصص. الكود النهائي:`,`is_sunny = True\nif is_sunny:\n    print("Practice on the field")\nelse:\n    print("Practice in the gym")`]]],
+[`الدرس 2: bool`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`تحقق من نوع البيانات للقيمة المعيّنة لـ is_sunny واعرضها: print(type(is_sunny))`,`اكتبه في المكان المخصص. الكود النهائي:`,`is_sunny = "True"\nprint(type(is_sunny))`],
+[`اجعل الحاسوب يحدد نوع بيانات قيمة is_sunny ويعرضها على الشاشة`,`اكتبه في المكان المخصص. الكود النهائي:`,`is_sunny = True\nprint(type(is_sunny))`],
+[`ما نوع بيانات قيمة flag في البرنامج: flag = "False"`,`نوع السلسلة النصية (str)`],
+[`ما نوع بيانات قيمة flag في البرنامج: flag = False`,`نوع bool`]]],
+[`الدرس 3: تعيين قيم bool`,[
+[`أخرج "Booth approved!" إذا جمعت 8 طوابع أو أكثر وساعدت 4 مرات أو أكثر (stamp_count و help_count)`,`اكتب الشرط في السطر الرابع. الكود النهائي:`,`stamp_count = 8\nhelp_count = 5\nif stamp_count >= 8 and help_count >= 4:\n    print("Booth approved!")\nelse:\n    print("Maybe next year!")`],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`أخرج "Booth approved!" إذا جمعت 8 طوابع أو أكثر وساعدت 4 مرات أو أكثر وحصلت على 75 درجة أو أكثر (result = True / result = False)`,`اكتب result = True في السطر السابع وresult = False في السطر التاسع. الكود النهائي:`,`stamp_count = 8\nhelp_count = 5\nquiz_score = 60\nresult = None\nif stamp_count >= 8 and help_count >= 4:\n    result = True\nelse:\n    result = False`],
+[`أخرج "Food stall approved!" إذا تحقق الشرطان السابقان وكانت درجة الاختبار 75 أو أكثر`,`اكتب الشرط في السطر الحادي عشر. الكود النهائي:`,`stamp_count = 8\nhelp_count = 5\nquiz_score = 60\nresult = None\nif stamp_count >= 8 and help_count >= 4:\n    result = True\nelse:\n    result = False\nif result and quiz_score >= 75:\n    print("Booth approved!")\nelse:\n    print("Maybe next year!")`]]],
+[`مراجعة الفصل 18`,[
+[`اختر مخرجات البرنامج: lamp_on = True ثم if lamp_on: print("ON") else: print("OFF")`,`ON`],
+[`اختر مخرجات البرنامج: is_ready = False ثم print(type(is_ready))`,`<class 'bool'>`],
+[`ما نوع بيانات القيمة المعيّنة للمتغير: team_name = "False"`,`str`],
+[`اختر ناتج البرنامج: can_play = False ثم if can_play: print("A") else: print("B")`,`B`],
+[`اختر ناتج البرنامج: lamp_on = False ثم hour = 21 ثم if hour > 17 and hour < 23: lamp_on = True else: lamp_on = False ثم if lamp_on: print("ON") else: print("OFF")`,`ON`]],``,1]
+]},
+{id:19,lang:"py",title:"الفصل 19",sub:"الدوال (3)",lessons:[
+[`الدرس 1: دوال جاهزة`,[
+[`عرض الرف 87.5 سم وعرض كل صندوق جوائز 12.3 سم. احسب عدد الصناديق كعدد صحيح: import math ثم math.floor لتقريب 87.5 / 12.3 إلى الأسفل`,PY_COPY,`import math\nprint(math.floor(87.5 / 12.3))`],
+[`أدخل نفس البرنامج: import math ثم print(math.floor(7.6)) ثم print(round(7.6))`,PY_COPY,`import math\nprint(math.floor(7.6))\nprint(round(7.6))`],
+[`الرف الآخر عرضه 64.8 سم وكل صندوق 9.5 سم: import math ثم math.floor لتقريب 64.8 / 9.5 إلى الأسفل`,PY_COPY,`import math\nprint(math.floor(64.8 / 9.5))`]]],
+[`الدرس 2: مراجعة import`,[
+[`اكتب import random في الأعلى، ثم استدعِ random.random واعرضه`,PY_SAME,`import random\nprint(random.random())`],
+[`اضرب random.random() في 10 واعرضه على الشاشة`,`عدّل السطر الثاني. الكود النهائي:`,`import random\nprint(random.random() * 10)`],
+[`استخدم math.floor لتقريب الناتج إلى عدد صحيح من 0 إلى 9 واعرضه`,`اكتب الأكواد في الأماكن المخصصة. الكود النهائي:`,`import math\nimport random\nprint(math.floor(random.random() * 10))`],
+[`أنشئ برنامجًا يقرر عشوائيًا هل ستفوز أم تخسر: if random.random() >= 0.5: print("You win!") else: print("You lose...")`,`اكتب الشرط في المكان المخصص. الكود النهائي:`,`import random\nif random.random() >= 0.5:\n    print("You win!")\nelse:\n    print("You lose...")`]]],
+[`مراجعة الفصل 19`,[
+[`اختر البرنامج الصحيح الذي يستخدم math.floor`,``,`import math\nprint(math.floor(4.7))`],
+[`اختر ناتج البرنامج: import math ثم print(math.floor(5.8)) ثم print(round(5.8))`,`5\n6`],
+[`اختر العبارة الصحيحة حول القيمة التي يُرجعها random.random()`,`رقم من 0 إلى أقل من 1`],
+[`اعرض عددًا صحيحًا عشوائيًا من رقم واحد: import math وimport random ثم math.floor(random.random() * 10)`,`عدّل السطر الثالث. الكود النهائي:`,`import math\nimport random\nprint(math.floor(random.random() * 10))`],
+[`أدخل تعبيرًا شرطيًا يقول إذا كانت القيمة العشوائية 0.7 أو أكثر (random.random())`,`عدّل السطر الثاني. الكود النهائي:`,`import random\nif random.random() >= 0.7:\n    print("Grand prize!")\nelse:\n    print("Consolation prize")`]],``,1]
+]},
+{id:20,lang:"py",title:"الفصل 20",sub:"مراجعة الفهم",lessons:[
+[`الدرس 1: مراجعة الفصلين 18 و19`,[
+[`عيّن True للمتغير is_ready، وإذا كان is_ready فأخرج "Ready to go!"`,`اكتب if is_ready: في السطر الثالث. الكود النهائي:`,`is_ready = True\nif is_ready:\n    print("Ready to go!")\nelse:\n    print("Not ready yet...")`],
+[`تحقق من نوع بيانات القيمة المعيّنة لـ is_ready واعرضه على الشاشة`,`اكتب print(type(is_ready)) في المكان المخصص. الكود النهائي:`,`is_ready = True\nprint(type(is_ready))`],
+[`يمكنك إنشاء كشك إذا جمعت 8 تذاكر أو أكثر وقدمت المساعدة 4 مرات أو أكثر. تحقق من ticket_count وhelp_count وعيّن True أو False للنتيجة`,`اكتب result = True وresult = False في المكانين المخصصين. الكود النهائي:`,`ticket_count = 8\nhelp_count = 5\nresult = False\nif ticket_count >= 8 and help_count >= 4:\n    result = True\nelse:\n    result = False\nif result:\n    print("Booth approved!")\nelse:\n    print("Maybe next year!")`],
+[`احسب عدد العناصر التي تتسع على الرف كعدد صحيح: عرض الرف 64.8 سم وحجم كل صندوق 9.5 سم`,PY_COPY,`import math\nprint(math.floor(64.8 / 9.5))`],
+[`اعرض رقم سحب عشوائيًا (عددًا صحيحًا من 0 إلى 9): import math وimport random ثم math.floor(random.random() * 10)`,`اكتب الأكواد في الأماكن المخصصة. الكود النهائي:`,`import math\nimport random\nprint(math.floor(random.random() * 10))`]]],
+[`اختبار منتصف الطريق (الفصل 20)`,[
+[`اختر مخرجات البرنامج: lamp_on = True ثم if lamp_on: print("ON") else: print("OFF")`,`ON`],
+[`ما نوع بيانات القيمة المعيّنة للمتغير: team_name = "False"`,`str`],
+[`اختر مخرجات البرنامج: is_ready = False ثم print(type(is_ready))`,`<class 'bool'>`],
+[`اختر البرنامج الصحيح الذي يستخدم math.floor`,``,`import math\nprint(math.floor(4.7))`],
+[`اعرض عددًا صحيحًا عشوائيًا من رقم واحد: import math وimport random ثم math.floor(random.random() * 10)`,`عدّل السطر الثالث. الكود النهائي:`,`import math\nimport random\nprint(math.floor(random.random() * 10))`],
+[`أدخل تعبيرًا شرطيًا يقول إذا كانت القيمة العشوائية 0.7 أو أكثر (random.random())`,`عدّل السطر الثاني. الكود النهائي:`,`import random\nif random.random() >= 0.7:\n    print("Grand prize!")\nelse:\n    print("Consolation prize")`]],``,1]
 ]}
 ];
 
