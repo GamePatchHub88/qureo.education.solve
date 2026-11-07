@@ -413,6 +413,228 @@ const G2PY=[
 [`اختر البرنامج الصحيح الذي يستخدم math.floor`,``,`import math\nprint(math.floor(4.7))`],
 [`اعرض عددًا صحيحًا عشوائيًا من رقم واحد: import math وimport random ثم math.floor(random.random() * 10)`,`عدّل السطر الثالث. الكود النهائي:`,`import math\nimport random\nprint(math.floor(random.random() * 10))`],
 [`أدخل تعبيرًا شرطيًا يقول إذا كانت القيمة العشوائية 0.7 أو أكثر (random.random())`,`عدّل السطر الثاني. الكود النهائي:`,`import random\nif random.random() >= 0.7:\n    print("Grand prize!")\nelse:\n    print("Consolation prize")`]],``,1]
+]},
+{id:21,lang:"py",title:"الفصل 21",sub:"مراجعة الفهم",lessons:[
+[`الدرس 1: مراجعة الشروط`,[
+[`عرّف المتغير score وعيّن له القيمة 100، وإذا كان score يساوي 100 فاعرض "Won the Golden Frying Pan"`,`اكتب الكود مع مراعاة المسافة قبل السطر الثالث. الكود النهائي:`,`score = 100\nif score == 100:\n    print("Won the Golden Frying Pan")`],
+[`أكمل البرنامج من السطر الرابع: وإلا إذا كان score أكبر من أو يساوي 85 فاعرض "Dessert Party"، وإلا فاعرض "Dishwashing Duty"`,`أضف الأسطر من الرابع إلى السابع، مع مراعاة المسافة قبل السطرين الخامس والسابع. الكود النهائي:`,`score = 85\nif score == 100:\n    print("Won the Golden Frying Pan")\nelif score >= 85:\n    print("Dessert Party")\nelse:\n    print("Dishwashing Duty")`]]],
+[`الدرس 2: ممارسة المشغّل`,[
+[`أدخل التعبير الشرطي «إذا كانت قيمة score أكبر من أو تساوي 85»`,`اكتب في المكان المخصص «score >= 85:». الكود النهائي:`,`score = 100\nif score >= 85:\n    print("Pass")`],
+[`أدخل التعبير الشرطي «إذا كانت قيمة score أقل من أو تساوي 45»`,`اكتب في المكان المخصص «score <= 45:». الكود النهائي:`,`score = 30\nif score <= 45:\n    print("Retest")`],
+[`أدخل التعبير الشرطي «عدد الأشخاص أكبر من أو يساوي 3 والمجموع يساوي 4500 نقطة»`,`اكتب في المكان المخصص «number_of_people >= 3 and total == 4500:». الكود النهائي:`,`number_of_people = 3\ntotal = 4500\nif number_of_people >= 3 and total == 4500:\n    print("25% discount")`],
+[`أدخل التعبير الشرطي «عدد الأشخاص أكبر من أو يساوي 10 أو المجموع أكبر من أو يساوي 10000 نقطة»`,`اكتب في المكان المخصص «number_of_people >= 10 or total >= 10000:». الكود النهائي:`,`number_of_people = 4\ntotal = 13500\nif number_of_people >= 10 or total >= 10000:\n    print("Bonus Gift")`]]],
+[`الدرس 3: استخدام المتغيرات في عبارات if`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`هل سيتسبب هذا البرنامج في حدوث خطأ؟ score = 100 ثم bonus_point = 5000 ثم if score == 100: print(str(bonus_point) + " points earned")`,`لا يتسبب في حدوث خطأ`],
+[`هل سيتسبب هذا البرنامج في حدوث خطأ؟ score = 100 ثم if score == 100: bonus_point = 5000 ثم print(str(bonus_point) + " points earned")`,`يتسبب في حدوث خطأ`],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`هل سيتسبب هذا البرنامج في حدوث خطأ؟ score = 100 ثم if score == 100: treat = "book voucher" ثم print(str(treat) + " earned")`,`يتسبب في حدوث خطأ`]]],
+[`الدرس 4: الشروط المتداخلة`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN]]],
+[`الدرس 5: تدرب على عبارات if المتداخلة`,[
+[`عرّف المتغير temperature وعيّن له القيمة 180، وإذا كان temperature أكبر من أو يساوي 170 فاعرض "Heating temperature OK"`,`اكتب الكود مع مراعاة المسافة قبل السطر الثالث. الكود النهائي:`,`temperature = 180\nif temperature >= 170:\n    print("Heating temperature OK")`],
+[`أضف شرطًا داخل الشرط الأول: إذا كان cook_time أكبر من أو يساوي 12 فاعرض "Cooking successful" (المتغيران temperature = 180 وcook_time = 12)`,`اكتب السطرين الخامس والسادس؛ يبدأ الخامس بمسافة والسادس بـ 8 مسافات، ويفضّل نسخ كل سطر على حدة. الكود النهائي:`,`temperature = 180\ncook_time = 12\nif temperature >= 170:\n    print("Heating temperature OK")\n    if cook_time >= 12:\n        print("Cooking successful")`],
+[`عرّف المتغير sauce_temp وعيّن له القيمة 98، وإذا كان sauce_temp أكبر من أو يساوي 95 فاعرض "Sauce is ready"`,`اكتب الكود مع مراعاة المسافة قبل السطر الثالث. الكود النهائي:`,`sauce_temp = 98\nif sauce_temp >= 95:\n    print("Sauce is ready")`],
+[`في السطر الثاني عرّف المتغير thickness وعيّن له القيمة 2، وإذا كانت الصلصة جاهزة وكانت thickness أكبر من أو تساوي 3 فاعرض "Thickness is enough"`,`اكتب thickness = 2 في السطر الثاني، ثم السطرين الخامس والسادس (الخامس بمسافة والسادس بـ 8 مسافات). الكود النهائي:`,`sauce_temp = 98\nthickness = 2\nif sauce_temp >= 95:\n    print("Sauce is ready")\n    if thickness >= 3:\n        print("Thickness is enough")`]]],
+[`الدرس 6: مراجعة معالجة التكرار`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`اطبع "Fight" أربع مرات باستخدام for`,`اكتب في المكان المخصص «for i in range(4):». الكود النهائي:`,`for i in range(4):\n    print("Fight")`],
+[`باستخدام for اطبع "I can do it" على الشاشة 4 مرات`,`اكتب في المكان المخصص «for i in range(4):». الكود النهائي:`,`for i in range(4):\n    print("I can do it")`],
+[`باستخدام for اطبع "Yay" على الشاشة 7 مرات`,PY_COPY,`for i in range(7):\n    print("Yay")`]]],
+[`الدرس 7: نطاق المتغيرات في جملة for`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`ما اسم النطاق (Scope) الذي يمكن استخدام المتغير داخله؟`,`نطاق (Scope)`],
+[`هل ينتج عن هذا البرنامج خطأ؟ for i in range(5): print(i) ثم print(i)`,`لا ينتج عنه خطأ`],
+[`هل ينتج عن هذا البرنامج خطأ؟ for i in range(5): print(i)`,`لا ينتج عنه خطأ`],
+[`هل ينتج عن هذا البرنامج خطأ؟ for i in range(3): num = 100 ثم print(num)`,`لا ينتج عنه خطأ`]]],
+[`الدرس 8: عبارات for و if المتداخلة`,[
+[`ما هي العادة اليومية الجديدة التي بدأها ريكي مؤخرًا؟`,`تمارين صوتية (vocal warm-up)`],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`باستخدام for اطبع "vocal warm-up" على الشاشة 5 مرات (استخدم المتغير i)`,PY_COPY,`for i in range(5):\n    print("vocal warm-up")`],
+[`أضف شرطًا داخل الحلقة: إذا كان i يساوي 2 فاعرض "tongue twister practice"`,`اكتب السطرين الثالث والرابع؛ يبدأ الثالث بمسافة والرابع بـ 8 مسافات. الكود النهائي:`,`for i in range(5):\n    print("vocal warm-up")\n    if i == 2:\n        print("tongue twister practice")`]]],
+[`الدرس 9: ممارسة التعشيش`,[
+[`باستخدام for اطبع "sandwich" على الشاشة 5 مرات (استخدم المتغير i)`,`اكتب الكود مع مراعاة المسافة في بداية السطر الثاني. الكود النهائي:`,`for i in range(5):\n    print("sandwich")`],
+[`في السطر الثالث: إذا كانت قيمة i تساوي 1 فاعرض "water bottle"`,`اكتب السطرين الثالث والرابع؛ يبدأ الثالث بمسافة والرابع بـ 8 مسافات. الكود النهائي:`,`for i in range(5):\n    print("sandwich")\n    if i == 1:\n        print("water bottle")`],
+[`اطبع "cookie" على الشاشة 5 مرات باستخدام for (المتغير i)، وبعد طباعة "cookie" الرابعة اطبع "chocolate"`,PY_COPY,`for i in range(5):\n    print("cookie")\n    if i == 3:\n        print("chocolate")`]]],
+[`الدرس 10: كيفية كتابة المعامل`,[
+[`أنشئ البرنامج: point = 0 ثم point += 3 ثم print(point)`,`اكتب point += 3 في السطر الثاني. الكود النهائي:`,`point = 0\npoint += 3\nprint(point)`],
+[`في السطر الثاني أضف القيمة 5 إلى المتغير num، دون استخدام الصيغة num = num + 5`,`اكتب num += 5 في السطر الثاني. الكود النهائي:`,`num = 0\nnum += 5\nprint(num)`]]],
+[`الدرس 11: مراجعة إنشاء الدوال`,[
+[`أنشئ دالة باسم divide6 بوسيط باسم total تقسم total على 6 وتعيّن الناتج للمتغير per ثم تعيد per`,PY_SAME,`def divide6(total):\n    per = total / 6\n    return per`],
+[`استدعِ الدالة divide6 بالوسيط 78 واعرض النتيجة على الشاشة باستخدام print`,`اكتب print(divide6(78)) في المكان المخصص. الكود النهائي:`,`def divide6(total):\n    per = total / 6\n    return per\nprint(divide6(78))`],
+[`أنشئ دالة باسم split5 بوسيط باسم total تقسم total على 5 وتعيّن الناتج للمتغير per وتعيد per، ثم استدعِها بالوسيط 7500 واطبع النتيجة`,PY_SAME,`def split5(total):\n    per = total / 5\n    return per\nprint(split5(7500))`]]],
+[`الدرس 12: نطاق المتغير في الدالة`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`ما اسم النطاق (Scope) الذي يمكن استخدام المتغير داخله؟`,`نطاق (Scope)`],
+[`هل سيتسبب هذا البرنامج في حدوث خطأ؟ def split5(total): result = total / 5 ثم return result ثم print(result)`,`يتسبب في حدوث خطأ`],
+[`هل سيتسبب هذا البرنامج في حدوث خطأ؟ def divide6(total): result = total / 6 ثم return result ثم print(divide6(60))`,`لا يتسبب في حدوث خطأ`]]],
+[`الدرس 13: دالة بدون وسائط`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`أنشئ دالة باسم goodEvening بدون وسائط تعيّن "Good evening!" للمتغير greeting وتعيده، ثم استدعِها واطبع الناتج`,PY_SAME,`def goodEvening():\n    greeting = "Good evening!"\n    return greeting\nprint(goodEvening())`]]],
+[`الدرس 14: دالة بوسائط متعددة`,[
+[`أنشئ دالة باسم sum بالوسيطين num1 وnum2 تعيّن num1 + num2 للمتغير result وتعيده`,PY_SAME,`def sum(num1, num2):\n    result = num1 + num2\n    return result`],
+[`استدعِ الدالة sum بالوسيطين 50 و100 واعرض النتيجة على الشاشة`,`اكتب print(sum(50, 100)) في المكان المخصص. الكود النهائي:`,`def sum(num1, num2):\n    result = num1 + num2\n    return result\nprint(sum(50, 100))`]]],
+[`الدرس 15: لنراجع`,[
+[`عيّن 82 للمتغير score؛ إذا كان score يساوي 100 فاطبع "Perfect score"، وإلا إذا كان 75 أو أعلى فاطبع "Pass"، وإلا فاطبع "Retake exam"`,PY_COPY,`score = 82\nif score == 100:\n    print("Perfect score")\nelif score >= 75:\n    print("Pass")\nelse:\n    print("Retake exam")`],
+[`هل سيتسبب هذا البرنامج في حدوث خطأ؟ challenge = 3 ثم if challenge == 1: prize = 26000 ثم print(str(prize) + " points GET")`,`يتسبب في حدوث خطأ`],
+[`هل سيؤدي هذا البرنامج إلى حدوث خطأ؟ for i in range(7): print(i)`,`لا يتسبب في حدوث خطأ`],
+[`هل سيتسبب هذا البرنامج في حدوث خطأ؟ def split5(total): result = total / 5 ثم return result ثم print(result)`,`يتسبب في حدوث خطأ`],
+[`عيّن score = 90 وrank = 1؛ اطبع "Certification passed" إذا كان score يساوي 85 أو أعلى، واطبع "Trophy earned" إذا كان rank يساوي 1 (دون استخدام and)`,`اجعل الشرط الثاني داخل الأول مع مراعاة المسافات. الكود النهائي:`,`score = 90\nrank = 1\nif score >= 85:\n    print("Certification passed")\n    if rank == 1:\n        print("Trophy earned")`],
+[`اطبع "Stretch" ثلاث مرات باستخدام for (المتغير i)، وعند طباعتها للمرة الثانية اطبع "Running"`,PY_COPY,`for i in range(3):\n    print("Stretch")\n    if i == 1:\n        print("Running")`],
+[`أنشئ دالة باسم goodMorning بدون وسائط تعيّن "Good morning" للمتغير greeting وتعيده، ثم استدعِها واطبع الناتج`,PY_SAME,`def goodMorning():\n    greeting = "Good morning"\n    return greeting\nprint(goodMorning())`],
+[`أنشئ دالة باسم calc بالوسيطين num1 وnum2 تعيد num1 × num2، ثم استدعِها بالوسيطين 55 و75 واطبع النتيجة`,PY_SAME,`def calc(num1, num2):\n    result = num1 * num2\n    return result\nprint(calc(55, 75))`]]],
+[`اختبار منتصف الطريق (الفصل 21)`,[
+[`أضف شرطًا ثانيًا: إذا كان A أصغر من B فاطبع "B is bigger" (التعبير الشرطي الثاني A < B)`,`أضف السطرين الخامس والسادس، ويبدأ السادس بمسافة. الكود النهائي:`,`A = 5\nB = 10\nif A > B:\n    print("A is bigger")\nelif A < B:\n    print("B is bigger")`],
+[`اختر العامل الصحيح الذي يمثل «تحقق عدة شروط في الوقت نفسه» (و)`,`and`],
+[`اطبع "Math is 100 points" إذا كانت math تساوي 100، واطبع "Math and English are 100 points" إذا كانت english تساوي 100 أيضًا (دون استخدام and)`,`اجعل الشرط الثاني داخل الأول؛ السطر الخامس بمسافة والسادس بـ 8 مسافات. الكود النهائي:`,`math = 100\nenglish = 100\nif math == 100:\n    print("Math is 100 points")\n    if english == 100:\n        print("Math and English are 100 points")`],
+[`اطبع "Good morning" على الشاشة 7 مرات`,PY_COPY,`for i in range(7):\n    print("Good morning")`],
+[`حدد نتيجة تنفيذ البرنامج: for i in range(3): num = 100 ثم print(num)`,`ينتج عنه خطأ`],
+[`حدد نتيجة تنفيذ البرنامج: for i in range(4): print("0") ثم if i == 2: print("1")`,`00010 (أي 0 ثم 0 ثم 0 ثم 1 ثم 0، كل رقم في سطر)`],
+[`اختر البرنامج المكافئ للعبارة i = i + 5`,`i += 5`],
+[`لديك الدالة divide3 التي تقسم القيمة على 3. مرّر إليها القيمة 12345 واطبع النتيجة`,`اكتب السطر الرابع من أول السطر دون مسافة. الكود النهائي:`,`def divide3(num):\n    result = num / 3\n    return result\nprint(divide3(12345))`],
+[`اختر البرنامج الصحيح لإنشاء الدالة motion بدون وسائط`,``,`def motion():\n    Program to Run`],
+[`أنشئ دالة باسم mul بالوسيطين num1 وnum2 تعيد num1 × num2، ثم استدعِها بالوسيطين 9 و7 واطبع النتيجة`,PY_COPY,`def mul(num1, num2):\n    result = num1 * num2\n    return result\nprint(mul(9, 7))`]],``,1]
+]},
+{id:22,lang:"py",title:"الفصل 22",sub:"تكرار الحسابات والقوائم",lessons:[
+[`الدرس 1: كيفية تكرار العمليات الحسابية`,[
+[`إذا كان الهدف هو تكرار عملية الضرب (repeating) فما نوع البرنامج الذي يجب استخدامه؟`,`جملة for (for statement)`],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN]]],
+[`الدرس 2: تدرب على تكرار الحساب`,[
+[`أنشئ برنامجًا لحساب 3×3×3×3`,PY_COPY,`num = 1\nfor i in range(4):\n    num = num * 3\nprint(num)`],
+[`احسب 5×5×5: عيّن 1 للمتغير num، وكرّر num = num * 5 ثلاث مرات، ثم اطبع num`,PY_COPY,`num = 1\nfor i in range(3):\n    num = num * 5\nprint(num)`],
+[`احسب 5×5×5 باستخدام for i in range(1, 4):`,`اكتب في المكانين المخصصين «for i in range(1, 4):» ثم «num = num * 5» (بمسافة قبله). الكود النهائي:`,`num = 1\nfor i in range(1, 4):\n    num = num * 5\nprint(num)`]]],
+[`الدرس 3: استخدام i في جملة for`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`أنشئ برنامجًا لحساب 2×3×4×5×6`,PY_COPY,`num = 1\nfor i in range(2, 7):\n    num = num * i\nprint(num)`],
+[`اضرب الأرقام من 2 إلى 9 بالترتيب: عيّن 1 للمتغير num، وكرّر num * i ثماني مرات، ثم اطبع num`,PY_COPY,`num = 1\nfor i in range(2, 10):\n    num = num * i\nprint(num)`]]],
+[`الدرس 4: مراجعة القوائم`,[
+[`ما اسم الأداة التي تتيح لك دمج قيم متعددة في قيمة واحدة؟`,`القائمة (List)`],
+[`عيّن درجات الحرارة 36.1 و36.4 و36.6 و36.5 و36.7 للمتغير body_temp_list`,PY_SAME,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7]`],
+[`ما الناتج المتوقع: body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7] ثم print(body_temp_list[2])`,`36.6`],
+[`اطبع القيمة الثانية للمتغير body_temp_list على الشاشة: print(body_temp_list[2])`,`اكتب السطر الثاني. الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7]\nprint(body_temp_list[2])`],
+[`اطبع القيمة 36.5 من body_temp_list باستخراجها من القائمة (لا تكتب 36.5 مباشرة)`,`اكتب في السطر الثاني. الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7]\nprint(body_temp_list[3])`]]],
+[`الدرس 5: الجمع بين التكرار والقوائم`,[
+[`عيّن درجات الحرارة 36.1 و36.4 و36.6 و36.5 و36.7 و36.0 و36.2 للمتغير body_temp_list`,PY_SAME,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7, 36.0, 36.2]`],
+[`اطبع متوسط درجة الحرارة على مدار 7 أيام: عرّف total = 0، وكرّر total = total + body_temp_list[i] سبع مرات، ثم اطبع total / 7`,`أضف الأسطر من الثاني إلى الخامس مع مراعاة المسافات. الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7, 36.0, 36.2]\ntotal = 0\nfor i in range(7):\n    total = total + body_temp_list[i]\nprint(total / 7)`],
+[`ما هي درجة حرارة جسم كودي؟`,`اختر أي إجابة (سؤال مفتوح).`]]],
+[`الدرس 6: استخدام عدد القيم في قائمة`,[
+[`اطبع عدد القيم في القائمة body_temp_list: print(len(body_temp_list))`,`اكتب في السطر الثالث. الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7, 36.0, 36.2, 36.8, 36.6, 36.5, 36.9, 36.4, 36.7, 37.0]\n\nprint(len(body_temp_list))`],
+[`اطبع متوسط درجة الحرارة على مدار 14 يومًا من البيانات في body_temp_list`,`اكتب في الأماكن المخصصة «for i in range(14):» ثم «total / 14». الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7, 36.0, 36.2, 36.8, 36.6, 36.5, 36.9, 36.4, 36.7, 37.0]\ntotal = 0\nfor i in range(14):\n    total = total + body_temp_list[i]\nprint(total / 14)`],
+[`اطبع متوسط درجة الحرارة باستخدام عدد القيم في body_temp_list بدل الرقم 14`,`اكتب في الأماكن المخصصة «for i in range(len(body_temp_list)):» ثم «total / len(body_temp_list)». الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7, 36.0, 36.2, 36.8, 36.6, 36.5, 36.9, 36.4, 36.7, 37.0]\ntotal = 0\nfor i in range(len(body_temp_list)):\n    total = total + body_temp_list[i]\nprint(total / len(body_temp_list))`]]],
+[`الدرس 7: القوائم والتكرار والشروط`,[
+[`اطبع "Caution!" إذا كانت أي من درجات الحرارة 37.0 أو أعلى (for بعدد قيم body_temp_list، وif داخلها)`,`أضف الأسطر من الثاني إلى الرابع مع مراعاة المسافات. الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7, 36.0, 36.2, 36.8, 37.1, 36.5, 36.9, 36.4, 36.7, 37.2]\nfor i in range(len(body_temp_list)):\n    if body_temp_list[i] >= 37.0:\n        print("Caution!")`],
+[`اطبع "Take a rest!" إذا كانت أي من درجات الحرارة 37.5 أو أعلى`,`عدّل السطرين الثالث والرابع مع مراعاة المسافات. الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7, 36.0, 36.2, 36.8, 37.1, 36.5, 36.9, 36.4, 36.7, 37.2]\nfor i in range(len(body_temp_list)):\n    if body_temp_list[i] >= 37.5:\n        print("Take a rest!")`]]],
+[`الدرس 8: لنراجع`,[
+[`احسب 3×3×3×3: عيّن 1 للمتغير num، وكرّر num = num * 3 أربع مرات، ثم اطبع num`,PY_COPY,`num = 1\nfor i in range(4):\n    num = num * 3\nprint(num)`],
+[`احسب 2×3×4×5×6`,PY_COPY,`num = 1\nfor i in range(2, 7):\n    num = num * i\nprint(num)`],
+[`اضرب الأرقام من 2 إلى 9 بالترتيب`,PY_COPY,`num = 1\nfor i in range(2, 10):\n    num = num * i\nprint(num)`],
+[`ماذا سيطبع هذا البرنامج: body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7] ثم print(body_temp_list[2])`,`36.6`],
+[`اطبع القيمة 36.8 من body_temp_list (لا تكتب 36.8 مباشرة)`,`اكتب في السطر الثاني. الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.8, 36.7]\nprint(body_temp_list[3])`],
+[`اطبع متوسط درجة الحرارة من body_temp_list، وأدخل len(اسم المتغير) لعدد مرات التكرار ولعدد الأيام عند القسمة`,`اكتب في الأماكن المخصصة «for i in range(len(body_temp_list)):» ثم «total / len(body_temp_list)». الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7, 36.0, 36.2, 36.8, 36.6, 36.5, 36.9, 36.4, 36.7, 37.0]\ntotal = 0\nfor i in range(len(body_temp_list)):\n    total = total + body_temp_list[i]\nprint(total / len(body_temp_list))`],
+[`اطبع "Watch out!" إذا كانت أي من درجات الحرارة 37.0 أو أعلى`,`أضف الأسطر من الثاني إلى الرابع مع مراعاة المسافات. الكود النهائي:`,`body_temp_list = [36.1, 36.4, 36.6, 36.5, 36.7, 36.0, 36.2, 36.8, 37.1, 36.5, 36.9, 36.4, 36.7, 37.2]\nfor i in range(len(body_temp_list)):\n    if body_temp_list[i] >= 37.0:\n        print("Watch out!")`]]],
+[`مراجعة الفصل 22`,[
+[`احسب 7×7×7×7×7: عيّن 1 للمتغير num، وكرّر num = num * 7 خمس مرات باستخدام range(5)، ثم اطبع num مرة واحدة`,PY_COPY,`num = 1\nfor i in range(5):\n    num = num * 7\nprint(num)`],
+[`اختر الخيار الصحيح لتغير قيمة i في البرنامج: num = 1 ثم for i in range(1, 8): num = num * 2 ثم print(num)`,`1->2->3->4->5->6->7 (تتغير قيمة i من 1 إلى 7 بالترتيب)`],
+[`احسب 5040/1/2/3/4/5: عيّن 5040 للمتغير num، وكرّر num = num / i خمس مرات باستخدام range(1, 6)، ثم اطبع num`,PY_COPY,`num = 5040\nfor i in range(1, 6):\n    num = num / i\nprint(num)`],
+[`اطبع القيمة 57 من mark_list دون كتابتها مباشرة`,`اكتب في السطر الثاني. الكود النهائي:`,`mark_list = [48, 55, 74, 85, 63, 57, 91]\nprint(mark_list[5])`],
+[`اطبع عدد القيم الموجودة في mark_list`,`اكتب في السطر الثاني. الكود النهائي:`,`mark_list = [48, 55, 74, 85, 63, 57, 91]\nprint(len(mark_list))`],
+[`اطبع "85 or above" إذا كانت الدرجة 85 أو أعلى (for بعدد قيم mark_list، وif داخلها)`,`أضف الأسطر من الثاني إلى الرابع مع مراعاة المسافات. الكود النهائي:`,`mark_list = [48, 55, 74, 85, 63, 57, 91]\nfor i in range(len(mark_list)):\n    if mark_list[i] >= 85:\n        print("85 or above")`]],``,1]
+]},
+{id:23,lang:"py",title:"الفصل 23",sub:"جملة for والمصفوفة",lessons:[
+[`الدرس 1: مراجعة معالجة التكرار`,[
+[`ضع أدنى درجات الحرارة لهذا الأسبوع (1 و3 و2 و-1 و0 و2 و1) في قائمة باسم low_temp_list (أرقام فقط)، ثم اطبع القيمة الرابعة في القائمة دون كتابة الرقم مباشرة`,`أنشئ القائمة ثم اطبع العنصر كما في الكود (الرقم 4 بين القوسين المربعين). الكود النهائي:`,`low_temp_list = [1, 3, 2, -1, 0, 2, 1]\nprint(low_temp_list[4])`],
+[`ما هو الغرض من جملة for؟`,`تكرار الأشياء`],
+[`اطبع جميع قيم low_temp_list بالترتيب باستخدام for i in range(7):`,`اكتب السطرين الثاني والثالث مع مراعاة المسافة. الكود النهائي:`,`low_temp_list = [1, 3, 2, -1, 0, 2, 1]\nfor i in range(7):\n    print(low_temp_list[i])`],
+[`اطبع جميع قيم low_temp_list بالترتيب باستخدام عدد القيم بدل الرقم 7`,`اكتب في المكان المخصص «len(low_temp_list)». الكود النهائي:`,`low_temp_list = [1, 3, 2, -1, 0, 2, 1]\nfor i in range(len(low_temp_list)):\n    print(low_temp_list[i])`]]],
+[`الدرس 2: for للقوائم`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`اطبع جميع قيم درجات الحرارة السبع على الشاشة: for temp in past_temp_list: ثم print(temp)`,`اكتب السطرين الثاني والثالث مع مراعاة المسافة. الكود النهائي:`,`past_temp_list = [7, 10, 12, 9, 11, 8, 15]\nfor temp in past_temp_list:\n    print(temp)`]]],
+[`الدرس 3: تدرب على استخدام for والقوائم`,[
+[`اطبع جميع قيم num_list على الشاشة؛ اكتب القائمة بعد in، واجعل المتغير الذي يخزن كل قيمة هو num`,`اكتب السطرين الثاني والثالث مع مراعاة المسافة. الكود النهائي:`,`num_list = [4, 8, 12, 16]\nfor num in num_list:\n    print(num)`],
+[`اطبع جميع قيم fruit_list (السلاسل: lime وberry وmango)؛ اكتب القائمة بعد in، واجعل المتغير الذي يخزن كل قيمة هو fruit`,PY_COPY,`fruit_list = ["lime", "berry", "mango"]\nfor fruit in fruit_list:\n    print(fruit)`]]],
+[`مراجعة الفصل 23`,[
+[`حدد نتيجة تشغيل البرنامج: rank_list = [5, 7, 14, 11, 8, 6, 13] ثم print(rank_list[2])`,`14`],
+[`حدد نتيجة تنفيذ البرنامج: size_list = [8, 11, 14] ثم for i in range(3): print(size_list[i])`,`8\n11\n14`],
+[`حدد نتيجة تنفيذ البرنامج: count_list = [3, 4, 5] ثم for i in range(len(count_list)): print(count_list[i])`,`3\n4\n5`],
+[`اطبع جميع قيم point_list؛ اكتب القائمة بعد in، واجعل المتغير الذي يخزن كل قيمة هو point`,`اكتب السطرين الثاني والثالث مع مراعاة المسافة. الكود النهائي:`,`point_list = [2, 5, 8, 11]\nfor point in point_list:\n    print(point)`],
+[`اطبع جميع قيم word_list (السلاسل: Good morning وGood night وHello)؛ اجعل المتغير الذي يخزن كل قيمة هو word`,`انسخ كل سطر على حدة، وإذا حدث خطأ فاكتب السطر الثالث يدويًا مع مراعاة المسافة. الكود النهائي:`,`word_list = ["Good morning", "Good night", "Hello"]\nfor word in word_list:\n    print(word)`]],``,1]
+]},
+{id:24,lang:"py",title:"الفصل 24",sub:"مراجعة الفهم",lessons:[
+[`الدرس 1: مراجعة الشروط`,[
+[`عرّف المتغير score وعيّن له القيمة 100، وإذا كانت النتيجة تساوي 100 فاعرض "Got a Gold Badge"`,`اكتب الكود مع مراعاة المسافة. الكود النهائي:`,`score = 100\nif score == 100:\n    print("Got a Gold Badge")`],
+[`(درجة الامتحان 88) كشرط ثانٍ من السطر الرابع: إذا كانت score تساوي 85 أو أكثر فاعرض "Reward: Parfait"`,`اكتب السطرين الرابع والخامس مع مراعاة المسافة. الكود النهائي:`,`score = 88\nif score == 100:\n    print("Got a Gold Badge")\nelif score >= 85:\n    print("Reward: Parfait")`],
+[`(درجة الامتحان 65) من السطر السادس: إذا لم يتحقق أي من الشرطين فاعرض "Review weak topics"`,`اكتب السطرين السادس والسابع مع مراعاة المسافة. الكود النهائي:`,`score = 65\nif score == 100:\n    print("Got a Gold Badge")\nelif score >= 85:\n    print("Reward: Parfait")\nelse:\n    print("Review weak topics")`]]],
+[`الدرس 2: الحسابات في العبارات الشرطية`,[
+[`عرّف المتغير bug وعيّن له القيمة 45، وإذا كان bug يساوي 45 أو أكثر فاعرض "Got a Rare Beetle!"`,`اكتب الكود مع مراعاة المسافة. الكود النهائي:`,`bug = 45\nif bug >= 45:\n    print("Got a Rare Beetle!")`],
+[`داخل if bug >= 45: أضف rare_count = rare_count + 1 ثم print("Rare Beetle Counter:" + str(rare_count))`,`اكتب السطرين الخامس والسادس بنفس مسافة السطر الرابع. الكود النهائي:`,`bug = 45\nrare_count = 0\nif bug >= 45:\n    print("Got a Rare Beetle!")\n    rare_count = rare_count + 1\n    print("Rare Beetle Counter:" + str(rare_count))`],
+[`إذا كان bug يساوي 90 أو أكثر فاعرض "Super Rare Beetle Get!" وزد super_rare_count بمقدار 1 ثم اعرض "Super Rare Beetle Counter:" مع قيمته (كل ذلك داخل if)`,`اكتب الأسطر من الثالث إلى السادس مع مراعاة المسافات. الكود النهائي:`,`bug = 95\nsuper_rare_count = 0\nif bug >= 90:\n    print("Super Rare Beetle Get!")\n    super_rare_count = super_rare_count + 1\n    print("Super Rare Beetle Counter:" + str(super_rare_count))`]]],
+[`الدرس 3: الشروط المتداخلة المتقدمة`,[
+[`إذا كان weather يساوي "sunny" فاعرض "Stargazing on the hilltop"، وإلا فاعرض "Planetarium DVD at home"`,`اكتب الأسطر من الثاني إلى الخامس مع مراعاة المسافات. الكود النهائي:`,`weather = "sunny"\nif weather == "sunny":\n    print("Stargazing on the hilltop")\nelse:\n    print("Planetarium DVD at home")`],
+[`أنشئ المتغير shop بالقيمة "open"، وإذا كان الجو مشمسًا وكان shop يساوي "open" فاعرض "Buy a star chart and go stargazing"`,`اكتب في الأماكن المخصصة «shop = "open"» ثم «if shop == "open":». الكود النهائي:`,`weather = "sunny"\nshop = "open"\nif weather == "sunny":\n    if shop == "open":\n        print("Buy a star chart and go stargazing")\nelse:\n    print("Planetarium DVD at home")`],
+[`(shop = "closed") إذا لم يتحقق شرط shop فاعرض "Buy snacks at the convenience store and go stargazing"`,`اكتب في الأماكن المخصصة «else:» ثم السطر الذي يليه. الكود النهائي:`,`weather = "sunny"\nshop = "closed"\nif weather == "sunny":\n    if shop == "open":\n        print("Buy a star chart and go stargazing")\n    else:\n        print("Buy snacks at the convenience store and go stargazing")\nelse:\n    print("Planetarium DVD at home")`]]],
+[`الدرس 4: ممارسة الشروط المتداخلة`,[
+[`إذا كان weather يساوي "sunny" فاعرض "Let's go on the field trip"، وإلا فاعرض "Field trip canceled"`,`اكتب الأسطر من الثاني إلى الخامس مع مراعاة المسافات. الكود النهائي:`,`weather = "sunny"\nif weather == "sunny":\n    print("Let's go on the field trip")\nelse:\n    print("Field trip canceled")`],
+[`(team = "Red Team") إذا كان الجو مشمسًا وكان team يساوي "Red Team" فاعرض "Destination: the farm"، وإلا فاعرض "Destination: the science museum"`,`امسح السطر الرابع واكتب الأسطر من الرابع إلى السابع، وانقل ما بعدها إلى الثامن والتاسع مع مراعاة المسافات. الكود النهائي:`,`weather = "sunny"\nteam = "Red Team"\nif weather == "sunny":\n    if team == "Red Team":\n        print("Destination: the farm")\n    else:\n        print("Destination: the science museum")\nelse:\n    print("Field trip canceled")`],
+[`(team = "Green Team") إذا كان team يساوي "Blue Team" فاعرض "Destination: the science museum"، وإلا فاعرض "Destination: the candy factory"`,`اكتب الأسطر من السادس إلى التاسع، وانقل ما بعدها إلى العاشر والحادي عشر مع مراعاة المسافات. الكود النهائي:`,`weather = "sunny"\nteam = "Green Team"\nif weather == "sunny":\n    if team == "Red Team":\n        print("Destination: the farm")\n    elif team == "Blue Team":\n        print("Destination: the science museum")\n    else:\n        print("Destination: the candy factory")\nelse:\n    print("Field trip canceled")`]]],
+[`الدرس 5: لنراجع`,[
+[`اطبع جميع قيم درجات الحرارة السبع: for temp in cold_temp_list: ثم print(temp)`,`اكتب السطرين الثاني والثالث مع مراعاة المسافة. الكود النهائي:`,`cold_temp_list = [6, 8, 10, 9, 11, 7, 13]\nfor temp in cold_temp_list:\n    print(temp)`],
+[`اطبع جميع قيم food_list (السلاسل: tomato وcarrot وonion)؛ اكتب القائمة بعد in واستخدم المتغير food لتخزين كل قيمة`,PY_COPY,`food_list = ["tomato", "carrot", "onion"]\nfor food in food_list:\n    print(food)`],
+[`اطبع "Rare beetle caught!" إذا كان bug يساوي 45 أو أكثر، واطبع عدد الخنافس النادرة بعد rare_beetle_counter:`,`اكتب السطرين الخامس والسادس بنفس مسافة السطر الرابع. الكود النهائي:`,`bug = 50\nrare_count = 0\nif bug >= 45:\n    print("Rare beetle caught!")\n    rare_count = rare_count + 1\n    print("rare_beetle_counter:" + str(rare_count))`],
+[`أنشئ المتغير shop بالقيمة "open" في السطر 2، وإذا كان الجو مشمسًا وكان shop يساوي "open" فاطبع "Buy a star chart and go stargazing"، وإلا فاطبع "Watch a planetarium DVD at home"`,`اكتب shop = "open" في السطر الثاني، ثم السطرين الخامس والسادس وانقل ما بعدهما لأسفل مع مراعاة المسافات. الكود النهائي:`,`weather = "sunny"\nshop = "open"\n\nif weather == "sunny":\n    if shop == "open":\n        print("Buy a star chart and go stargazing")\nelse:\n    print("Watch a planetarium DVD at home")`],
+[`(team = "Team Blue") للجو المشمس: إذا كان team يساوي "Team Red" فاطبع "Destination is the farm"، وإذا كان "Team Blue" فاطبع "Destination is the science museum"، وإلا فاطبع "Destination is the sweets factory"`,`اكتب الأسطر من الخامس إلى العاشر وانقل ما بعدها لأسفل مع مراعاة المسافات، والسطر الثالث فارغ. الكود النهائي:`,`weather = "sunny"\nteam = "Team Blue"\n\nif weather == "sunny":\n    if team == "Team Red":\n        print("Destination is the farm")\n    elif team == "Team Blue":\n        print("Destination is the science museum")\n    else:\n        print("Destination is the sweets factory")\nelse:\n    print("Field trip cancelled")`]]],
+[`اختبار منتصف الطريق (الفصل 24)`,[
+[`حدد نتيجة تنفيذ البرنامج: size_list = [8, 11, 14] ثم for i in range(3): print(size_list[i])`,`8\n11\n14`],
+[`اطبع جميع قيم point_list؛ اكتب القائمة بعد in واستخدم المتغير point لتخزين كل قيمة`,`اكتب السطرين الثاني والثالث مع مراعاة المسافة. الكود النهائي:`,`point_list = [2, 5, 8, 11]\nfor point in point_list:\n    print(point)`],
+[`اطبع جميع قيم word_list (السلاسل: good morning وgood night وhello)؛ استخدم المتغير word لتخزين كل قيمة`,`انسخ كل سطر على حدة أو اكتبه يدويًا لتجنب الخطأ. الكود النهائي:`,`word_list = ["good morning", "good night", "hello"]\nfor word in word_list:\n    print(word)`],
+[`حدد ناتج البرنامج: A = 500 ثم B = 0 ثم if A >= 1: B = B + 100 ثم print(B)`,`100`],
+[`حدد ناتج البرنامج: weather = "sunny" ثم team = "Team Blue" ثم if weather == "sunny": if team == "Team Red": print("Destination is the park") else: print("Destination is the amusement park") else: print("Destination is the aquarium")`,`Destination is the amusement park (الوجهة هي مدينة الملاهي)`],
+[`في حالة هطول المطر تتغير الوجهة حسب الوقت: إذا كان time يساوي "morning" فاطبع "Let's go to the movie theater"، وإذا كان "noon" فاطبع "Let's go to the library"، وإلا فاطبع "Let's stay home"؛ وإذا لم يكن الجو ممطرًا فاطبع "Let's go for a walk"`,`اكتب الأسطر من الرابع إلى الحادي عشر مع مراعاة المسافات، وراجعها جيدًا عند النسخ. الكود النهائي:`,`weather = "rainy"\ntime = "morning"\nif weather == "rainy":\n    if time == "morning":\n        print("Let's go to the movie theater")\n    elif time == "noon":\n        print("Let's go to the library")\n    else:\n        print("Let's stay home")\nelse:\n    print("Let's go for a walk")`]],``,1]
+]},
+{id:25,lang:"py",title:"الفصل 25",sub:"مراجعة الفهم",lessons:[
+[`الدرس 1: دالة بقيمتين`,[
+[`أنشئ دالة باسم sum بالوسيطين stage1_time وstage2_time تعيّن stage1_time + stage2_time للمتغير result وتعيده`,PY_SAME,`def sum(stage1_time, stage2_time):\n    result = stage1_time + stage2_time\n    return result`],
+[`استدعِ الدالة sum بالوسيطين 37.5 و62.5 واطبع النتيجة`,`اكتب print(sum(37.5, 62.5)) في المكان المخصص. الكود النهائي:`,`def sum(stage1_time, stage2_time):\n    result = stage1_time + stage2_time\n    return result\nprint(sum(37.5, 62.5))`],
+[`من السطر الخامس: عيّن نتيجة sum(37.5, 62.5) للمتغير teamA ثم اطبعه`,`اكتب السطرين الخامس والسادس. الكود النهائي:`,`def sum(stage1_time, stage2_time):\n    time = stage1_time + stage2_time\n    return time\n# Write your program below this line.\nteamA = sum(37.5, 62.5)\nprint(teamA)`]]],
+[`الدرس 2: دالة بثلاث قيم`,[
+[`أنشئ دالة تجمع أوقات 3 مراحل: أضف الوسيط stage3_time إلى الدالة وإلى عملية الجمع، ومرّر 56.5 عند استدعاء sum`,`اكتب في الأماكن المخصصة «stage3_time» (في تعريف الدالة) ثم «stage3_time» (في الجمع) ثم «56.5» (في الاستدعاء). الكود النهائي:`,`def sum(stage1_time, stage2_time, stage3_time):\n    time = stage1_time + stage2_time + stage3_time\n    return time\nteamA = sum(37.5, 62.5, 56.5)\nprint(teamA)`],
+[`أنشئ المتغير teamB وعيّن له نتيجة sum بالوسائط 44 و57 و64، ثم اطبعه`,`اكتب السطرين السادس والسابع. الكود النهائي:`,`def sum(stage1_time, stage2_time, stage3_time):\n    time = stage1_time + stage2_time + stage3_time\n    return time\nteamA = sum(37.5, 62.5, 56.5)\nprint(teamA)\nteamB = sum(44, 57, 64)\nprint(teamB)`],
+[`أنشئ المتغير teamC وعيّن له نتيجة sum بالوسائط 42 و63.5 و59، ثم اطبعه`,`اكتب السطرين الثامن والتاسع. الكود النهائي:`,`def sum(stage1_time, stage2_time, stage3_time):\n    time = stage1_time + stage2_time + stage3_time\n    return time\nteamA = sum(37.5, 62.5, 56.5)\nprint(teamA)\nteamB = sum(44, 57, 64)\nprint(teamB)\nteamC = sum(42, 63.5, 59)\nprint(teamC)`]]],
+[`الدرس 3: أسرع وقت بين الفرق`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,PY_RUN],
+[`اطبع أسرع وقت من إجمالي أوقات الفرق الثلاثة بإدخال الأرقام مباشرة في السطر الأخير: print("The fastest time is " + str(min(156.5, 165, 164.5)))`,`اكتب في المكان المخصص «str(min(156.5, 165, 164.5))». الكود النهائي:`,`def sum(stage1_time, stage2_time, stage3_time):\n    time = stage1_time + stage2_time + stage3_time\n    return time\nteamA = sum(37.5, 62.5, 56.5)\nprint(teamA)\nteamB = sum(44, 57, 64)\nprint(teamB)\nteamC = sum(42, 63.5, 59)\nprint(teamC)\nprint("The fastest time is " + str(min(156.5, 165, 164.5)))`],
+[`اطبع أسرع وقت باستخدام المتغيرات في السطر الأخير: print("The fastest time is " + str(min(teamA, teamB, teamC)))`,`اكتب في المكان المخصص «str(min(teamA, teamB, teamC))». الكود النهائي:`,`def sum(stage1_time, stage2_time, stage3_time):\n    time = stage1_time + stage2_time + stage3_time\n    return time\nteamA = sum(37.5, 62.5, 56.5)\nprint(teamA)\nteamB = sum(44, 57, 64)\nprint(teamB)\nteamC = sum(42, 63.5, 59)\nprint(teamC)\nprint("The fastest time is " + str(min(teamA, teamB, teamC)))`]]],
+[`الدرس 4: الشروط والحسابات`,[
+[`اطبع جميع قيم القائمة record_list: for day in record_list: ثم print(day)`,`اكتب في المكان المخصص «for day in record_list:». الكود النهائي:`,`record_list = ["absent", "present", "present", "present", "absent", "present", "absent", "present", "present", "present", "absent", "present", "present", "absent"]\nfor day in record_list:\n    print(day)`],
+[`احسب واطبع عدد قيم "present" في القائمة (count = 0 ثم for ثم if day == "present": count = count + 1 ثم print(count))`,`اكتب السطرين الرابع والخامس وانقل print(count) إلى السطر السادس مع مراعاة المسافات. الكود النهائي:`,`record_list = ["absent", "present", "present", "present", "absent", "present", "absent", "present", "present", "present", "absent", "present", "present", "absent"]\ncount = 0\nfor day in record_list:\n    if day == "present":\n        count = count + 1\nprint(count)`],
+[`احسب واطبع عدد قيم "absent" في القائمة (إذا كان day يساوي "absent" فأضف 1 إلى count باستخدام count = count + 1)`,`اكتب السطرين الرابع والخامس وانقل print(count) إلى السطر السادس مع مراعاة المسافات. الكود النهائي:`,`record_list = ["absent", "present", "present", "present", "absent", "present", "absent", "present", "present", "present", "absent", "present", "present", "absent"]\ncount = 0\nfor day in record_list:\n    if day == "absent":\n        count = count + 1\nprint(count)`]]],
+[`الدرس 5: مخطط التدفق (1)`,[
+[`هذا الدرس شرح لمخطط التدفق ولا توجد به أسئلة`,`اقرأ الدرس ثم انتقل إلى الدرس التالي.`]]],
+[`الدرس 6: مخطط التدفق (2)`,[
+[`إذا كان ticket_type يساوي "main dish" فاطبع "Check the type of ticket"، وإلا فاطبع "Use the cake ticket"`,`اكتب الأسطر من الثاني إلى الخامس مع مراعاة المسافات. الكود النهائي:`,`ticket_type = "dessert"\nif ticket_type == "main dish":\n    print("Check the type of ticket")\nelse:\n    print("Use the cake ticket")`],
+[`لتذكرة الطبق الرئيسي: إذا كان main_ticket يساوي "fish and chips ticket" فاطبع "Exchange it with Cody"، وإلا فاطبع "Use the steak ticket"`,`اكتب الأسطر من الرابع إلى السابع وانقل ما بعدها إلى الثامن والتاسع مع مراعاة المسافات. الكود النهائي:`,`ticket_type = "main dish"\nmain_ticket = "fish and chips ticket"\nif ticket_type == "main dish":\n    if main_ticket == "fish and chips ticket":\n        print("Exchange it with Cody")\n    else:\n        print("Use the steak ticket")\nelse:\n    print("Use the cake ticket")`]]],
+[`الدرس 7: لنراجع`,[
+[`أنشئ دالة باسم sum بالوسائط stage1_time وstage2_time وstage3_time تعيّن مجموعها للمتغير time وتعيده`,PY_SAME,`def sum(stage1_time, stage2_time, stage3_time):\n    time = stage1_time + stage2_time + stage3_time\n    return time`],
+[`من السطر الرابع: عيّن نتيجة sum(37.5, 62.5, 56.5) للمتغير teamA ثم اطبعه`,`اكتب السطرين الرابع والخامس. الكود النهائي:`,`def sum(stage1_time, stage2_time, stage3_time):\n    time = stage1_time + stage2_time + stage3_time\n    return time\nteamA = sum(37.5, 62.5, 56.5)\nprint(teamA)`],
+[`عرّف teamB بنتيجة sum(55, 55, 55) واطبعه، ثم عرّف teamC بنتيجة sum(54.5, 55, 55) واطبعه`,`اكتب الأسطر من السادس إلى التاسع. الكود النهائي:`,`def sum(stage1_time, stage2_time, stage3_time):\n    time = stage1_time + stage2_time + stage3_time\n    return time\nteamA = sum(37.5, 62.5, 56.5)\nprint(teamA)\nteamB = sum(55, 55, 55)\nprint(teamB)\nteamC = sum(54.5, 55, 55)\nprint(teamC)`],
+[`اطبع أسرع زمن إجمالي بين الفرق الثلاثة: print("The fastest time is " + str(min(teamA, teamB, teamC)))`,`اكتب في المكان المخصص «min(teamA, teamB, teamC)». الكود النهائي:`,`def sum(stage1_time, stage2_time, stage3_time):\n    time = stage1_time + stage2_time + stage3_time\n    return time\nteamA = sum(37.5, 62.5, 56.5)\nprint(teamA)\nteamB = sum(55, 55, 55)\nprint(teamB)\nteamC = sum(54.5, 55, 55)\nprint(teamC)\nprint("The fastest time is " + str(min(teamA, teamB, teamC)))`],
+[`اطبع كل قيمة مخزنة في القائمة record_list: for day in record_list: ثم print(day)`,`اكتب في المكان المخصص «for day in record_list:». الكود النهائي:`,`record_list = ["Absent", "Present", "Present", "Present", "Absent", "Present", "Absent", "Present", "Present", "Present", "Absent", "Present", "Present", "Absent"]\nfor day in record_list:\n    print(day)`],
+[`احسب واطبع عدد القيم "Present" في القائمة`,`اكتب السطرين الرابع والخامس وانقل print(count) إلى السطر السادس مع مراعاة المسافات. الكود النهائي:`,`record_list = ["Absent", "Present", "Present", "Present", "Absent", "Present", "Absent", "Present", "Present", "Present", "Absent", "Present", "Present", "Absent"]\ncount = 0\nfor day in record_list:\n    if day == "Present":\n        count = count + 1\nprint(count)`],
+[`بناءً على المخطط الانسيابي: إذا كان weather يساوي "sunny" فاطبع "Play in the park"، وإلا فاطبع "Watch a movie"`,`اكتب الأسطر من الثاني إلى الخامس مع مراعاة المسافات. الكود النهائي:`,`weather = "sunny"\nif weather == "sunny":\n    print("Play in the park")\nelse:\n    print("Watch a movie")`],
+[`إذا كان main_ticket يساوي "fish and chips ticket" فاطبع "Exchange it with Cody"، وإلا فاطبع "Use the steak ticket"`,`اكتب الأسطر من الرابع إلى السابع وانقل ما بعدها إلى الثامن والتاسع مع مراعاة المسافات. الكود النهائي:`,`ticket_type = "main dish"\nmain_ticket = "fish and chips ticket"\nif ticket_type == "main dish":\n    if main_ticket == "fish and chips ticket":\n        print("Exchange it with Cody")\n    else:\n        print("Use the steak ticket")\nelse:\n    print("Use the cake ticket")`]]],
+[`اختبار منتصف الطريق (الفصل 25)`,[
+[`اختر البرنامج الصحيح الذي يمرّر الوسائط 3 و5 و10 إلى الدالة calculation3 ويطبع النتيجة`,``,`print(calculation3(3, 5, 10))`],
+[`أنشئ المتغير num1 وأسند إليه نتيجة calculation3 (فوق السطر print(num1) ودون حذف البرنامج الأصلي)`,`اكتب السطر الرابع وانقل ما به إلى السطر الخامس. الكود النهائي:`,`def calculation3(a, b, c):\n    result = a * b * c\n    return result\nnum1 = calculation3(5, 10, 15)\nprint(num1)`],
+[`أنشئ المتغير num2 وأسند إليه نتيجة calculation3 بالوسائط 4 و4 و4 ثم اطبعه (من السطر 7)`,`اكتب السطرين السادس والسابع. الكود النهائي:`,`def calculation3(a, b, c):\n    result = a * b * c\n    return result\nnum1 = calculation3(5, 10, 15)\nprint(num1)\nnum2 = calculation3(4, 4, 4)\nprint(num2)`],
+[`الدالة min تعيد أصغر قيمة بين وسائطها. اختر البرنامج الذي يطبع أصغر قيمة بين num1 وnum2 وnum3`,``,`print(min(num1, num2, num3))`],
+[`حدد ناتج البرنامج: score_list = [70, 80, 66, 88, 92] ثم for score in score_list: if score >= 80: print(score)`,`80\n88\n92`],
+[`اكتب برنامجًا يطبع فقط قيم score التي تساوي 80 أو أعلى (دون حذف البرنامج الأصلي)`,`اكتب السطرين الرابع والخامس مع مراعاة المسافات. الكود النهائي:`,`score_list = [70, 80, 66, 88, 92]\nfor score in score_list:\n    if score >= 80:\n        print(score)`],
+[`من المخطط الانسيابي لركوب الأفعوانية، اختر العبارة الخاطئة`,`إذا كان عمرك 12 سنة أو أكثر وكان طولك 140 سم أو أكثر، يمكنك الركوب بمفردك.`]],``,1]
 ]}
 ];
 
