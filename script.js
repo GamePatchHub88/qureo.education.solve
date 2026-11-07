@@ -1258,6 +1258,10 @@ function hlCSS(c){
     else if(t==="{"){depth++;out+=sp("o",t)}
     else if(t==="}"){depth=Math.max(0,depth-1);out+=sp("o",t)}
     else if(t===";")out+=sp("o",t);
+    else if(depth===0&&!/^\s*\{/.test(c.slice(i))&&/^\s*[\w-]+\s*:/.test(t)){
+      const d=/^(\s*)([\w-]+)(\s*:)([\s\S]*)$/.exec(t);
+      out+=esc(d[1])+sp("p",d[2])+sp("o",d[3])+scan(d[4],CSS_VAL);
+    }
     else if(depth===0)out+=scan(t,CSS_SEL);
     else{
       const d=/^(\s*)([\w-]+)(\s*:)([\s\S]*)$/.exec(t);
@@ -1272,6 +1276,13 @@ function detect(c){
   if(/\{[\s\S]*:[\s\S]*\}/.test(c)&&/^\s*[.#\w*][^;{}()]*\{/.test(c))return"css";
   return"js";
 }
+function detectWeb(c){
+  if(/^\s*<[A-Za-z!]/.test(c))return"html";
+  if(/^\s*[\w-]+\s*=\s*"/.test(c))return"html";
+  if(/\{[\s\S]*:[\s\S]*\}/.test(c))return"css";
+  if(/^\s*[\w-]+\s*:\s*[^;]+;?\s*$/.test(c)||/^\s*#[0-9a-f]{3,8}\s*$/i.test(c))return"css";
+  return"html";
+}
 const LANG={html:["index.html",hlHTML],css:["style.css",hlCSS],js:["main.js",hlJS],py:["main.py",hlPY]};
 const hl=c=>LANG[detect(c)][1](c);
 window.__hl={hlHTML,hlCSS,hlJS,hlPY,detect};
@@ -1281,12 +1292,9 @@ const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearT
 
 const codeToast=(kind,g,l,k)=>{
   const t=$("#codeToast");if(!t)return;
-  const isPy=k==="g2py",file=isPy?"main.py":"main.js";
-  const line=kind==="grade"
-    ?(isPy?`<span class="k">grade</span> = <span class="s">"${g}"</span>`:`<span class="k">const</span> grade = <span class="s">"${g}"</span>;`)
-    :(isPy?`<span class="k">lang</span> = <span class="s">"${l}"</span>`:`<span class="k">const</span> lang = <span class="s">"${l}"</span>;`);
+  const file=k==="g2py"?"main.py":k==="g2js"?"main.js":"main.js";
   const msg=kind==="grade"?`تم التغيير إلى ${g}`:`تم التغيير إلى ${l}`;
-  t.innerHTML=`<div class="bar"><i></i><i></i><i></i><span>${file}</span></div><pre dir="ltr"><code><span class="c">// ${isPy?"changed":"changed"} ✓</span>\n${line}</code></pre><div class="msg">${msg}</div>`;
+  t.innerHTML=`<div class="bar"><i></i><i></i><i></i><span>${file}</span></div><div class="msg">${esc(msg)}</div>`;
   t.classList.add("on");clearTimeout(codeToast.id);codeToast.id=setTimeout(()=>t.classList.remove("on"),2400);
 };
 const mark=t=>{
@@ -1312,7 +1320,7 @@ function render(){
     if(!f.length)return"";any=true;
     return `<details class="lesson ${rev?"review":""}" ${term||li==0?"open":""}><summary>${esc(name)}<span class="count">${f.length} أسئلة</span><span class="chev">‹</span></summary><div class="qs">`+
     f.map(([q,a,c])=>{
-      const lang=c?(forced||LANG[detect(c)]):null;
+      const lang=c?(forced||LANG[(ch.lang==="web"?detectWeb:detect)(c)]):null;
       return `<article class="qcard"><h4><span>${mark(q)}</span></h4><button class="reveal">إظهار الإجابة</button><div class="ans">${a?`<p class="t">${esc(a)}</p>`:""}${c?`<div class="mac"><div class="bar"><i></i><i></i><i></i><span>${lang[0]}</span><button class="copy">نسخ</button></div><pre dir="ltr"><code>${lang[1](c)}</code></pre></div>`:""}</div></article>`}).join("")+
     (note?`<p class="note">ملحوظة: ${esc(note)}</p>`:"")+`</div></details>`}).join("");
   $("#chapter").replaceChildren(box);
@@ -1332,13 +1340,13 @@ const SEC={
       h1:"حلول كيريو · بايثون<br>للصف الثاني الثانوي",
       p:"البرمجة والذكاء الاصطناعي · لغة بايثون (Python). اختر الفصل، افتح الدرس، وانسخ الكود جاهزًا.",
       title:"حلول منصة كيريو – الصف الثاني الثانوي – بايثون"},
-  g2js:{grade:2,data:[],file:"helmy.js",code:heroJS,store:"lvl_g2js",
+  g2js:{grade:2,data:G2JS,file:"helmy.js",code:heroJS,store:"lvl_g2js",
       h1:"حلول كيريو · جافا سكربت<br>للصف الثاني الثانوي",
-      p:"البرمجة والذكاء الاصطناعي · لغة جافا سكربت (JavaScript). الفصول قيد الإضافة.",
+      p:"البرمجة والذكاء الاصطناعي · لغة جافا سكربت (JavaScript). الفصول من 43 إلى 45.",
       title:"حلول منصة كيريو – الصف الثاني الثانوي – جافا سكربت"}
 };
 let curSec="g1";
-const hashFor=(k,i)=>k==="g1"?"#"+DATA[i].id:k==="g2js"?"#g2js":"#g2py-"+DATA[i].id;
+const hashFor=(k,i)=>k==="g1"?"#"+DATA[i].id:DATA.length?"#"+k+"-"+DATA[i].id:"#"+k;
 function parseHash(h){
   let m=/^#(\d+)$/.exec(h);
   if(m)return{key:"g1",idx:G1.findIndex(c=>String(c.id)===m[1])};
@@ -1358,6 +1366,7 @@ function setSection(key,idx,fromHash){
     b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
   $("#subLang").hidden=sec.grade!==2;
   $("#subLang1").hidden=sec.grade!==1;
+  $("#g2jsNote").hidden=key!=="g2js";
   const empty=!DATA.length;
   $("#soon").hidden=!empty;
   document.querySelectorAll(".picker,.tools,#chapter").forEach(e=>e.hidden=empty);
@@ -1382,6 +1391,10 @@ document.querySelectorAll("[data-sec]").forEach(b=>b.onclick=()=>{
   if(k.startsWith("g2"))lastG2=k;
   if(k!==curSec){setSection(k,null,false);const g=SEC[k].grade===1?"الصف الأول الثانوي":"الصف الثاني الثانوي";const l=k==="g2py"?"بايثون":"جافا سكربت";codeToast(b.closest(".seg-sub")||k==="g1"?(SEC[k].grade===1?"grade":"lang"):"grade",g,l,k)}
 });
+$("#g2jsBack").onclick=()=>{
+  const b=document.querySelector('.sections [data-sec="g1"]');if(b)b.click();
+  scrollTo({top:0,behavior:"smooth"});
+};
 window.addEventListener("hashchange",()=>{
   const h=parseHash(location.hash);if(!h)return;
   if(h.key!==curSec){if(h.key.startsWith("g2"))lastG2=h.key;setSection(h.key,h.idx,true)}
