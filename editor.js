@@ -10,11 +10,10 @@ var esc=function(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").
 var KEY_FS="ed_fs",KEY_LANG="ed_lang",KEY_IN="ed_stdin",LIMIT_MS=5000,PY_LIMIT_MS=10000,PY_LOAD_MS=40000;
 /* مصادر Pyodide (يُجرَّب التالي تلقائيًا عند الفشل) */
 var PY_CDNS=[
- {t:"pyo",u:"https://cdn.jsdelivr.net/pyodide/v0.26.4/full/"},
- {t:"pyo",u:"https://cdn.jsdelivr.net/npm/pyodide@0.26.4/"},
  {t:"sk",u:"https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/"},
- {t:"sk",u:"https://skulpt.org/js/"}
-],pyIdx=parseInt(LS.get("ed_pyidx"),10)||0,pyWhy=[],skNoted=false;
+ {t:"sk",u:"https://skulpt.org/js/"},
+ {t:"pyo",u:"https://cdn.jsdelivr.net/pyodide/v0.26.4/full/"}
+],pyIdx=parseInt(LS.get("ed_pyidx2"),10)||0,pyWhy=[],skNoted=false;
 if(pyIdx<0||pyIdx>=PY_CDNS.length)pyIdx=0;
 
 /* ---------- الأكواد الابتدائية والأمثلة ---------- */
@@ -316,10 +315,15 @@ var saveT,prevT;
 var loaded=false;
 function saveCur(){if(!loaded)return;buf[cur]=code.value;LS.set(FILES[cur].key,code.value)}
 function onInput(){
-  highlight();clearTimeout(saveT);saveT=setTimeout(saveCur,300);
+  highlight();clearTimeout(saveT);saveT=setTimeout(saveCur,500);
   if(mode==="web"&&(cur==="html"||cur==="css")){clearTimeout(prevT);prevT=setTimeout(function(){saveCur();renderPreview(true)},700)}
 }
-code.addEventListener("input",onInput);
+var hlRaf=0;
+code.addEventListener("input",function(){
+  clearTimeout(saveT);saveT=setTimeout(saveCur,500);
+  if(!hlRaf)hlRaf=requestAnimationFrame(function(){hlRaf=0;highlight()});
+  if(mode==="web"&&(cur==="html"||cur==="css")){clearTimeout(prevT);prevT=setTimeout(function(){saveCur();renderPreview(true)},900)}
+});
 code.addEventListener("scroll",sync);
 
 /* ---------- أدوات الكتابة ---------- */
@@ -797,7 +801,7 @@ function pyRetry(why){
     if(!makePyWorker()){pyIdx=0}
     return;
   }
-  var det=pyWhy.join("\n");pyWhy=[];pyIdx=0;LS.set("ed_pyidx","0");pyKill();clearOut();
+  var det=pyWhy.join("\n");pyWhy=[];pyIdx=0;LS.set("ed_pyidx2","0");pyKill();clearOut();
   line("err","تعذّر تحميل مفسّر بايثون من كل المصادر.\nيلزم اتصال بالإنترنت عند أول تشغيل، وتأكد أن مانع الإعلانات/الـ VPN لا يحجب cdn.jsdelivr.net أو skulpt.org.\n\n"+det);
   status("فشل التحميل","bad");
 }
@@ -808,13 +812,13 @@ function makePyWorker(){
     if(w!==pw)return;
     var m=e.data;
     if(m.t==="ready"){
-      clearTimeout(pyLoadT);pyReady=true;pyWhy=[];LS.set("ed_pyidx",String(pyIdx));
+      clearTimeout(pyLoadT);pyReady=true;pyWhy=[];LS.set("ed_pyidx2",String(pyIdx));
       if(pyPending&&pyBusy)sendPy();
     }
     else if(m.t==="fail")pyRetry(m.a);
     else if(m.t==="start"){
       lines=0;out.textContent="";pyErrs=0;status("يعمل…","busy");
-      if(PY_CDNS[pyIdx].t==="sk"&&!skNoted){skNoted=true;line("sys","ℹ️ يعمل الآن مفسّر Skulpt (يدعم أساسيات بايثون: حلقات، دوال، قوائم، math، random…).")}
+      
       clearTimeout(pyT);pyT=setTimeout(function(){
         if(pyBusy){pyKill();line("err","⏱ توقّف التنفيذ بعد "+(PY_LIMIT_MS/1000)+" ثوانٍ (ربما توجد حلقة لا نهائية).");status("تجاوز المهلة","bad")}
       },PY_LIMIT_MS);
