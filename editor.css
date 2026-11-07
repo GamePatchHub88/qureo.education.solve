@@ -63,3 +63,16 @@ body.ed-lock{overflow:hidden}
 @media(max-width:520px){#ed{padding:0}.ed-box{border-radius:0;height:100%;border:0}.ed-btn{padding:0 11px}.ed-status .hint{display:none}}
 /* يلغي قاعدة الجوال العامة (pre-wrap) حتى تبقى الأسطر مطابقة لأرقامها */
 .mac .ed-pre{white-space:pre!important;overflow-wrap:normal!important;word-break:normal!important}
+
+/* ===== قائمة الإكمال التلقائي ===== */
+.ed-ac{position:fixed;z-index:120;min-width:240px;max-width:min(380px,calc(100vw - 16px));max-height:min(264px,40vh);overflow-y:auto;padding:4px;background:#161f3c;color:#dfe7ff;border:1px solid #ffffff26;border-radius:10px;box-shadow:0 12px 32px #000a;direction:ltr;text-align:left;font:13.5px 'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;scrollbar-width:thin;scrollbar-color:#ffffff33 transparent}
+.ed-ac[hidden]{display:none}
+.ac-i{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;cursor:pointer;min-height:30px}
+.ac-i:hover{background:#ffffff12}
+.ac-i.on{background:#2d3d78;color:#fff}
+.ac-k{flex:none;width:20px;height:20px;border-radius:5px;display:grid;place-items:center;font:700 11px 'JetBrains Mono',monospace;background:#ffffff14;color:#9ba6c8}
+.k-snip{background:#bb9af733;color:#bb9af7}.k-kw{background:#7dcfff22;color:#7dcfff}.k-cls{background:#e0af6833;color:#e0af68}.k-fn{background:#7aa2f733;color:#7aa2f7}.k-prop{background:#73daca33;color:#73daca}.k-var{background:#9ece6a2b;color:#9ece6a}
+.ac-l{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ac-l b{color:var(--accent);font-weight:700}
+.ac-d{flex:none;max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#8f9bc4;font:11.5px 'Noto Kufi Arabic',sans-serif;direction:rtl}
+@media(max-width:520px){.ac-d{display:none}.ed-ac{min-width:180px}}
