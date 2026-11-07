@@ -24,19 +24,29 @@
 
 <section class="hero">
   <div class="hero-text">
-    <h1>حلول منصة كيريو<br>للصف الأول الثانوي</h1>
-    <p>البرمجة والذكاء الاصطناعي · عام 2026-2027. اختر الفصل، افتح الدرس، وانسخ الكود جاهزًا.</p>
+    <h1 id="heroTitle">حلول منصة كيريو<br>للصف الأول الثانوي</h1>
+    <p id="heroSub">البرمجة والذكاء الاصطناعي · عام 2026-2027. اختر الفصل، افتح الدرس، وانسخ الكود جاهزًا.</p>
     <div class="stats" id="stats"></div>
   </div>
   <div class="mac hero-mac" aria-hidden="true">
-    <div class="bar"><i></i><i></i><i></i><span>helmy.js</span></div>
-    <pre dir="ltr"><code><span class="c">// محمد أحمد حلمي</span>
+    <div class="bar"><i></i><i></i><i></i><span id="heroFile">helmy.js</span></div>
+    <pre dir="ltr"><code id="heroCode"><span class="c">// محمد أحمد حلمي</span>
 <span class="k">let</span> author = <span class="s">"محمد أحمد حلمي"</span>;
 console.<span class="f">log</span>(author);<span class="cur"></span></code></pre>
   </div>
 </section>
 
 <main>
+  <nav class="sections" aria-label="اختيار الصف الدراسي واللغة">
+    <div class="seg" role="tablist" aria-label="الصف الدراسي">
+      <button type="button" role="tab" data-sec="g1" class="on" aria-selected="true">الصف الأول الثانوي</button>
+      <button type="button" role="tab" data-sec="g2" aria-selected="false">الصف الثاني الثانوي</button>
+    </div>
+    <div class="seg seg-sub" id="subLang" role="tablist" aria-label="لغة البرمجة" hidden>
+      <button type="button" role="tab" data-sec="g2py" aria-selected="false"><span class="lg" aria-hidden="true">🐍</span> بايثون</button>
+      <button type="button" role="tab" data-sec="g2js" aria-selected="false"><span class="lg" aria-hidden="true">JS</span> جافا سكربت <small class="soon-tag">قريبًا</small></button>
+    </div>
+  </nav>
   <section class="tips" aria-labelledby="tipsT">
     <div class="tips-head">
       <span class="tips-ico" aria-hidden="true">💡</span>
@@ -63,6 +73,12 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
     <button id="toggleAll" class="ghost">إظهار كل الإجابات</button>
   </div>
   <div id="chapter"></div>
+  <section id="soon" class="soon" hidden>
+    <div class="soon-ico" aria-hidden="true">🚧</div>
+    <h2>جافا سكربت للصف الثاني الثانوي</h2>
+    <p>الفصول قيد الإضافة وستظهر هنا قريبًا. يمكنك الآن استخدام حلول <b>بايثون</b> للصف الثاني الثانوي.</p>
+    <button type="button" class="ghost" data-sec="g2py">الانتقال إلى بايثون</button>
+  </section>
   <p id="empty" class="empty" hidden>لا توجد نتائج. جرّب كلمة أخرى.</p>
 </main>
 
@@ -80,6 +96,7 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
 </footer>
 <button id="top" type="button" aria-label="العودة للأعلى">↑</button>
 <div id="toast" role="status" aria-live="polite"></div>
+<script src="grade2.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

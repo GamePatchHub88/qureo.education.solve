@@ -177,7 +177,7 @@ footer{text-align:center;padding:26px var(--gut) calc(26px + env(safe-area-inset
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{
-  .top,.picker,.tools,#top,#toast,.hero,.reveal{display:none!important}
+  .top,.picker,.tools,#top,#toast,.hero,.reveal,.sections,.soon{display:none!important}
   .ans{display:block!important}
   details.lesson{break-inside:avoid;box-shadow:none}
 }
@@ -213,4 +213,29 @@ span.me.ph{display:grid;place-items:center;background:var(--navy-2);color:#fff;f
 @media(min-width:1100px){
   .hero{padding-block:84px}
   .mac pre{font-size:15px}
+}
+
+/* ===== Grade / language sections ===== */
+[hidden]{display:none!important}
+.sections{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.seg{display:flex;gap:6px;padding:6px;border-radius:16px;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow)}
+.seg button{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:8px 14px;border:0;border-radius:11px;background:transparent;color:var(--mute);font:700 16px 'Noto Kufi Arabic',sans-serif;cursor:pointer;transition:background .2s,color .2s,transform .15s}
+.seg button:hover{background:var(--panel-2);color:var(--ink)}
+.seg button:active{transform:scale(.97)}
+.seg button.on{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-ink);box-shadow:0 4px 14px -6px var(--accent-2)}
+.seg-sub{padding:5px;border-radius:14px;background:var(--panel-2);box-shadow:none}
+.seg-sub button{min-height:42px;font-size:15px}
+.seg .lg{font:800 12px 'JetBrains Mono',monospace;line-height:1}
+.soon-tag{padding:1px 8px;border-radius:99px;font-size:11px;font-weight:600;background:var(--bg);color:var(--mute)}
+.seg button.on .soon-tag{background:#ffffff59;color:var(--accent-ink)}
+.soon{text-align:center;padding:44px 20px;border:1px dashed var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:var(--shadow)}
+.soon-ico{font-size:42px;line-height:1;margin-bottom:10px}
+.soon h2{margin:0 0 8px;font-size:clamp(18px,3vw,22px)}
+.soon p{margin:0 auto 18px;max-width:46ch;color:var(--mute)}
+.soon .ghost{min-height:46px;font-weight:600}
+@media(max-width:640px){
+  .sections{gap:8px;margin-bottom:16px}
+  .seg button{font-size:14px;padding:8px 6px;min-height:46px}
+  .seg-sub button{font-size:13.5px}
+  .soon-tag{display:none}
 }

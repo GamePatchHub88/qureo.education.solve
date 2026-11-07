@@ -1,6 +1,6 @@
 const log=t=>`console.log(${t});`;
 const RUN="ثم اضغط على «تشغيل الكود».";
-const DATA=[
+const G1=[
 {id:1,title:"الفصل 1",sub:"مقدمة",lessons:[
 ["الدرس 1: ما هي البرمجة؟ (١)",[
 ["انضم إلى ريكي في محادثة! أجب عن أسئلة ريكي. لنلعب على الكمبيوتر لاحقًا!","أريد أن ألعب به!"]],"علامة صح للانتقال للدرس التالي."],
@@ -1196,6 +1196,7 @@ p {
 ["احسب عدد الأشهر اللازمة للوصول إلى 4000 كودي كوين (money = 600، month = 0)", "امسح الكود أو عدّله ليصبح هكذا.", "let money = 600;\nlet month = 0;\nwhile (money < 4000) {\n  month ++;\n  money += 800;\n}\nconsole.log(\"Save for \" + month + \" months\");"]],"",1]
 ]}
 ];
+let DATA=G1;
 
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
@@ -1229,7 +1230,17 @@ const CSS_VAL=[
  ["s",/"[^"]*"?|'[^']*'?/y],["n",/#[0-9a-fA-F]{3,8}\b/y],["n",/-?\d*\.?\d+(?:px|em|rem|%|vh|vw|s|ms|deg|pt|fr)?/y],
  ["k",/!important/y],["f",/[A-Za-z-]+(?=\()/y],["v",/[A-Za-z][\w-]*/y],["o",/[(),\/]/y]
 ];
+const PY_RULES=[
+ ["c",/#[^\n]*/y],
+ ["s",/"(?:[^"\\\n]|\\.)*"?|'(?:[^'\\\n]|\\.)*'?/y],
+ ["n",/\b\d+(?:\.\d+)?\b/y],
+ ["k",/\b(?:if|elif|else|while|for|in|def|return|break|continue|and|or|not|is|pass|import|from|as|True|False|None)\b/y],
+ ["b",/\b(?:print|str|int|float|input|type|len|range|bool|list)\b/y],
+ ["f",/[A-Za-z_]\w*(?=\s*\()/y],
+ ["o",/[=+\-*\/%<>!&|?:]+|[{}()\[\];,.]/y]
+];
 function hlJS(c){return scan(c,JS_RULES)}
+function hlPY(c){return scan(c,PY_RULES)}
 function hlAttrs(a){
   return a.replace(/(\s+)|([^\s="'<>\/]+)(?:(\s*=\s*)("[^"]*"|'[^']*'|[^\s"'<>]+))?|([^\s])/g,
    (m,ws,name,eq,val,other)=>ws?ws:name?sp("a",name)+(eq?sp("o",eq)+sp("s",val):""):esc(other));
@@ -1261,9 +1272,9 @@ function detect(c){
   if(/\{[\s\S]*:[\s\S]*\}/.test(c)&&/^\s*[.#\w*][^;{}()]*\{/.test(c))return"css";
   return"js";
 }
-const LANG={html:["index.html",hlHTML],css:["style.css",hlCSS],js:["main.js",hlJS]};
+const LANG={html:["index.html",hlHTML],css:["style.css",hlCSS],js:["main.js",hlJS],py:["main.py",hlPY]};
 const hl=c=>LANG[detect(c)][1](c);
-window.__hl={hlHTML,hlCSS,hlJS,detect};
+window.__hl={hlHTML,hlCSS,hlJS,hlPY,detect};
 
 /* ---------- UI helpers ---------- */
 const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast.id);toast.id=setTimeout(()=>t.classList.remove("on"),1600)};
@@ -1280,30 +1291,93 @@ async function copyText(txt){
 
 function render(){
   const ch=DATA[cur];let any=false;
+  if(!ch)return;
+  const forced=ch.lang==="py"?LANG.py:null;
   $("#lvl").value=cur;$("#prev").disabled=cur==0;$("#next").disabled=cur==DATA.length-1;
   $("#lvlInfo").textContent=`${cur+1} / ${DATA.length}`;
   const box=document.createElement("div");
   box.innerHTML=ch.lessons.map(([name,qs,note,rev],li)=>{
-    const f=qs.filter(([q,a,c])=>!term||(q+(a||"")+(c||"")).toLowerCase().includes(term));
+    const f=qs.filter(([q,a,c])=>!term||(q+(a||"")+(c||"")).replace(/[\u2066\u2069]/g,"").toLowerCase().includes(term));
     if(!f.length)return"";any=true;
     return `<details class="lesson ${rev?"review":""}" ${term||li==0?"open":""}><summary>${esc(name)}<span class="count">${f.length} أسئلة</span><span class="chev">‹</span></summary><div class="qs">`+
     f.map(([q,a,c])=>{
-      const lang=c?LANG[detect(c)]:null;
+      const lang=c?(forced||LANG[detect(c)]):null;
       return `<article class="qcard"><h4><span>${mark(q)}</span></h4><button class="reveal">إظهار الإجابة</button><div class="ans">${a?`<p class="t">${esc(a)}</p>`:""}${c?`<div class="mac"><div class="bar"><i></i><i></i><i></i><span>${lang[0]}</span><button class="copy">نسخ</button></div><pre dir="ltr"><code>${lang[1](c)}</code></pre></div>`:""}</div></article>`}).join("")+
     (note?`<p class="note">ملحوظة: ${esc(note)}</p>`:"")+`</div></details>`}).join("");
   $("#chapter").replaceChildren(box);
   $("#empty").hidden=any;
 }
-$("#lvl").innerHTML=DATA.map((c,i)=>`<option value="${i}">${esc(c.title)} — ${esc(c.sub)}</option>`).join("");
 const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-const go=i=>{if(i<0||i>=DATA.length)return;cur=i;store.set("lvl",DATA[i].id);history.replaceState(null,"","#"+DATA[i].id);render();window.scrollTo({top:$("main").offsetTop-60,behavior:"smooth"})};
+
+/* ---------- الأقسام: الصف الأول / الصف الثاني (بايثون – جافا سكربت) ---------- */
+const heroJS=$("#heroCode").innerHTML;
+const heroPY='<span class="c"># محمد أحمد حلمي</span>\nauthor = <span class="s">"محمد أحمد حلمي"</span>\n<span class="b">print</span>(author)<span class="cur"></span>';
+const SEC={
+  g1:{grade:1,data:G1,file:"helmy.js",code:heroJS,store:"lvl",
+      h1:"حلول منصة كيريو<br>للصف الأول الثانوي",
+      p:"البرمجة والذكاء الاصطناعي · عام 2026-2027. اختر الفصل، افتح الدرس، وانسخ الكود جاهزًا.",
+      title:"حلول منصة كيريو – الصف الأول الثانوي 2026-2027"},
+  g2py:{grade:2,data:G2PY,file:"helmy.py",code:heroPY,store:"lvl_g2py",
+      h1:"حلول كيريو · بايثون<br>للصف الثاني الثانوي",
+      p:"البرمجة والذكاء الاصطناعي · لغة بايثون (Python). اختر الفصل، افتح الدرس، وانسخ الكود جاهزًا.",
+      title:"حلول منصة كيريو – الصف الثاني الثانوي – بايثون"},
+  g2js:{grade:2,data:[],file:"helmy.js",code:heroJS,store:"lvl_g2js",
+      h1:"حلول كيريو · جافا سكربت<br>للصف الثاني الثانوي",
+      p:"البرمجة والذكاء الاصطناعي · لغة جافا سكربت (JavaScript). الفصول قيد الإضافة.",
+      title:"حلول منصة كيريو – الصف الثاني الثانوي – جافا سكربت"}
+};
+let curSec="g1";
+const hashFor=(k,i)=>k==="g1"?"#"+DATA[i].id:k==="g2js"?"#g2js":"#g2py-"+DATA[i].id;
+function parseHash(h){
+  let m=/^#(\d+)$/.exec(h);
+  if(m)return{key:"g1",idx:G1.findIndex(c=>String(c.id)===m[1])};
+  m=/^#g2(py|js)(?:-(\d+))?$/.exec(h);
+  if(m){const key="g2"+m[1];return{key,idx:m[2]?SEC[key].data.findIndex(c=>String(c.id)===m[2]):-1}}
+  return null;
+}
+function fillSelect(){$("#lvl").innerHTML=DATA.map((c,i)=>`<option value="${i}">${esc(c.title)} — ${esc(c.sub)}</option>`).join("")}
+function paintStats(){
+  const t=DATA.reduce((s,c)=>s+c.lessons.reduce((a,l)=>a+l[1].length,0),0);
+  $("#stats").innerHTML=DATA.length?`<span><b>${DATA.length}</b> ${DATA.length>=3&&DATA.length<=10?"فصول":"فصلًا"}</span><span><b>${DATA.reduce((s,c)=>s+c.lessons.length,0)}</b> دروس</span><span><b>${t}</b> سؤالًا محلولًا</span>`:`<span>قريبًا</span>`;
+}
+function setSection(key,idx,fromHash){
+  const sec=SEC[key];curSec=key;DATA=sec.data;
+  document.querySelectorAll("[data-sec]").forEach(b=>{
+    const on=b.dataset.sec===key||(b.dataset.sec==="g2"&&sec.grade===2);
+    b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
+  $("#subLang").hidden=sec.grade!==2;
+  $("#heroTitle").innerHTML=sec.h1;$("#heroSub").textContent=sec.p;
+  $("#heroFile").textContent=sec.file;$("#heroCode").innerHTML=sec.code;
+  document.title=sec.title;
+  const empty=!DATA.length;
+  $("#soon").hidden=!empty;
+  document.querySelectorAll(".picker,.tools,#chapter").forEach(e=>e.hidden=empty);
+  $("#empty").hidden=true;
+  store.set("sec",key);
+  all=false;$("#toggleAll").textContent="إظهار كل الإجابات";term="";$("#q").value="";
+  paintStats();
+  if(empty){$("#chapter").replaceChildren();if(!fromHash)history.replaceState(null,"",hashFor(key,0));return}
+  fillSelect();
+  if(idx==null||idx<0){const sv=store.get(sec.store);idx=DATA.findIndex(c=>String(c.id)===sv)}
+  cur=idx>=0?idx:0;
+  if(!fromHash)history.replaceState(null,"",hashFor(key,cur));
+  render();
+}
+const go=i=>{if(i<0||i>=DATA.length)return;cur=i;store.set(SEC[curSec].store,DATA[i].id);history.replaceState(null,"",hashFor(curSec,i));render();window.scrollTo({top:$("main").offsetTop-60,behavior:"smooth"})};
 $("#lvl").onchange=e=>go(+e.target.value);
 $("#prev").onclick=()=>go(cur-1);
 $("#next").onclick=()=>go(cur+1);
-let h0=DATA.findIndex(c=>"#"+c.id==location.hash);
-if(h0<0){const s=store.get("lvl");h0=DATA.findIndex(c=>String(c.id)===s)}
-if(h0>=0)cur=h0;
-window.addEventListener("hashchange",()=>{const i=DATA.findIndex(c=>"#"+c.id==location.hash);if(i>=0&&i!==cur){cur=i;render()}});
+let lastG2="g2py";
+document.querySelectorAll("[data-sec]").forEach(b=>b.onclick=()=>{
+  let k=b.dataset.sec;if(k==="g2")k=lastG2;
+  if(k.startsWith("g2"))lastG2=k;
+  if(k!==curSec){setSection(k,null,false);window.scrollTo({top:$("main").offsetTop-60,behavior:"smooth"})}
+});
+window.addEventListener("hashchange",()=>{
+  const h=parseHash(location.hash);if(!h)return;
+  if(h.key!==curSec){if(h.key.startsWith("g2"))lastG2=h.key;setSection(h.key,h.idx,true)}
+  else if(h.idx>=0&&h.idx!==cur){cur=h.idx;render()}
+});
 $("#q").oninput=e=>{term=e.target.value.trim().toLowerCase();render()};
 $("#chapter").onclick=e=>{
   const r=e.target.closest(".reveal");
@@ -1331,7 +1405,11 @@ const topBtn=$("#top");
 addEventListener("scroll",()=>topBtn.classList.toggle("on",scrollY>700),{passive:true});
 topBtn.onclick=()=>scrollTo({top:0,behavior:"smooth"});
 
-/* ---------- Stats ---------- */
-const total=DATA.reduce((s,c)=>s+c.lessons.reduce((a,l)=>a+l[1].length,0),0);
-$("#stats").innerHTML=`<span><b>${DATA.length}</b> فصلًا</span><span><b>${DATA.reduce((s,c)=>s+c.lessons.length,0)}</b> دروس</span><span><b>${total}</b> سؤالًا محلولًا</span>`;
-render();
+/* ---------- Boot ---------- */
+(function(){
+  let h=parseHash(location.hash),key="g1",idx=null;
+  if(h){key=h.key;idx=h.idx}
+  else{const sv=store.get("sec");if(sv&&SEC[sv])key=sv}
+  if(key.startsWith("g2"))lastG2=key;
+  setSection(key,idx,!!h);
+})();
