@@ -7,8 +7,9 @@
 var $=function(s,r){return(r||document).querySelector(s)};
 var LS={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 var esc=function(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")};
-var KEY_FS="ed_fs",KEY_LANG="ed_lang",KEY_IN="ed_stdin",LIMIT_MS=5000,PY_LIMIT_MS=10000,PY_LOAD_MS=60000;
-var PYODIDE="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/";
+var KEY_FS="ed_fs",KEY_LANG="ed_lang",KEY_IN="ed_stdin",LIMIT_MS=5000,PY_LIMIT_MS=10000,PY_LOAD_MS=40000;
+/* مصادر Pyodide (يُجرَّب التالي تلقائيًا عند الفشل) */
+var PY_CDNS=["https://cdn.jsdelivr.net/pyodide/v0.26.4/full/","https://cdn.jsdelivr.net/npm/pyodide@0.26.4/","https://unpkg.com/pyodide@0.26.4/"],pyIdx=0;
 
 /* ---------- الأكواد الابتدائية والأمثلة ---------- */
 var START_JS='// اكتب كود جافا سكربت هنا ثم اضغط «تشغيل» (Ctrl + Enter)\nconst numList = [3, 7, 14, 21, 25];\n\nfor (const num of numList) {\n  if (num % 7 == 0) {\n    console.log(num + " يقبل القسمة على 7");\n  }\n}\n';
@@ -143,12 +144,26 @@ var workerURL=null;
 function getURL(){if(!workerURL)workerURL=URL.createObjectURL(new Blob(["("+workerMain.toString()+")()"],{type:"text/javascript"}));return workerURL}
 
 /* ---------- Worker بايثون (Pyodide) ---------- */
-function pyWorkerMain(INDEX){
+function pyWorkerMain(){
   var n=0,MAX=1500,py=null;
   function post(t,a){self.postMessage({t:t,a:a})}
   function line(t,s){if(++n>MAX){if(n===MAX+1)post("err","تجاوز الحد الأقصى للإخراج ("+MAX+" سطر).");return}post(t,s)}
+  async function load(INDEX){
+    try{
+      /* نجلب المكتبة القياسية يدويًا (بدون كاش) ونتحقق منها قبل تمريرها لـ Pyodide */
+      var r=await fetch(INDEX+"python_stdlib.zip",{cache:"reload"});
+      if(!r.ok)throw new Error("HTTP "+r.status+" — "+INDEX);
+      var buf=await r.arrayBuffer(),u=new Uint8Array(buf);
+      if(u.length<1000000||u[0]!==0x50||u[1]!==0x4b)throw new Error("ملف python_stdlib.zip تالف أو محجوب ("+u.length+" بايت) — "+INDEX);
+      importScripts(INDEX+"pyodide.js");
+      py=await loadPyodide({indexURL:INDEX,stdLibURL:URL.createObjectURL(new Blob([buf]))});
+      post("ready");
+    }catch(err){post("fail",String(err&&err.message!==undefined?err.message:err))}
+  }
   self.onmessage=async function(e){
-    var m=e.data;if(!m||m.t!=="run"||!py)return;
+    var m=e.data;
+    if(m&&m.t==="init"){load(m.index);return}
+    if(!m||m.t!=="run"||!py)return;
     var t0=Date.now(),g=null,rows=m.stdin?String(m.stdin).split("\n"):[],ri=0;
     n=0;post("start");
     try{
@@ -169,16 +184,9 @@ function pyWorkerMain(INDEX){
     }
     post("done",Date.now()-t0);
   };
-  (async function(){
-    try{
-      importScripts(INDEX+"pyodide.js");
-      py=await loadPyodide({indexURL:INDEX});
-      post("ready");
-    }catch(err){post("fail",String(err&&err.message!==undefined?err.message:err))}
-  })();
 }
 var pyURL=null;
-function getPyURL(){if(!pyURL)pyURL=URL.createObjectURL(new Blob(["("+pyWorkerMain.toString()+")("+JSON.stringify(PYODIDE)+")"],{type:"text/javascript"}));return pyURL}
+function getPyURL(){if(!pyURL)pyURL=URL.createObjectURL(new Blob(["("+pyWorkerMain.toString()+")()"],{type:"text/javascript"}));return pyURL}
 
 /* ---------- المعاينة (HTML/CSS/JS) ---------- */
 var VOID={area:1,base:1,br:1,col:1,embed:1,hr:1,img:1,input:1,link:1,meta:1,source:1,track:1,wbr:1};
@@ -727,6 +735,19 @@ function sendPy(){
   pyPending=false;
   pw.postMessage({t:"run",code:code.value,stdin:stdin.value});
 }
+function pyRetry(why){
+  /* جرّب المصدر التالي؛ إن انتهت المصادر أظهر الخطأ */
+  if(pw){pw.terminate();pw=null}
+  clearTimeout(pyLoadT);pyReady=false;
+  if(pyIdx<PY_CDNS.length-1&&pyBusy){
+    pyIdx++;status("جارٍ المحاولة من مصدر بديل ("+(pyIdx+1)+"/"+PY_CDNS.length+")…","busy");
+    if(!makePyWorker()){pyIdx=0}
+    return;
+  }
+  pyIdx=0;pyKill();clearOut();
+  line("err","تعذّر تحميل مفسّر بايثون من كل المصادر.\nيلزم اتصال بالإنترنت عند أول تشغيل، وتأكد أن مانع الإعلانات/الـ VPN لا يحجب cdn.jsdelivr.net أو unpkg.com.\n"+why);
+  status("فشل التحميل","bad");
+}
 function makePyWorker(){
   try{pw=new Worker(getPyURL())}catch(e){pyKill();line("err","تعذّر تشغيل بايثون في هذا المتصفح: "+e.message);status("خطأ","bad");return false}
   var w=pw;
@@ -737,10 +758,7 @@ function makePyWorker(){
       clearTimeout(pyLoadT);pyReady=true;
       if(pyPending&&pyBusy)sendPy();
     }
-    else if(m.t==="fail"){
-      pyKill();clearOut();
-      line("err","تعذّر تحميل مفسّر بايثون. يلزم اتصال بالإنترنت عند أول تشغيل.\n"+m.a);status("فشل التحميل","bad");
-    }
+    else if(m.t==="fail")pyRetry(m.a);
     else if(m.t==="start"){
       lines=0;out.textContent="";pyErrs=0;status("يعمل…","busy");
       clearTimeout(pyT);pyT=setTimeout(function(){
@@ -756,11 +774,12 @@ function makePyWorker(){
   };
   w.onerror=function(e){
     if(w!==pw)return;
-    e.preventDefault();var msg=e.message||"خطأ غير معروف";pyKill();line("err",msg);status("خطأ","bad");
+    e.preventDefault();
+    if(!pyReady)pyRetry(e.message||"خطأ غير معروف");
+    else{var msg=e.message||"خطأ غير معروف";pyKill();line("err",msg);status("خطأ","bad")}
   };
-  pyLoadT=setTimeout(function(){
-    if(!pyReady){pyKill();clearOut();line("err","انتهت مهلة تحميل بايثون. تأكد من الاتصال بالإنترنت وأعد المحاولة.");status("فشل التحميل","bad")}
-  },PY_LOAD_MS);
+  pyLoadT=setTimeout(function(){if(!pyReady)pyRetry("انتهت مهلة التحميل")},PY_LOAD_MS);
+  w.postMessage({t:"init",index:PY_CDNS[pyIdx]});
   return true;
 }
 function runPy(){
