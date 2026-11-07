@@ -282,18 +282,21 @@ span.me.ph{display:grid;place-items:center;background:var(--navy-2);color:#fff;f
 @media print{.g2note{display:none!important}}
 
 /* ---------- شرح الأكواد ---------- */
-.exp-btn{display:inline-flex;align-items:center;margin-top:10px;height:32px;padding:0 14px;border:1px dashed var(--line);border-radius:999px;background:transparent;color:var(--mute);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
-.exp-btn:hover,.exp-btn.on{border-color:var(--ic,#6c8cff);color:var(--ink);background:var(--panel-2)}
-.exp{margin-top:10px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel-2)}
+.exp-btn{display:inline-flex;align-items:center;margin-top:12px;min-height:40px;padding:0 18px;border:1.5px solid var(--ic,#4a6cf7);border-radius:999px;background:transparent;color:var(--ink);font:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.exp-btn:hover,.exp-btn.on{border-color:var(--ic,#4a6cf7);color:var(--ink);background:color-mix(in srgb,var(--ic,#4a6cf7) 14%,var(--panel))}
+.exp{--exp-x-bg:#e8eefc;--exp-x-ink:#0b2a7a;--exp-x-line:#b9c8f2;--exp-fn-bg:#eef3ff;--exp-num:#3a4a75;
+  margin-top:12px;padding:16px clamp(12px,3vw,18px);border:1px solid var(--line);border-radius:16px;background:var(--panel-2)}
+:root[data-theme=dark] .exp{--exp-x-bg:#1b2750;--exp-x-ink:#bfe9ff;--exp-x-line:#34457f;--exp-fn-bg:#16224a;--exp-num:#9db2ee}
 .exp[hidden]{display:none}
-.exp-intro{margin:0 0 10px;font-size:12.5px;color:var(--mute)}
-.exp-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:l}
-.exp-list li{counter-increment:l;display:grid;gap:4px;padding:8px 10px;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
-.exp-list code{display:block;direction:ltr;text-align:left;font-family:ui-monospace,Consolas,monospace;font-size:12.5px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink)}
-.exp-list code::before{content:counter(l) "  ";color:var(--mute)}
-.exp-list p{margin:0;font-size:13.5px;line-height:1.8;color:var(--ink)}
-.exp-list .x{font-family:ui-monospace,Consolas,monospace;font-size:12px;padding:1px 5px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line)}
-.exp-list .fn{display:block;margin-top:6px;padding:6px 10px;border-radius:8px;background:var(--panel-2);border-inline-start:3px solid var(--ic,#6c8cff);font-size:13px;line-height:1.8}
+.exp-intro{margin:0 0 14px;font-size:16px;font-weight:600;line-height:1.9;color:var(--ink)}
+.exp-list{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:l}
+.exp-list li{counter-increment:l;display:grid;gap:8px;padding:12px 14px;border-radius:12px;background:var(--panel);border:1px solid var(--line);border-inline-start:4px solid var(--ic,#4a6cf7)}
+.exp-list code{display:block;direction:ltr;text-align:left;font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;font-size:15px;font-weight:600;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink)}
+.exp-list code::before{content:counter(l) "  ";color:var(--exp-num);font-weight:700}
+.exp-list p{margin:0;font-size:17px;font-weight:500;line-height:2;color:var(--ink)}
+.exp-list .x{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;font-size:15px;font-weight:600;padding:2px 7px;border-radius:7px;background:var(--exp-x-bg);color:var(--exp-x-ink);border:1px solid var(--exp-x-line)}
+.exp-list .fn{display:block;margin-top:8px;padding:10px 14px;border-radius:10px;background:var(--exp-fn-bg);border-inline-start:4px solid var(--ic,#4a6cf7);font-size:16.5px;line-height:2;color:var(--ink)}
+@media(max-width:560px){.exp-intro{font-size:15.5px}.exp-list p{font-size:16px}.exp-list code,.exp-list .x{font-size:14px}.exp-list .fn{font-size:15.5px}}
 
 /* ---------- رابط «عن المطور» في الهيدر ---------- */
 .dev-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:auto;padding:0 12px;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
