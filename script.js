@@ -1346,9 +1346,7 @@ function setSection(key,idx,fromHash){
     const on=b.dataset.sec===key||(b.dataset.sec==="g2"&&sec.grade===2);
     b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
   $("#subLang").hidden=sec.grade!==2;
-  $("#heroTitle").innerHTML=sec.h1;$("#heroSub").textContent=sec.p;
-  $("#heroFile").textContent=sec.file;$("#heroCode").innerHTML=sec.code;
-  document.title=sec.title;
+  $("#subLang1").hidden=sec.grade!==1;
   const empty=!DATA.length;
   $("#soon").hidden=!empty;
   document.querySelectorAll(".picker,.tools,#chapter").forEach(e=>e.hidden=empty);
