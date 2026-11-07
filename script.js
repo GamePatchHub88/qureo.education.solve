@@ -1321,7 +1321,7 @@ function render(){
     return `<details class="lesson ${rev?"review":""}" ${term||li==0?"open":""}><summary>${esc(name)}<span class="count">${f.length} أسئلة</span><span class="chev">‹</span></summary><div class="qs">`+
     f.map(([q,a,c])=>{
       const lang=c?(forced||LANG[(ch.lang==="web"?detectWeb:detect)(c)]):null;
-      return `<article class="qcard"><h4><span>${mark(q)}</span></h4><button class="reveal">إظهار الإجابة</button><div class="ans">${a?`<p class="t">${esc(a)}</p>`:""}${c?`<div class="mac"><div class="bar"><i></i><i></i><i></i><span>${lang[0]}</span><button class="copy">نسخ</button></div><pre dir="ltr"><code>${lang[1](c)}</code></pre></div>`:""}</div></article>`}).join("")+
+      return `<article class="qcard"><h4><span>${mark(q)}</span></h4><button class="reveal">إظهار الإجابة</button><div class="ans">${a?`<p class="t">${esc(a)}</p>`:""}${c?`<div class="mac"><div class="bar"><i></i><i></i><i></i><span>${lang[0]}</span><button class="copy">نسخ</button></div><pre dir="ltr"><code>${lang[1](c)}</code></pre></div><button class="exp-btn" type="button" data-k="${lang[0]}" aria-expanded="false">إظهار الشرح</button><div class="exp" hidden></div>`:""}</div></article>`}).join("")+
     (note?`<p class="note">ملحوظة: ${esc(note)}</p>`:"")+`</div></details>`}).join("");
   $("#chapter").replaceChildren(box);
   $("#empty").hidden=any;
@@ -1404,6 +1404,12 @@ $("#q").oninput=e=>{term=e.target.value.trim().toLowerCase();render()};
 $("#chapter").onclick=e=>{
   const r=e.target.closest(".reveal");
   if(r){const c=r.closest(".qcard");c.classList.toggle("show");r.textContent=c.classList.contains("show")?"إخفاء الإجابة":"إظهار الإجابة"}
+  const x=e.target.closest(".exp-btn");
+  if(x){
+    const box=x.nextElementSibling,open=box.hidden;
+    if(open&&!box.innerHTML&&window.explainCode)box.innerHTML=window.explainCode(x.closest(".ans").querySelector("code").textContent,window.__explainKind(x.dataset.k));
+    box.hidden=!open;x.textContent=open?"إخفاء الشرح":"إظهار الشرح";x.setAttribute("aria-expanded",open);x.classList.toggle("on",open);
+  }
   const b=e.target.closest(".copy");
   if(b){copyText(b.closest(".mac").querySelector("code").textContent).then(ok=>{
     toast(ok?"تم نسخ الكود":"تعذّر النسخ، حدّد الكود يدويًا");

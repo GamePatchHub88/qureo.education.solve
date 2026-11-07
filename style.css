@@ -188,18 +188,19 @@ footer{text-align:center;padding:26px var(--gut) calc(26px + env(safe-area-inset
 .author .ph{display:grid;place-items:center;font-size:42px;font-weight:800;background:var(--navy);color:#fff}
 .author h2{margin:0;font-size:14px;color:var(--mute);font-weight:600}
 .author .nm{margin:2px 0 0;font-size:clamp(20px,3vw,26px);font-weight:800}
-.author .contact-t{margin:14px 0 8px;font-size:13px;font-weight:600;color:var(--mute)}
-.contact{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.c-btn{display:flex;align-items:center;gap:10px;min-height:52px;padding:8px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel-2);color:var(--ink);text-decoration:none;font-weight:700;font-size:14px;line-height:1.35;transition:transform .15s,border-color .2s,background .2s,box-shadow .2s}
-.c-btn svg{width:24px;height:24px;flex:none;color:var(--ic)}
-.c-btn span{display:flex;flex-direction:column;min-width:0}
-.c-btn small{font-size:11.5px;font-weight:400;color:var(--mute);overflow-wrap:anywhere;text-align:start}
-.c-btn:hover{transform:translateY(-2px);border-color:var(--ic);background:var(--panel);box-shadow:var(--shadow)}
-.c-btn:active{transform:scale(.97)}
+.author .sch{margin:4px 0 0;font-size:13px;line-height:1.6;color:var(--mute)}
+.author .contact-t{margin:12px 0 6px;font-size:12px;font-weight:600;color:var(--mute)}
+.contact{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.c-btn{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px 0 10px;border:1px solid var(--line);border-radius:999px;background:var(--panel-2);color:var(--ink);text-decoration:none;font-weight:600;font-size:12.5px;line-height:1;white-space:nowrap;transition:transform .15s,border-color .2s,background .2s}
+.c-btn svg{width:16px;height:16px;flex:none;color:var(--ic)}
+.c-btn span{display:inline}
+.c-btn:hover{transform:translateY(-1px);border-color:var(--ic);background:var(--panel)}
+.c-btn:active{transform:scale(.96)}
+.c-btn:focus-visible{outline:2px solid var(--ic);outline-offset:2px}
 .c-wa{--ic:#25d366}.c-fb{--ic:#1877f2}.c-in{--ic:#0a66c2}.c-mail{--ic:#ea4335}
 :root[data-theme=dark] .c-in{--ic:#4a9be8}
-@media(max-width:700px){.author{flex-wrap:wrap}.contact{grid-template-columns:1fr}}
-@media(max-width:480px){.author{flex-direction:column;text-align:center;gap:12px}.author>div{width:100%}}
+@media(max-width:700px){.author{flex-wrap:wrap}}
+@media(max-width:480px){.author{flex-direction:column;text-align:center;gap:12px}.author>div{width:100%}.contact{justify-content:center}}
 @media print{.author{display:none}}
 
 /* ===== Tips ===== */
@@ -279,3 +280,16 @@ span.me.ph{display:grid;place-items:center;background:var(--navy-2);color:#fff;f
 .g2note p{flex:1 1 260px;margin:0;font-size:clamp(14.5px,2vw,16.5px);font-weight:700;line-height:1.9;color:var(--ink)}
 .g2note .ghost{min-height:44px;font-weight:600}
 @media print{.g2note{display:none!important}}
+
+/* ---------- شرح الأكواد ---------- */
+.exp-btn{display:inline-flex;align-items:center;margin-top:10px;height:32px;padding:0 14px;border:1px dashed var(--line);border-radius:999px;background:transparent;color:var(--mute);font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;transition:border-color .2s,color .2s,background .2s}
+.exp-btn:hover,.exp-btn.on{border-color:var(--ic,#6c8cff);color:var(--ink);background:var(--panel-2)}
+.exp{margin-top:10px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel-2)}
+.exp[hidden]{display:none}
+.exp-intro{margin:0 0 10px;font-size:12.5px;color:var(--mute)}
+.exp-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:l}
+.exp-list li{counter-increment:l;display:grid;gap:4px;padding:8px 10px;border-radius:10px;background:var(--panel);border:1px solid var(--line)}
+.exp-list code{display:block;direction:ltr;text-align:left;font-family:ui-monospace,Consolas,monospace;font-size:12.5px;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--ink)}
+.exp-list code::before{content:counter(l) "  ";color:var(--mute)}
+.exp-list p{margin:0;font-size:13.5px;line-height:1.8;color:var(--ink)}
+.exp-list .x{font-family:ui-monospace,Consolas,monospace;font-size:12px;padding:1px 5px;border-radius:6px;background:var(--panel-2);border:1px solid var(--line)}
