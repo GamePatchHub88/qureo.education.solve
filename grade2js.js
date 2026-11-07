@@ -1,5 +1,5 @@
 /* ===== الصف الثاني الثانوي — جافا سكربت (JavaScript) =====
-   الفصول 43 إلى 45 (HTML / CSS). نفس صيغة بقية الأقسام: [السؤال، الإجابة النصية، الكود]
+   الفصول 43 إلى 45 (HTML / CSS) و46 إلى 50 (JavaScript). نفس صيغة بقية الأقسام: [السؤال، الإجابة النصية، الكود]
    lang:"web" يجعل تلوين الكود واسم الملف (index.html / style.css) يُحدَّدان تلقائيًا. */
 const WEB_SAME="امسح الكود أو عدّله ليصبح هكذا، وتأكد من عدم وجود أسطر زائدة.";
 const WEB_RUN="اضغط على «تشغيل الكود» دون تعديل البرنامج.";
@@ -189,5 +189,309 @@ footer {
   background-color: #e0a241;
 }`],
 [`اختر الوسم الذي يُحيط بكود التذييل عند كتابة تذييل صفحة ويب في HTML`,``,`<footer> </footer>`]],``,1]
+]}
+,
+{id:46,title:"الفصل 46",sub:"for...of والعدّ والدوال",lessons:[
+[`الدرس 1: مراجعة for...of`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`اطبع الأرقام التي تقبل القسمة على 7 فقط من المصفوفة numList باستخدام for...of (اسم المتغير num)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const numList = [128, 254, 458, 547, 125, 305, 581, 12, 783, 429];
+for (const num of numList) {
+  if (num % 7 == 0) {
+    console.log(num);
+  }
+}`]]],
+[`الدرس 2: عدّ الأرقام الرابحة`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`احسب عدد الأرقام من 0 إلى 999 التي تقبل القسمة على 7 (استخدم المتغير count وعامل الزيادة ++) ثم اطبع العدد`,`امسح الكود أو عدّله ليصبح هكذا.`,`let count = 0;
+for (let i = 0; i <= 999; i++) {
+  if (i % 7 == 0) {
+    count++;
+  }
+}
+console.log(count);`]]],
+[`الدرس 3: الدوال`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`ضع الحلقة داخل دالة باسم checkWinningNum لها المعامل numList، ثم استدعها بالمصفوفة`,`امسح الكود أو عدّله ليصبح هكذا.`,`function checkWinningNum(numList) {
+  for (const num of numList) {
+    if (num % 7 == 0) {
+      console.log(num);
+    }
+  }
+}
+const winList = [128, 254, 458, 547, 125, 305, 581, 12, 783, 429];
+checkWinningNum(winList);`]]],
+[`مراجعة الفصل 46`,[
+[`اختر ناتج الإخراج: const list = [3, 4, 6, 9]; for (const num of list) { if (num % 3 == 0) { console.log(num); } }`,`3 ثم 6 ثم 9 (كل رقم في سطر)`],
+[`اطبع كل قيمة في المصفوفة الثابتة باستخدام for...of`,`امسح الكود أو عدّله ليصبح هكذا.`,`const fruitList = ["apple", "orange", "grape"];
+for (const fruit of fruitList) {
+  console.log(fruit);
+}`],
+[`ما الناتج؟ let count = 0; for (let i = 0; i <= 5; i++) { if (i % 2 == 0) { count++; } } console.log(count);`,`3 (القيم الزوجية هي 0 و2 و4)`],
+[`عدّل الشرط ليطبع القيم التي تقبل القسمة على 3`,`امسح الكود أو عدّله ليصبح هكذا.`,`const list = [3, 5, 6, 8, 9];
+for (const num of list) {
+  if (num % 3 == 0) {
+    console.log(num);
+  }
+}`],
+[`اختر ناتج الإخراج: function check(list) { for (const num of list) { if (num % 5 == 0) { console.log(num); } } } check([5, 7, 10, 12]);`,`5 ثم 10 (كل رقم في سطر)`]],``,1]
+]}
+,{id:47,title:"الفصل 47",sub:"switch والنفي !",lessons:[
+[`الدرس 1: جملة switch`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`اطبع رسالة الجائزة المناسبة لكل رقم من قيمة target باستخدام switch (حالات منفصلة) مع default`,`امسح الكود أو عدّله ليصبح هكذا.`,`let target = 1;
+switch (target) {
+  case 1:
+    console.log("Candy Assortment Get");
+    break;
+  case 4:
+    console.log("Video game Get");
+    break;
+  default:
+    console.log("Sticker Get");
+}`],
+[`اجمع الحالات التي لها نفس الناتج معًا (الرقمان 4 و8 للعبة، والرقمان 1 و7 للحلوى)`,`امسح الكود أو عدّله ليصبح هكذا.`,`let target = 1;
+switch (target) {
+  case 4:
+  case 8:
+    console.log("Video game Get");
+    break;
+  case 1:
+  case 7:
+    console.log("Candy Assortment Get");
+    break;
+  default:
+    console.log("Sticker Get");
+}`]]],
+[`الدرس 2: switch والحلقات والباقي %`,[
+[`اطبع مجموعة الطالب بحسب رقمه باستخدام switch`,`امسح الكود أو عدّله ليصبح هكذا.`,`const student = 3;
+switch (student) {
+  case 1:
+    console.log("Group A");
+    break;
+  case 2:
+    console.log("Group B");
+    break;
+  case 3:
+    console.log("Group C");
+    break;
+  default:
+    console.log("Group D");
+}`],
+[`وزّع الطلاب من 1 إلى 30 على المجموعات بحسب باقي القسمة على 4`,`امسح الكود أو عدّله ليصبح هكذا.`,`for (let student = 1; student <= 30; student++) {
+  switch (student % 4) {
+    case 1:
+      console.log(student + ": Group A");
+      break;
+    case 2:
+      console.log(student + ": Group B");
+      break;
+    case 3:
+      console.log(student + ": Group C");
+      break;
+    default:
+      console.log(student + ": Group D");
+  }
+}`]]],
+[`الدرس 3: نفي الشرط`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`اطبع "It's sold out" عندما لا يكون المقعد available (استخدم عامل النفي !)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const seat = "sold out";
+if (!(seat == "available")) {
+  console.log("It's sold out");
+}`]]],
+[`مراجعة الفصل 47`,[
+[`اطبع الملابس المناسبة للطقس باستخدام switch (حالات منفصلة)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const weather = "rainy";
+switch (weather) {
+  case "sunny":
+    console.log("Wear a cap");
+    break;
+  case "rainy":
+    console.log("Take an umbrella");
+    break;
+  default:
+    console.log("Wear a jacket");
+}`],
+[`اجمع الحالات المتشابهة في switch (rainy و snowy لهما نفس الناتج)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const weather = "snowy";
+switch (weather) {
+  case "rainy":
+  case "snowy":
+    console.log("Take a coat");
+    break;
+  default:
+    console.log("Wear a cap");
+}`],
+[`اختر ناتج الإخراج: for (let i = 1; i <= 4; i++) { switch (i % 2) { case 0: console.log("even"); break; default: console.log("odd"); } }`,`odd ثم even ثم odd ثم even (كل كلمة في سطر)`],
+[`وزّع الطلاب من 1 إلى 10 على مجموعتين بحسب الباقي (أكمل الحلقة)`,`امسح الكود أو عدّله ليصبح هكذا.`,`for (let student = 1; student <= 10; student++) {
+  switch (student % 2) {
+    case 0:
+      console.log(student + ": Group A");
+      break;
+    default:
+      console.log(student + ": Group B");
+  }
+}`],
+[`اختر ناتج الإخراج: const seat = "available"; if (!(seat == "available")) { console.log("sold out"); }`,`لا يُطبع شيء (الشرط غير متحقق)`]],``,1]
+]}
+,{id:48,title:"الفصل 48",sub:"مراجعة الفصلين 46 و47",lessons:[
+[`الدرس 1: مراجعة الفصلين 46 و47`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`اطبع الأرقام التي تقبل القسمة على 7 من المصفوفة الثابتة numList (اسم المتغير num)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const numList = [128, 254, 458, 547, 125, 305, 581, 12, 783, 429];
+for (const num of numList) {
+  if (num % 7 == 0) {
+    console.log(num);
+  }
+}`],
+[`احسب عدد الأرقام الرابحة من 0 إلى 999 (القابلة للقسمة على 7) واطبعه`,`امسح الكود أو عدّله ليصبح هكذا.`,`let count = 0;
+for (let i = 0; i <= 999; i++) {
+  if (i % 7 == 0) {
+    count++;
+  }
+}
+console.log(count);`],
+[`أنشئ الدالة checkWinningNum بالمعامل numList لطباعة القيم القابلة للقسمة على 7`,`امسح الكود أو عدّله ليصبح هكذا.`,`function checkWinningNum(numList) {
+  for (const num of numList) {
+    if (num % 7 == 0) {
+      console.log(num);
+    }
+  }
+}
+checkWinningNum([128, 254, 458, 547, 125, 305, 581, 12, 783, 429]);`],
+[`اطبع الجائزة بحسب target (قيمته 1): للرقمين 4 و8 "Video game Get"، وللرقمين 1 و7 "Candy Assortment Get"، وغير ذلك "Sticker Get"`,`امسح الكود أو عدّله ليصبح هكذا.`,`let target = 1;
+switch (target) {
+  case 4:
+  case 8:
+    console.log("Video game Get");
+    break;
+  case 1:
+  case 7:
+    console.log("Candy Assortment Get");
+    break;
+  default:
+    console.log("Sticker Get");
+}`],
+[`أعد كتابة الشرط باستخدام ! لطباعة "It's sold out" عندما لا يكون المقعد available`,`امسح الكود أو عدّله ليصبح هكذا.`,`const seat = "sold out";
+if (!(seat == "available")) {
+  console.log("It's sold out");
+}`]],`مراجعة شاملة للفصلين 46 و47.`],
+[`اختبار منتصف الطريق`,[
+[`اختر الحلقة المستخدمة لتمرير كل عنصر في المصفوفة بالترتيب`,``,`for (const item of list) {
+  process;
+}`],
+[`اختر ناتج الإخراج: const list = [2, 7, 14, 20]; for (const num of list) { if (num % 7 == 0) { console.log(num); } }`,`7 ثم 14 (كل رقم في سطر)`],
+[`اختر الكلمة المفتاحية التي تنهي الحالة في switch وتمنع الانتقال إلى الحالة التالية`,`break`],
+[`أكمل البرنامج لطباعة عدد الأرقام القابلة للقسمة على 3 من 0 إلى 99`,`امسح الكود أو عدّله ليصبح هكذا.`,`let count = 0;
+for (let i = 0; i <= 99; i++) {
+  if (i % 3 == 0) {
+    count++;
+  }
+}
+console.log(count);`],
+[`وزّع الطلاب من 1 إلى 6 على ثلاث مجموعات بحسب باقي القسمة على 3`,`امسح الكود أو عدّله ليصبح هكذا.`,`for (let student = 1; student <= 6; student++) {
+  switch (student % 3) {
+    case 1:
+      console.log(student + ": Group A");
+      break;
+    case 2:
+      console.log(student + ": Group B");
+      break;
+    default:
+      console.log(student + ": Group C");
+  }
+}`]],``,1]
+]}
+,{id:49,title:"الفصل 49",sub:"while و if و continue",lessons:[
+[`الدرس 1: حلقة while`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`أضف 6 كم إلى distance في كل مرة حتى تتجاوز المسافة 100 كم، واطبع المسافة بعد كل إضافة`,`امسح الكود أو عدّله ليصبح هكذا.`,`let distance = 0;
+while (distance < 100) {
+  distance += 6;
+  console.log(distance);
+}`]]],
+[`الدرس 2: while مع if`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`ابدأ بمبلغ 20000 واحسب عدد السنوات اللازمة ليتجاوز 50000 (يتضاعف المبلغ بنسبة 1.2 كل سنتين: تحقق من أن السنة زوجية بـ if)`,`امسح الكود أو عدّله ليصبح هكذا.`,`let money = 20000;
+let year = 0;
+while (money <= 50000) {
+  year++;
+  if (year % 2 == 0) {
+    money = money * 1.2;
+  }
+}
+console.log(year);`]]],
+[`الدرس 3: continue`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`احسب عدد بطولات كأس العالم من 2026 إلى 2100 (كل 4 سنوات)`,`امسح الكود أو عدّله ليصبح هكذا.`,`let year = 2026;
+let count = 0;
+while (year <= 2100) {
+  count++;
+  year += 4;
+}
+console.log(count);`],
+[`تخطَّ عام 2050 باستخدام continue (لا يُحتسب ضمن العدد)`,`امسح الكود أو عدّله ليصبح هكذا.`,`let year = 2026;
+let count = 0;
+while (year <= 2100) {
+  if (year == 2050) {
+    year += 4;
+    continue;
+  }
+  count++;
+  year += 4;
+}
+console.log(count);`]]],
+[`مراجعة الفصل 49`,[
+[`أضف 7 إلى num حتى يصل إلى 100 أو يتجاوزه، ثم اطبع عدد مرات التكرار`,`امسح الكود أو عدّله ليصبح هكذا.`,`let num = 0;
+let count = 0;
+while (num < 100) {
+  num += 7;
+  count++;
+}
+console.log(count);`],
+[`اطبع سنوات الأولمبياد (القابلة للقسمة على 4) من 2024 إلى 2200`,`امسح الكود أو عدّله ليصبح هكذا.`,`let year = 2024;
+while (year <= 2200) {
+  if (year % 4 == 0) {
+    console.log(year);
+  }
+  year++;
+}`],
+[`اختر ناتج الإخراج: let i = 0; let count = 0; while (i < 5) { i++; if (i == 3) { continue; } count++; } console.log(count);`,`4 (يُتخطى العدّ عندما تكون i تساوي 3)`],
+[`اختر الوصف الصحيح لعمل continue داخل الحلقة`,`تتخطى بقية الدورة الحالية وتنتقل إلى الدورة التالية`]],``,1]
+]}
+,{id:50,title:"الفصل 50",sub:"المصفوفات والحلقات",lessons:[
+[`الدرس 1: المصفوفات`,[
+[`انقر على «تشغيل الكود» دون تعديل البرنامج`,WEB_RUN],
+[`احسب عدد الخطوات يوم الاثنين (الفهرس 0) ويوم السبت (الفهرس 5) بقسمة المسافة على 0.7 واطبعهما`,`امسح الكود أو عدّله ليصبح هكذا.`,`const distanceList = [2870, 2100, 3500, 1470, 4200, 4900, 2450];
+console.log(distanceList[0] / 0.7);
+console.log(distanceList[5] / 0.7);`]]],
+[`الدرس 2: for...of مع المصفوفات`,[
+[`اطبع عدد الخطوات لكل يوم باستخدام for...of (اسم المتغير distance)`,`امسح الكود أو عدّله ليصبح هكذا.`,`const distanceList = [2870, 2100, 3500, 1470, 4200, 4900, 2450];
+for (const distance of distanceList) {
+  console.log(distance / 0.7);
+}`]]],
+[`الدرس 3: طول المصفوفة length`,[
+[`اجمع المسافات في المتغير sum واطبع المجموع`,`امسح الكود أو عدّله ليصبح هكذا.`,`const distanceList = [2870, 2100, 3500, 1470, 4200, 4900, 2450];
+let sum = 0;
+for (const distance of distanceList) {
+  sum += distance;
+}
+console.log(sum);`],
+[`اطبع متوسط المسافات بقسمة sum على طول المصفوفة length`,`امسح الكود أو عدّله ليصبح هكذا.`,`const distanceList = [2870, 2100, 3500, 1470, 4200, 4900, 2450];
+let sum = 0;
+for (const distance of distanceList) {
+  sum += distance;
+}
+console.log(sum);
+console.log(sum / distanceList.length);`]]],
+[`مراجعة الفصل 50`,[
+[`اختر ناتج الإخراج: const scoreList = [70, 85, 90]; console.log(scoreList[1]);`,`85`],
+[`أكمل رأس حلقة for...of لتمرير كل عنصر في scoreList باسم score`,`اكتب في المكان المخصص: const score of scoreList`,`const scoreList = [70, 85, 90];
+for (const score of scoreList) {
+  console.log(score);
+}`],
+[`ما قيمة a.length إذا كانت a = [2, 0, 0, 1]؟`,`4`],
+[`اطبع متوسط درجات scoreList باستخدام length حتى يبقى الحل صحيحًا إذا تغيّر عدد العناصر`,`امسح الكود أو عدّله ليصبح هكذا.`,`const scoreList = [70, 85, 90];
+let sum = 0;
+for (const score of scoreList) {
+  sum += score;
+}
+console.log(sum / scoreList.length);`]],``,1]
 ]}
 ];
