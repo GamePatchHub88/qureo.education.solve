@@ -239,3 +239,9 @@ span.me.ph{display:grid;place-items:center;background:var(--navy-2);color:#fff;f
   .seg-sub button{font-size:13.5px}
   .soon-tag{display:none}
 }
+
+/* شعارات اللغات في التبديل */
+.seg-sub button{min-height:60px;gap:10px;font-size:16px}
+.seg .lgo{width:36px;height:36px;flex:none;display:block;filter:drop-shadow(0 2px 4px #0003)}
+.seg button:not(.on) .lgo{opacity:.9}
+@media(max-width:640px){.seg-sub button{min-height:56px;font-size:14px;gap:8px}.seg .lgo{width:32px;height:32px}}
