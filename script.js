@@ -932,19 +932,13 @@ p {
 ["اطبع \"80 points or higher\" إذا كانت الدرجة 80 أو أكثر", "اكتب من السطر الثاني إلى السادس.", "let scoreList = [52, 60, 79, 82, 66, 59, 88];\nfor (let i = 0; i < scoreList.length; i++) {\n  if (scoreList[i] >= 80) {\n    console.log(\"80 points or higher\");\n  }\n}"]],"",1]
 ]}
 ,{id:27,title:"الفصل 27",sub:"مراجعة الفصلين 25 و26",lessons:[
-["الدرس 1: مراجعة الفصلين 25 و26",[["احسب 7×7×7×7×7×7×7: num = 1 وكرّر 7 مرات (i من 0 والشرط i < 7)", "", "let num = 1;\nfor (let i = 0; i < 7; i++) {\n  num = num * 7;\n}\nconsole.log(num);"],
-["احسب 1×2×3×4×5", "امسح الكود أو عدّله ليصبح هكذا.", "let num = 1;\nfor (let i = 1; i <= 5; i++) {\n  num = num * i;\n}\nconsole.log(num);"],
-["اضرب الأعداد من 1 إلى 15 على التوالي", "", "let num = 1;\nfor (let i = 1; i <= 15; i++) {\n  num = num * i;\n}\nconsole.log(num);"],
-["ما النتيجة؟ → let tempList = [36.2, 36.5, 36.3, 36.8, 36.4]; console.log(tempList[3]);", "36.8"],
-["اطبع القيمة 36.4 من tempList دون إدخالها مباشرة", "اكتب في السطر الثاني.", "let tempList = [36.0, 36.5, 36.3, 36.8, 36.4];\nconsole.log(tempList[4]);"],
-["اطبع متوسط درجة الحرارة باستخدام variableName.length", "اكتب tempList.length في المكانين المخصصين.", "let tempList = [36.0, 36.5, 36.3, 36.8, 36.4, 36.9, 36.6, 37.0, 37.1, 36.9, 36.4, 36.6, 36.7, 36.5];\nlet sum = 0;\nfor(let i = 0; i < tempList.length; i++){\n  sum = sum + tempList[i];\n}\nconsole.log(sum / tempList.length);"],
-["اطبع \"Be careful!\" إذا وُجدت درجة حرارة 37.0 أو أعلى", "اترك الكود المكتوب وأكمل من سطر جديد.", "let tempList = [36.0, 36.5, 36.3, 36.8, 36.4, 36.9, 36.6, 37.0, 37.1, 36.9, 36.4, 36.6, 36.7, 36.5];\nfor (let i = 0; i < tempList.length; i++) {\n  if (tempList[i] >= 37.0) {\n    console.log(\"Be careful!\");\n  }\n}"]]],
-["مراجعة الفصل 27",[["احسب 9×9×9 (i من 0 والشرط i < 3) واطبع النتيجة مرة واحدة", "", "let num = 1;\nfor (let i = 0; i < 3; i++) {\n  num = num * 9;\n}\nconsole.log(num);"],
-["اختر التمثيل الأنسب لتغيّر i في: let num = 1; for (let i = 1; i <= 4; i++) { num = num * 2; } console.log(num);", "1→2→3→4"],
-["احسب 5040÷1÷2÷3÷4÷5", "", "let num = 5040;\nfor (let i = 1; i <= 5; i++) {\n  num = num / i;\n}\nconsole.log(num);"],
-["اطبع القيمة 63 من scoreList دون إدخالها مباشرة", "اكتب في المكان المخصص: scoreList[4]", "let scoreList = [52, 90, 70, 83, 63, 72, 89];\nconsole.log(scoreList[4]);"],
-["اطبع عدد القيم في scoreList", "اكتب في المكان المخصص: scoreList.length", "let scoreList = [52, 90, 70, 83, 63, 72, 89];\nconsole.log(scoreList.length);"],
-["اطبع \"Pass\" إذا كانت الدرجة 80 أو أعلى", "اكتب من السطر الثاني.", "let scoreList = [52, 90, 70, 83, 63, 72, 89];\nfor (let i = 0; i < scoreList.length; i++) {\n  if (scoreList[i] >= 80) {\n    console.log(\"Pass\");\n  }\n}"]],"",1]
+["الدرس 1: مراجعة الفصلين 25 و26",[["احسب 7×7×7×7×7×7×7: صرّح عن num وأسنِد إليه 1، ثم كرّر num = num * 7 سبع مرات (i من 0 والشرط i < 7)، ثم اطبع num", "اكتب الكود بالخطوات: ١) let num = 1; ٢) حلقة for من i = 0 والشرط i < 7 ثم num = num * 7; ٣) اطبع num.", "let num = 1;\nfor (let i = 0; i < 7; i++) {\n  num = num * 7;\n}\nconsole.log(num);"],
+["احسب 1×2×3×4×5", "أدخل البرنامج كما هو (امسح الكود أو عدّله ليصبح هكذا).", "let num = 1;\nfor (let i = 1; i <= 5; i++) {\n  num = num * i;\n}\nconsole.log(num);"],
+["اضرب الأعداد من 1 إلى 15 على التوالي: num = 1 وكرّر num = num * i خمس عشرة مرة (i من 1 والشرط i <= 15)، ثم اطبع num", "اكتب الكود: i من 1 والشرط i <= 15 داخل حلقة for ثم num = num * i.", "let num = 1;\nfor (let i = 1; i <= 15; i++) {\n  num = num * i;\n}\nconsole.log(num);"],
+["ما النتيجة التي ستظهر عند تنفيذ هذا البرنامج؟ → let tempList = [36.2, 36.5, 36.3, 36.8, 36.4]; console.log(tempList[3]);", "36.8"],
+["اطبع القيمة 36.4 من tempList إلى وحدة التحكم دون إدخال 36.4 مباشرة", "تذكّر أن ترتيب المصفوفة يبدأ من الموقع 0، فاكتب في السطر الثاني: console.log(tempList[4]);", "let tempList = [36.2, 36.5, 36.3, 36.8, 36.4];\nconsole.log(tempList[4]);"],
+["اطبع متوسط درجة الحرارة من بيانات tempList، مع استخدام tempList.length لعدد مرات التكرار وللقسمة في النهاية", "اكتب tempList.length في المكانين المخصصين: شرط الحلقة (i < tempList.length) وعند القسمة (sum / tempList.length).", "let tempList = [36.0, 36.5, 36.3, 36.8, 36.4, 36.9, 36.6, 37.0, 37.1, 36.9, 36.4, 36.6, 36.7, 36.5];\nlet sum = 0;\nfor(let i = 0; i < tempList.length; i++){\n  sum = sum + tempList[i];\n}\nconsole.log(sum / tempList.length);"],
+["اطبع «لنكن حذرين!» (النص المنسوخ: Be careful!) إذا وُجدت درجة حرارة 37.0 أو أعلى — حلقة for من i = 0 بعدد قيم tempList، وداخلها if إذا كانت tempList[i] أكبر من أو تساوي 37.0", "اترك الكود المكتوب وأكمل من سطر جديد. سيُطبع الناتج مرتين لأن هناك يومين بحرارة 37.0 أو أعلى.", "let tempList = [36.0, 36.5, 36.3, 36.8, 36.4, 36.9, 36.6, 37.0, 37.1, 36.9, 36.4, 36.6, 36.7, 36.5];\nfor (let i = 0; i < tempList.length; i++) {\n  if (tempList[i] >= 37.0) {\n    console.log(\"Be careful!\");\n  }\n}"]],"",1]
 ]}
 ,{id:28,title:"الفصل 28",sub:"حلقة for…of",lessons:[
 ["الدرس 1: تكرار قيم المصفوفة",[["أضف درجات حرارة الأسبوع (2، 1، 2، 1، 0، 1، 1) إلى degreeList واطبع القيمة الرابعة دون إدخالها مباشرة", "", "let degreeList = [2, 1, 2, 1, 0, 1, 1];\nconsole.log(degreeList[4]);"],
