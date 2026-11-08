@@ -38,7 +38,6 @@ html.view-about .seo{display:none!important}
 .dev-sec{margin-top:44px}
 .dev-eyebrow{margin:0 0 2px;color:var(--accent-2);font-size:13px;font-weight:800;letter-spacing:.04em}
 .dev-sec h2{margin:0 0 16px;font-size:clamp(22px,3.4vw,28px);font-weight:800;line-height:1.5;color:var(--ink)}
-.dev-sub{margin:-6px 0 18px;color:var(--mute);font-size:16px}
 
 .dev-about{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px;align-items:start}
 .dev-prose p{margin:0 0 14px;font-size:17px;line-height:2.1;color:var(--ink)}
@@ -54,7 +53,6 @@ html.view-about .seo{display:none!important}
 .dev-chips li:nth-child(-n+4){background:color-mix(in srgb,var(--accent) 16%,var(--panel));border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
 
 .dev-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.dev-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .dev-card{padding:20px 18px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
 .dev-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
 .dev-card .ico{display:grid;place-items:center;width:46px;height:46px;margin-bottom:12px;border-radius:14px;font-size:22px;background:color-mix(in srgb,var(--accent) 20%,var(--panel-2))}
@@ -96,9 +94,16 @@ html.view-about .seo{display:none!important}
   .dev-actions{justify-content:center}
   .dev-btn{flex:1 1 100%}
   .dev-stats{grid-template-columns:repeat(2,1fr)}
-  .dev-grid,.dev-grid.two,.dev-links{grid-template-columns:1fr}
+  .dev-grid,.dev-links{grid-template-columns:1fr}
   .dev-sec{margin-top:34px}
   .dev-prose p{font-size:16.5px}
 }
 @media(max-width:380px){.dev-photo{width:112px;height:112px}}
 @media print{.dev{display:none!important}}
+
+/* رابط الفوتر */
+.foot-links{margin:8px 0 0}
+.foot-links a{display:inline-block;padding:6px 18px;border:1px solid #ffffff2e;border-radius:999px;color:#fff;font-size:14px;font-weight:700;text-decoration:none;transition:background .2s,border-color .2s}
+.foot-links a:hover{background:#ffffff1f;border-color:var(--accent)}
+.foot-links a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+html.view-about .foot-links{display:none}
