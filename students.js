@@ -21,6 +21,33 @@
     return d;
   }
 
+  function deviceType() {
+    try {
+      var ua = navigator.userAgent || "";
+      var touch = navigator.maxTouchPoints > 1;
+      var kind;
+      if (/iPad|Tablet/i.test(ua) || (/Macintosh/.test(ua) && touch) || (/Android/i.test(ua) && !/Mobile/i.test(ua))) kind = "تابلت";
+      else if (/Mobi|iPhone|iPod|Android/i.test(ua)) kind = "هاتف";
+      else kind = "كمبيوتر";
+      var os = /Android/i.test(ua) ? "Android"
+        : /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && touch) ? "iOS"
+        : /Windows/i.test(ua) ? "Windows"
+        : /CrOS/i.test(ua) ? "ChromeOS"
+        : /Mac OS X|Macintosh/i.test(ua) ? "macOS"
+        : /Linux/i.test(ua) ? "Linux" : "";
+      var br = /Edg\//.test(ua) ? "Edge"
+        : /OPR\/|Opera/.test(ua) ? "Opera"
+        : /SamsungBrowser/.test(ua) ? "Samsung Internet"
+        : /Firefox|FxiOS/.test(ua) ? "Firefox"
+        : /Chrome|CriOS/.test(ua) ? "Chrome"
+        : /Safari/.test(ua) ? "Safari" : "";
+      var model = "";
+      var m = /Android [\d.]+; ([^;)]+?)(?: Build|\))/.exec(ua);
+      if (m && m[1].length > 1 && m[1] !== "K" && !/^(Linux|U)$/.test(m[1])) model = m[1].trim();
+      return [kind, os, br, model].filter(Boolean).join(" · ").slice(0, 100);
+    } catch (e) { return ""; }
+  }
+
   function rpc(fn, args) {
     var ctl = typeof AbortController === "function" ? new AbortController() : null;
     var t = ctl ? setTimeout(function () { ctl.abort(); }, 10000) : 0;
@@ -86,7 +113,7 @@
     if (name.length < 2) { msg.textContent = "اكتب اسمًا من حرفين على الأقل."; input.focus(); return; }
     if (name.length > 40) { msg.textContent = "الاسم طويل جدًا (الحد الأقصى 40 حرفًا)."; return; }
     btn.disabled = true; msg.textContent = "";
-    rpc("student_register", { p_device: deviceId(), p_name: name }).then(function (r) {
+    rpc("student_register", { p_device: deviceId(), p_name: name, p_type: deviceType() }).then(function (r) {
       btn.disabled = false;
       if (r && r.status === "approved") { lsSet(K_ST, "approved"); lsSet(K_NAME, r.name || name); allow(); welcomed = true; welcome(r.name || name, true); }
       else if (r && r.status === "same_rejected") { msg.textContent = "هذا الاسم مرفوض، اكتب اسمًا آخر."; input.focus(); }
@@ -117,7 +144,7 @@
 
   /* ---------- الفحص ---------- */
   function check() {
-    return rpc("student_check", { p_device: deviceId() }).then(function (r) {
+    return rpc("student_check", { p_device: deviceId(), p_type: deviceType() }).then(function (r) {
       var st = r && r.status;
       if (st === "approved") {
         lsSet(K_ST, "approved"); if (r.name) lsSet(K_NAME, r.name);
