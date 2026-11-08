@@ -4,7 +4,8 @@
   "use strict";
   var SB_URL = "https://wgcfajrwfmunwoqmneww.supabase.co";
   var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnY2ZhanJ3Zm11bndvcW1uZXd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzNDg3ODQsImV4cCI6MjA5ODkyNDc4NH0.sR7YNvM3YKGQkavCN617r9B30oEwf06dCuuRz83ojlE";
-  var K_DEV = "qs_device", K_ST = "qs_status";
+  var K_DEV = "qs_device", K_ST = "qs_status", K_NAME = "qs_name";
+  var welcomed = false, wTimer;
   var root = document.documentElement;
   var mem = {};
 
@@ -87,7 +88,7 @@
     btn.disabled = true; msg.textContent = "";
     rpc("student_register", { p_device: deviceId(), p_name: name }).then(function (r) {
       btn.disabled = false;
-      if (r && r.status === "approved") { lsSet(K_ST, "approved"); allow(); }
+      if (r && r.status === "approved") { lsSet(K_ST, "approved"); lsSet(K_NAME, r.name || name); allow(); welcomed = true; welcome(r.name || name, true); }
       else if (r && r.status === "same_rejected") { msg.textContent = "هذا الاسم مرفوض، اكتب اسمًا آخر."; input.focus(); }
       else { msg.textContent = "تعذر قبول الاسم، تأكد منه وحاول مرة أخرى."; }
     }, function () {
@@ -96,16 +97,38 @@
     });
   }
 
+  function welcome(name, first) {
+    if (!name) return;
+    var w = document.getElementById("nameWelcome");
+    if (!w) {
+      w = document.createElement("div");
+      w.id = "nameWelcome";
+      w.setAttribute("role", "status");
+      w.setAttribute("aria-live", "polite");
+      document.body.appendChild(w);
+    }
+    w.textContent = (first ? "أهلًا بك، " : "مرحبًا بالعودة، ") + name;
+    w.classList.remove("on");
+    void w.offsetWidth;
+    w.classList.add("on");
+    clearTimeout(wTimer);
+    wTimer = setTimeout(function () { w.classList.remove("on"); }, 4000);
+  }
+
   /* ---------- الفحص ---------- */
   function check() {
     return rpc("student_check", { p_device: deviceId() }).then(function (r) {
       var st = r && r.status;
-      if (st === "approved") { lsSet(K_ST, "approved"); allow(); }
+      if (st === "approved") {
+        lsSet(K_ST, "approved"); if (r.name) lsSet(K_NAME, r.name);
+        allow();
+        if (!welcomed) { welcomed = true; welcome(r.name || lsGet(K_NAME), false); }
+      }
       else if (st === "rejected") { lsSet(K_ST, "rejected"); show("rejected"); }
       else { lsSet(K_ST, "none"); show("new"); }
     }, function () {
       var c = lsGet(K_ST);
-      if (c === "approved") allow();
+      if (c === "approved") { allow(); if (!welcomed) { welcomed = true; welcome(lsGet(K_NAME), false); } }
       else if (c === "rejected") show("rejected");
       else show("new", "تعذر الاتصال بالخادم حاليًا، حاول بعد قليل.");
     });
