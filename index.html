@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0e1531">
 <script>(function(){var t=null;try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t})()</script>
+<script>(function(){var d=document.documentElement,p=true;try{p=localStorage.getItem("qs_status")!=="approved"}catch(e){}if(p)d.classList.add("gate-pending");setTimeout(function(){if(!document.getElementById("nameGate"))d.classList.remove("gate-pending")},8000)})()</script>
 <script>window.__h0=location.hash;if(location.hash==="#about")document.documentElement.classList.add("view-about")</script>
 <title>حلول كيريو للمرحلة الثانوية 2026-2027 | جافا سكربت وبايثون</title>
 <meta name="description" content="حلول منصة كيريو (Qureo) للصف الأول والثاني الثانوي 2026-2027: أكواد جافا سكربت وبايثون لكل الفصول جاهزة للنسخ، مع محرر أكواد مجاني للتجربة.">
@@ -248,5 +249,6 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
 <script src="script.js"></script>
 <script src="editor.js"></script>
 <script src="about.js"></script>
+<script src="students.js"></script>
 </body>
 </html>
