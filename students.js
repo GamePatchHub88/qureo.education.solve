@@ -10,6 +10,7 @@
   var mem = {};
   var welcomed = false, wTimer;
   var locked = false, unread = 0, chatOpen = false, allowed = false;
+  var prevUnread = null, lastNotifId = null, nTimer, tabTimer, baseTitle = document.title;
 
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return mem[k] || null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { mem[k] = v; } }
@@ -208,16 +209,77 @@
   }
   function setErr(t) { if (errEl) errEl.textContent = t || ""; }
 
+  /* ===== إشعار الرسالة الجديدة (يظهر 5 ثوانٍ) ===== */
+  var NOTIF_MS = 5000;
+
+  function hideNotif() {
+    clearTimeout(nTimer);
+    var n = document.getElementById("msgNotif");
+    if (n) n.classList.remove("on");
+  }
+
+  function showNotif(text, voice) {
+    var n = document.getElementById("msgNotif");
+    if (!n) {
+      n = document.createElement("div");
+      n.id = "msgNotif";
+      n.setAttribute("role", "alert");
+      n.setAttribute("aria-live", "assertive");
+      n.innerHTML =
+        '<span class="mn-ico">' + ICON_CHAT + '</span>' +
+        '<span class="mn-body"><b class="mn-t">رسالة جديدة من الإدارة</b><span class="mn-p"></span></span>' +
+        '<button class="mn-x" type="button" aria-label="إغلاق الإشعار">×</button>';
+      document.body.appendChild(n);
+      n.addEventListener("click", function (e) {
+        if (e.target.closest(".mn-x")) { hideNotif(); return; }
+        hideNotif(); openChat();
+      });
+    }
+    var p = voice ? "🎤 رسالة صوتية" : String(text || "اضغط لفتح الرسالة");
+    n.querySelector(".mn-p").textContent = p.length > 90 ? p.slice(0, 90) + "…" : p;
+    n.classList.remove("on");
+    void n.offsetWidth;
+    n.classList.add("on");
+    clearTimeout(nTimer);
+    nTimer = setTimeout(hideNotif, NOTIF_MS);
+    try { if (navigator.vibrate) navigator.vibrate([120, 60, 120]); } catch (e) {}
+    flashTitle();
+  }
+
+  function flashTitle() {
+    clearTimeout(tabTimer);
+    var on = true, c = 0;
+    (function tick() {
+      document.title = on ? "💬 رسالة جديدة" : baseTitle;
+      on = !on;
+      if (++c < 10 && !chatOpen) tabTimer = setTimeout(tick, 500);
+      else document.title = baseTitle;
+    })();
+  }
+
+  function notifyNew() {
+    rpc("student_inbox", { p_device: deviceId() }).then(function (r) {
+      var ms = ((r && r.messages) || []).filter(function (m) { return m.sender === "admin"; });
+      var m = ms[ms.length - 1];
+      if (m && m.id === lastNotifId) return;
+      if (m) lastNotifId = m.id;
+      if (chatOpen) return;
+      showNotif(m && m.body, m && m.kind === "voice");
+    }, function () { if (!chatOpen) showNotif("", false); });
+  }
+
   function updateFab() {
     buildChat();
     fab.hidden = !(allowed && !locked);
     var n = chatOpen ? 0 : unread;
     badge.hidden = n < 1;
     badge.textContent = n > 9 ? "9+" : String(n);
+    fab.classList.toggle("has-new", n > 0);
   }
 
   function openChat() {
     buildChat();
+    hideNotif();
     chatOpen = true;
     panel.hidden = false;
     panel.classList.toggle("lock", locked);
@@ -403,6 +465,9 @@
       lsSet(K_ST, "approved");
       if (r.name) lsSet(K_NAME, r.name);
       unread = r.unread | 0;
+      if (prevUnread !== null && unread > prevUnread && !chatOpen && !r.locked) notifyNew();
+      if (prevUnread === null && unread > 0 && !r.locked) notifyNew();
+      prevUnread = unread;
       var nowLocked = !!r.locked;
       buildChat();
       if (nowLocked) { enterLock(); return; }
