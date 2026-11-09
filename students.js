@@ -1,13 +1,15 @@
-/* بوابة الاسم: كل جهاز يكتب اسمه مرة واحدة ويظهر للمدير في لوحة البورتفوليو.
-   ليست تسجيل دخول — قاعدة بيانات Supabase فقط (دوال student_check / student_register). */
+/* بوابة الاسم + نشاط الطالب + رسائل الإدارة (نص أو صوت).
+   ليست تسجيل دخول — قاعدة بيانات Supabase فقط (دوال student_* في students-setup.sql). */
 (function () {
   "use strict";
   var SB_URL = "https://wgcfajrwfmunwoqmneww.supabase.co";
   var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnY2ZhanJ3Zm11bndvcW1uZXd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzNDg3ODQsImV4cCI6MjA5ODkyNDc4NH0.sR7YNvM3YKGQkavCN617r9B30oEwf06dCuuRz83ojlE";
-  var K_DEV = "qs_device", K_ST = "qs_status", K_NAME = "qs_name";
-  var welcomed = false, wTimer;
+  var K_DEV = "qs_device", K_ST = "qs_status", K_NAME = "qs_name", K_LOCK = "qs_lock";
+  var PING_MS = 30000, MAX_REC = 60;
   var root = document.documentElement;
   var mem = {};
+  var welcomed = false, wTimer;
+  var locked = false, unread = 0, chatOpen = false, allowed = false;
 
   function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return mem[k] || null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { mem[k] = v; } }
@@ -50,7 +52,7 @@
 
   function rpc(fn, args) {
     var ctl = typeof AbortController === "function" ? new AbortController() : null;
-    var t = ctl ? setTimeout(function () { ctl.abort(); }, 10000) : 0;
+    var t = ctl ? setTimeout(function () { ctl.abort(); }, 15000) : 0;
     return fetch(SB_URL + "/rest/v1/rpc/" + fn, {
       method: "POST",
       headers: { apikey: SB_KEY, Authorization: "Bearer " + SB_KEY, "Content-Type": "application/json" },
@@ -59,11 +61,11 @@
     }).then(function (r) {
       clearTimeout(t);
       if (!r.ok) throw new Error("http " + r.status);
-      return r.json();
+      return r.text().then(function (t) { return t ? JSON.parse(t) : null; });
     }, function (e) { clearTimeout(t); throw e; });
   }
 
-  /* ---------- الواجهة ---------- */
+  /* ================= بوابة الاسم ================= */
   var gate, input, msg, btn, title, sub, open = false;
 
   function build() {
@@ -90,7 +92,8 @@
     input.addEventListener("keydown", function (e) { if (e.key === "Enter") submit(); });
   }
 
-  function show(mode, note) {
+  function showName(mode, note) {
+    leaveChat();
     if (!gate) build();
     var rej = mode === "rejected";
     title.textContent = rej ? "يلزم اسم جديد" : "أهلًا بك في حلول كيريو";
@@ -99,6 +102,7 @@
     input.value = "";
     gate.hidden = false;
     root.classList.add("gate-pending");
+    allowed = false;
     if (!open) { open = true; setTimeout(function () { try { input.focus(); } catch (e) {} }, 60); }
   }
 
@@ -106,6 +110,7 @@
     open = false;
     if (gate) gate.hidden = true;
     root.classList.remove("gate-pending");
+    allowed = true;
   }
 
   function submit() {
@@ -115,7 +120,11 @@
     btn.disabled = true; msg.textContent = "";
     rpc("student_register", { p_device: deviceId(), p_name: name, p_type: deviceType() }).then(function (r) {
       btn.disabled = false;
-      if (r && r.status === "approved") { lsSet(K_ST, "approved"); lsSet(K_NAME, r.name || name); allow(); welcomed = true; welcome(r.name || name, true); }
+      if (r && r.status === "approved") {
+        lsSet(K_ST, "approved"); lsSet(K_NAME, r.name || name);
+        allow(); welcomed = true; welcome(r.name || name, true);
+        check();
+      }
       else if (r && r.status === "same_rejected") { msg.textContent = "هذا الاسم مرفوض، اكتب اسمًا آخر."; input.focus(); }
       else { msg.textContent = "تعذر قبول الاسم، تأكد منه وحاول مرة أخرى."; }
     }, function () {
@@ -142,28 +151,283 @@
     wTimer = setTimeout(function () { w.classList.remove("on"); }, 4000);
   }
 
-  /* ---------- الفحص ---------- */
-  function check() {
-    return rpc("student_check", { p_device: deviceId(), p_type: deviceType() }).then(function (r) {
-      var st = r && r.status;
-      if (st === "approved") {
-        lsSet(K_ST, "approved"); if (r.name) lsSet(K_NAME, r.name);
-        allow();
-        if (!welcomed) { welcomed = true; welcome(r.name || lsGet(K_NAME), false); }
+  /* ================= محادثة الإدارة ================= */
+  var fab, badge, panel, listEl, noteEl, errEl, ta, micBtn, sendBtn, closeBtn, recBar, recTime;
+  var shownIds = "", audios = {}, rec = null, sending = false;
+
+  var ICON_CHAT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-5 4V6a2 2 0 0 1 1-2Z"/></svg>';
+  var ICON_MIC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V22h2v-3.1A7 7 0 0 0 19 12Z"/></svg>';
+
+  function buildChat() {
+    if (panel) return;
+    fab = document.createElement("button");
+    fab.id = "chatFab"; fab.type = "button"; fab.hidden = true;
+    fab.setAttribute("aria-label", "رسائل الإدارة");
+    fab.innerHTML = ICON_CHAT + '<span class="cf-badge" hidden></span>';
+    badge = fab.querySelector(".cf-badge");
+    document.body.appendChild(fab);
+
+    panel = document.createElement("section");
+    panel.id = "chatPanel"; panel.hidden = true;
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-label", "رسائل الإدارة");
+    panel.innerHTML =
+      '<header class="cp-h"><b>رسائل الإدارة</b><button class="cp-x" type="button" aria-label="إغلاق">×</button></header>' +
+      '<p class="cp-note" hidden></p>' +
+      '<div class="cp-list" aria-live="polite"></div>' +
+      '<div class="cp-rec" hidden><span class="cp-dot"></span><span class="cp-time">0:00</span>' +
+      '<button class="cp-cancel" type="button">إلغاء</button><button class="cp-stop" type="button">إرسال التسجيل</button></div>' +
+      '<div class="cp-bar"><textarea rows="1" maxlength="1000" placeholder="اكتب رسالتك..." aria-label="نص الرسالة"></textarea>' +
+      '<button class="cp-mic" type="button" aria-label="تسجيل رسالة صوتية">' + ICON_MIC + '</button>' +
+      '<button class="cp-send" type="button">إرسال</button></div>' +
+      '<p class="cp-err" role="alert"></p>';
+    document.body.appendChild(panel);
+
+    listEl = panel.querySelector(".cp-list");
+    noteEl = panel.querySelector(".cp-note");
+    errEl = panel.querySelector(".cp-err");
+    ta = panel.querySelector("textarea");
+    micBtn = panel.querySelector(".cp-mic");
+    sendBtn = panel.querySelector(".cp-send");
+    closeBtn = panel.querySelector(".cp-x");
+    recBar = panel.querySelector(".cp-rec");
+    recTime = panel.querySelector(".cp-time");
+
+    fab.addEventListener("click", function () { chatOpen ? closeChat() : openChat(); });
+    closeBtn.addEventListener("click", closeChat);
+    sendBtn.addEventListener("click", sendText);
+    ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendText(); } });
+    micBtn.addEventListener("click", startRec);
+    panel.querySelector(".cp-stop").addEventListener("click", function () { stopRec(false); });
+    panel.querySelector(".cp-cancel").addEventListener("click", function () { stopRec(true); });
+  }
+
+  function fmtDur(s) { s = Math.max(0, s | 0); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+  function fmtTime(iso) {
+    try { return new Date(iso).toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; }
+  }
+  function setErr(t) { if (errEl) errEl.textContent = t || ""; }
+
+  function updateFab() {
+    buildChat();
+    fab.hidden = !(allowed && !locked);
+    var n = chatOpen ? 0 : unread;
+    badge.hidden = n < 1;
+    badge.textContent = n > 9 ? "9+" : String(n);
+  }
+
+  function openChat() {
+    buildChat();
+    chatOpen = true;
+    panel.hidden = false;
+    panel.classList.toggle("lock", locked);
+    closeBtn.hidden = locked;
+    noteEl.hidden = !locked;
+    noteEl.textContent = locked ? "الإدارة طلبت ردًا منك. أرسل رسالة نصية أو صوتية للمتابعة إلى الموقع." : "";
+    setErr("");
+    updateFab();
+    loadInbox(true);
+  }
+
+  function closeChat() {
+    if (locked) return;
+    chatOpen = false;
+    if (rec) stopRec(true);
+    if (panel) panel.hidden = true;
+    updateFab();
+  }
+
+  function leaveChat() {
+    chatOpen = false; locked = false; lsSet(K_LOCK, "0");
+    if (rec) stopRec(true);
+    if (panel) panel.hidden = true;
+    if (fab) fab.hidden = true;
+  }
+
+  function enterLock() {
+    locked = true; lsSet(K_LOCK, "1");
+    if (gate) gate.hidden = true;
+    open = false;
+    allowed = true;
+    root.classList.add("gate-pending");
+    if (chatOpen) { panel.classList.add("lock"); closeBtn.hidden = true; loadInbox(false); } else openChat();
+  }
+
+  function exitLock() {
+    locked = false; lsSet(K_LOCK, "0");
+    chatOpen = false;
+    if (panel) { panel.hidden = true; panel.classList.remove("lock"); }
+    allow();
+    updateFab();
+  }
+
+  function loadInbox(scroll) {
+    return rpc("student_inbox", { p_device: deviceId() }).then(function (r) {
+      var ms = (r && r.messages) || [];
+      renderMsgs(ms, scroll);
+      if (chatOpen) {
+        rpc("student_mark_read", { p_device: deviceId() }).then(function () { unread = 0; updateFab(); }, function () {});
       }
-      else if (st === "rejected") { lsSet(K_ST, "rejected"); show("rejected"); }
-      else { lsSet(K_ST, "none"); show("new"); }
-    }, function () {
+    }, function () { setErr("تعذر تحميل الرسائل، حاول مرة أخرى."); });
+  }
+
+  function renderMsgs(ms, scroll) {
+    var ids = ms.map(function (m) { return m.id; }).join(",");
+    if (ids === shownIds && !scroll) return;
+    shownIds = ids;
+    listEl.textContent = "";
+    if (!ms.length) {
+      var e = document.createElement("p");
+      e.className = "cp-empty";
+      e.textContent = "لا توجد رسائل بعد. اكتب رسالتك أو سجّل رسالة صوتية للإدارة.";
+      listEl.appendChild(e);
+      return;
+    }
+    ms.forEach(function (m) {
+      var row = document.createElement("div");
+      row.className = "cm " + (m.sender === "student" ? "cm-me" : "cm-ad");
+      if (m.kind === "voice") {
+        var b = document.createElement("button");
+        b.type = "button"; b.className = "cm-voice";
+        b.textContent = "▶ رسالة صوتية · " + fmtDur(m.duration);
+        b.addEventListener("click", function () { playVoice(m, b); });
+        row.appendChild(b);
+      } else {
+        var p = document.createElement("div");
+        p.className = "cm-txt"; p.textContent = m.body || "";
+        row.appendChild(p);
+      }
+      var meta = document.createElement("small");
+      meta.textContent = (m.sender === "admin" ? "الإدارة · " : "أنت · ") + fmtTime(m.created_at) + (m.requires_reply ? " · مطلوب ردك" : "");
+      row.appendChild(meta);
+      listEl.appendChild(row);
+    });
+    listEl.scrollTop = listEl.scrollHeight;
+  }
+
+  function playVoice(m, b) {
+    var label = "▶ رسالة صوتية · " + fmtDur(m.duration);
+    var a = audios[m.id];
+    if (a) {
+      if (a.paused) { a.play(); b.textContent = "⏸ إيقاف مؤقت"; } else { a.pause(); b.textContent = label; }
+      return;
+    }
+    b.textContent = "جاري التحميل...";
+    rpc("student_audio", { p_device: deviceId(), p_id: m.id }).then(function (url) {
+      if (!url || typeof url !== "string") { b.textContent = label; setErr("تعذر تشغيل التسجيل."); return; }
+      var au = new Audio(url);
+      audios[m.id] = au;
+      au.onended = function () { b.textContent = label; };
+      au.play().then(function () { b.textContent = "⏸ إيقاف مؤقت"; }, function () { b.textContent = label; setErr("تعذر تشغيل التسجيل."); });
+    }, function () { b.textContent = label; setErr("تعذر تحميل التسجيل."); });
+  }
+
+  function afterSend(r) {
+    sending = false; sendBtn.disabled = false; micBtn.disabled = false;
+    if (r && r.status === "ok") {
+      setErr(""); ta.value = "";
+      loadInbox(true);
+      if (locked && !r.locked) check();
+    } else if (r && r.status === "rate_limited") setErr("أرسلت رسائل كثيرة، حاول بعد قليل.");
+    else setErr("تعذر إرسال الرسالة، حاول مرة أخرى.");
+  }
+
+  function sendText() {
+    var t = ta.value.trim();
+    if (!t || sending) return;
+    if (t.length > 1000) { setErr("الرسالة طويلة جدًا."); return; }
+    sending = true; sendBtn.disabled = true; micBtn.disabled = true; setErr("");
+    rpc("student_send", { p_device: deviceId(), p_kind: "text", p_body: t }).then(afterSend, function () { afterSend(null); });
+  }
+
+  function sendVoice(url, dur) {
+    if (url.length > 590000) { setErr("التسجيل طويل جدًا، سجّل رسالة أقصر."); return; }
+    sending = true; sendBtn.disabled = true; micBtn.disabled = true; setErr("");
+    rpc("student_send", { p_device: deviceId(), p_kind: "voice", p_audio: url, p_duration: dur }).then(afterSend, function () { afterSend(null); });
+  }
+
+  function showRec(on) {
+    recBar.hidden = !on;
+    panel.querySelector(".cp-bar").hidden = on;
+  }
+
+  function startRec() {
+    if (rec || sending) return;
+    if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder)) {
+      setErr("التسجيل الصوتي غير مدعوم في هذا المتصفح، اكتب رسالة نصية."); return;
+    }
+    setErr("");
+    navigator.mediaDevices.getUserMedia({ audio: true }).then(function (stream) {
+      var mime = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4", "audio/ogg;codecs=opus"].filter(function (m) {
+        try { return MediaRecorder.isTypeSupported(m); } catch (e) { return false; }
+      })[0];
+      var mr;
+      try { mr = new MediaRecorder(stream, mime ? { mimeType: mime, audioBitsPerSecond: 24000 } : { audioBitsPerSecond: 24000 }); }
+      catch (e) { mr = new MediaRecorder(stream); }
+      var chunks = [];
+      var r = { mr: mr, stream: stream, t0: Date.now(), cancel: false, timer: 0 };
+      rec = r;
+      mr.ondataavailable = function (e) { if (e.data && e.data.size) chunks.push(e.data); };
+      mr.onstop = function () {
+        clearInterval(r.timer);
+        stream.getTracks().forEach(function (t) { t.stop(); });
+        rec = null; showRec(false);
+        if (r.cancel) return;
+        var dur = Math.max(1, Math.round((Date.now() - r.t0) / 1000));
+        var blob = new Blob(chunks, { type: mr.mimeType || mime || "audio/webm" });
+        var fr = new FileReader();
+        fr.onload = function () { sendVoice(String(fr.result), dur); };
+        fr.readAsDataURL(blob);
+      };
+      mr.start();
+      showRec(true);
+      recTime.textContent = "0:00";
+      r.timer = setInterval(function () {
+        var s = Math.round((Date.now() - r.t0) / 1000);
+        recTime.textContent = fmtDur(s);
+        if (s >= MAX_REC) stopRec(false);
+      }, 250);
+    }, function () { setErr("لم يتم السماح باستخدام الميكروفون."); });
+  }
+
+  function stopRec(cancel) {
+    if (!rec) return;
+    rec.cancel = !!cancel;
+    try { rec.mr.stop(); } catch (e) { rec.stream.getTracks().forEach(function (t) { t.stop(); }); rec = null; showRec(false); }
+  }
+
+  /* ================= الفحص / نبضة النشاط ================= */
+  function applyCheck(r) {
+    var st = r && r.status;
+    if (st === "approved") {
+      lsSet(K_ST, "approved");
+      if (r.name) lsSet(K_NAME, r.name);
+      unread = r.unread | 0;
+      var nowLocked = !!r.locked;
+      buildChat();
+      if (nowLocked) { enterLock(); return; }
+      if (locked) exitLock(); else allow();
+      if (!welcomed) { welcomed = true; welcome(r.name || lsGet(K_NAME), false); }
+      updateFab();
+      if (chatOpen) loadInbox(false);
+    } else if (st === "rejected") { lsSet(K_ST, "rejected"); showName("rejected"); }
+    else { lsSet(K_ST, "none"); showName("new"); }
+  }
+
+  function check() {
+    return rpc("student_check", { p_device: deviceId(), p_type: deviceType() }).then(applyCheck, function () {
       var c = lsGet(K_ST);
-      if (c === "approved") { allow(); if (!welcomed) { welcomed = true; welcome(lsGet(K_NAME), false); } }
-      else if (c === "rejected") show("rejected");
-      else show("new", "تعذر الاتصال بالخادم حاليًا، حاول بعد قليل.");
+      if (c === "approved") {
+        if (lsGet(K_LOCK) === "1") { if (!locked) enterLock(); }
+        else { if (!locked) allow(); if (!welcomed) { welcomed = true; welcome(lsGet(K_NAME), false); } }
+      } else if (c === "rejected") showName("rejected");
+      else showName("new", "تعذر الاتصال بالخادم حاليًا، حاول بعد قليل.");
     });
   }
 
   function start() {
     check();
-    setInterval(check, 60000);
+    setInterval(function () { if (!document.hidden) check(); }, PING_MS);
     document.addEventListener("visibilitychange", function () { if (!document.hidden) check(); });
   }
 
