@@ -161,21 +161,40 @@
   if (lsGet(K_REV) === "1") markReviewed();
 
   /* ================= معرض الصور ================= */
-  var photos = [], shown = 0;
+  var photos = [], order = [], stack, dotsBox, timer = 0, hoverOn = false, phOn = true, holdUntil = 0;
+  var MAX_PHOTOS = 3; // الحد الأقصى للصور المعروضة
   function pUrl(p, kind) { return API_URL + "/public/photos/" + encodeURIComponent(p.id) + "/" + kind + "?v=" + p.v; }
 
-  function addPhotos(n) {
-    var grid = document.getElementById("phGrid");
-    var frag = document.createDocumentFragment();
-    photos.slice(shown, shown + n).forEach(function (p, k) {
-      var i = shown + k;
+  // يوزّع الصور فوق بعضها: الأولى في الأمام والباقي خلفها بميل خفيف
+  function layout() {
+    var items = stack.children, dots = dotsBox.children;
+    for (var k = 0; k < items.length; k++) {
+      items[k].setAttribute("data-pos", order.indexOf(k));
+      if (dots[k]) dots[k].classList.toggle("on", order[0] === k);
+    }
+  }
+  function bring(i) {
+    var at = order.indexOf(i);
+    if (at <= 0) return;
+    order = order.slice(at).concat(order.slice(0, at));
+    layout();
+  }
+  function next() { if (order.length > 1) { order.push(order.shift()); layout(); } }
+  function hold(ms) { holdUntil = Date.now() + ms; }
+
+  function addPhotos() {
+    stack = document.getElementById("phStack");
+    dotsBox = document.getElementById("phDots");
+    stack.textContent = ""; dotsBox.textContent = "";
+    photos = photos.slice(0, MAX_PHOTOS);
+    photos.forEach(function (p, i) {
       var b = el("button", "ph-item");
       b.type = "button";
       b.setAttribute("aria-label", "تكبير صورة " + (p.name || "طالب"));
       var img = new Image();
       img.alt = p.caption || (p.name ? "صورة الطالب " + p.name : "طالب أنهى المنصة");
-      img.loading = "lazy"; img.decoding = "async";
-      if (p.w && p.h) { img.width = p.w; img.height = p.h; }
+      img.decoding = "async";
+      if (i > 0) img.loading = "lazy";
       img.src = pUrl(p, "thumb");
       b.appendChild(img);
       if (p.name || p.caption) {
@@ -184,12 +203,35 @@
         if (p.caption) cap.appendChild(document.createTextNode(p.caption));
         b.appendChild(cap);
       }
-      b.addEventListener("click", function () { openLb(i); });
-      frag.appendChild(b);
+      b.addEventListener("click", function () {
+        hold(8000);
+        if (order[0] === i) openLb(i); else bring(i); // الأمامية تُكبَّر، والخلفية تتقدّم
+      });
+      stack.appendChild(b);
+      var d = el("button", "ph-dot");
+      d.type = "button";
+      d.setAttribute("aria-label", "الصورة " + (i + 1));
+      d.addEventListener("click", function () { hold(8000); bring(i); });
+      dotsBox.appendChild(d);
     });
-    grid.appendChild(frag);
-    shown = Math.min(photos.length, shown + n);
-    document.getElementById("phMore").hidden = shown >= photos.length;
+    dotsBox.hidden = photos.length < 2;
+    order = photos.map(function (_, i) { return i; });
+    layout();
+
+    // تدوير تلقائي هادئ: يتوقف عند المرور/اللمس/التكبير/خروج القسم من الشاشة
+    stack.addEventListener("mouseenter", function () { hoverOn = true; });
+    stack.addEventListener("mouseleave", function () { hoverOn = false; });
+    stack.addEventListener("touchstart", function () { hold(6000); }, { passive: true });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { phOn = es[0].isIntersecting; }, { threshold: 0.2 }).observe(ph);
+    }
+    if (photos.length > 1) {
+      timer = setInterval(function () {
+        if (hoverOn || !phOn || document.hidden || Date.now() < holdUntil) return;
+        if (lb && !lb.hidden) return;
+        next();
+      }, 4200);
+    }
   }
 
   var lb, lbImg, lbCap, cur = 0, lastFocus;
@@ -217,6 +259,7 @@
   }
   function show(i) {
     cur = (i + photos.length) % photos.length;
+    if (stack) bring(cur);
     var p = photos[cur];
     lbImg.src = pUrl(p, "thumb"); // يظهر فورًا (محمّلة أصلًا) ثم تُستبدل بالنسخة الكبيرة
     lbImg.alt = p.caption || p.name || "";
@@ -247,7 +290,6 @@
     else if (e.key === "ArrowLeft") step(1);   // الصفحة RTL: اليسار = التالي
     else if (e.key === "ArrowRight") step(-1);
   }
-  document.getElementById("phMore").querySelector("button").addEventListener("click", function () { addPhotos(PAGE); });
 
   /* ================= التحميل عند الاقتراب ================= */
   var started = false;
@@ -262,7 +304,7 @@
     get("/public/photos").then(function (d) {
       photos = (d && d.photos) || [];
       if (!photos.length) return;
-      addPhotos(PAGE);
+      addPhotos();
       ph.hidden = false;
     }).catch(function () {});
   }

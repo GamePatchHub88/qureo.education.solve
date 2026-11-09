@@ -72,14 +72,26 @@ html.view-about .rv,html.view-about .ph{display:none!important}
 .rvf-acts .ghost{padding:0 18px;min-height:46px}
 
 /* ---- معرض صور الطلاب (أعمدة masonry خفيفة) ---- */
-.ph-grid{column-width:210px;column-gap:14px;max-width:var(--wrap);margin:0 auto;padding:0 5vw}
-.ph-item{display:block;width:100%;margin:0 0 14px;padding:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel-2);break-inside:avoid;position:relative;cursor:zoom-in;box-shadow:var(--shadow);-webkit-appearance:none;appearance:none;text-align:right;color:inherit;font:inherit}
-.ph-item img{display:block;width:100%;height:auto;background:var(--panel-2);transition:transform .35s}
-.ph-item:hover img{transform:scale(1.04)}
+/* صور الطلاب: بطاقات فوق بعضها (حد أقصى 3) */
+.ph-stack{position:relative;width:min(80vw,330px);aspect-ratio:4/5;margin:18px auto 0;animation:phFloat 6s ease-in-out infinite}
+@keyframes phFloat{50%{transform:translate3d(0,-6px,0)}}
+.ph-item{position:absolute;inset:0;display:block;width:100%;height:100%;margin:0;padding:0;border:5px solid #fff;border-radius:20px;overflow:hidden;background:var(--panel-2);cursor:pointer;box-shadow:0 18px 40px -18px #000a,0 4px 12px -6px #0006;-webkit-appearance:none;appearance:none;color:inherit;font:inherit;transform-origin:50% 90%;transition:transform .65s cubic-bezier(.34,1.35,.5,1),filter .45s,opacity .45s;will-change:transform}
+.ph-item img{display:block;width:100%;height:100%;object-fit:cover;background:var(--panel-2)}
+.ph-item[data-pos="0"]{z-index:3;transform:translate3d(0,0,0) rotate(0);cursor:zoom-in}
+.ph-item[data-pos="1"]{z-index:2;transform:translate3d(-11%,3%,0) rotate(-7deg) scale(.95);filter:brightness(.9)}
+.ph-item[data-pos="2"]{z-index:1;transform:translate3d(11%,5%,0) rotate(8deg) scale(.9);filter:brightness(.8)}
+.ph-item[data-pos="1"] .ph-cap,.ph-item[data-pos="2"] .ph-cap{opacity:0}
+.ph-item:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.ph-dots{display:flex;justify-content:center;gap:8px;margin:34px 0 0}
+.ph-dots[hidden]{display:none}
+.ph-dot{width:10px;height:10px;padding:0;border:0;border-radius:99px;background:var(--line);cursor:pointer;transition:width .3s,background .3s}
+.ph-dot.on{width:26px;background:var(--accent)}
+.ph-cap{transition:opacity .3s}
+/* نُبقي الحركة الخفيفة حتى لو كان النظام على "تقليل الحركة" */
+.ph .ph-stack{animation-name:phFloat!important;animation-duration:6s!important;animation-timing-function:ease-in-out!important;animation-iteration-count:infinite!important}
+.ph .ph-item{transition-property:transform,filter,opacity!important;transition-duration:.65s!important}
 .ph-cap{position:absolute;inset:auto 0 0 0;padding:26px 12px 10px;font-size:13px;line-height:1.6;color:#fff;background:linear-gradient(0deg,#050814d9,transparent);pointer-events:none}
 .ph-cap b{display:block;font-size:14px}
-.ph-more{display:flex;justify-content:center;margin:6px 0 0}
-.ph-more[hidden]{display:none}
 
 /* ---- التكبير ---- */
 .lb{position:fixed;inset:0;z-index:99995;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(5,8,20,.93);overscroll-behavior:contain}
