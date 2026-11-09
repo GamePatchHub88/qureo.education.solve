@@ -27,7 +27,16 @@
       return r.json();
     }, function (e) { clearTimeout(t); throw e; });
   }
-  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  var mem = {};
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return mem[k] || null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) { mem[k] = v; } }
+  var K_REV = "qs_reviewed"; // علامة: هذا الجهاز أضاف تقييمه
+  function loginName() { return (lsGet("qs_name") || "").replace(/\s+/g, " ").trim(); }
+  function markReviewed() {
+    lsSet(K_REV, "1");
+    var b = document.getElementById("rvAdd");
+    if (b) { b.disabled = true; b.textContent = "✓ شكرًا لك، أضفت تقييمك"; }
+  }
 
   /* ================= آراء الطلاب ================= */
   var QUOTE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.5 4C3 4 2 5 2 6.6V12c0 1.6 1 2.6 2.5 2.6h2.3c-.2 2-1.2 3.2-3.1 3.6l.5 1.8C7.6 19.4 10 17 10 13V6.6C10 5 9 4 7.5 4h-3Zm11 0C14 4 13 5 13 6.6V12c0 1.6 1 2.6 2.5 2.6h2.3c-.2 2-1.2 3.2-3.1 3.6l.5 1.8C18.6 19.4 21 17 21 13V6.6C21 5 20 4 18.5 4h-3Z"/></svg>';
@@ -103,7 +112,7 @@
       '<div class="rvf" role="dialog" aria-modal="true" aria-labelledby="rvfT">' +
       '<h3 id="rvfT">شاركنا رأيك</h3>' +
       '<p>رأيك يظهر في الموقع بعد مراجعته. التجربة مجانية بالكامل.</p>' +
-      '<label for="rvfName">الاسم</label><input id="rvfName" type="text" maxlength="40" autocomplete="name">' +
+      '<label for="rvfName">الاسم</label><input id="rvfName" type="text" maxlength="40" autocomplete="name" readonly>' +
       '<label for="rvfGrade">الصف (اختياري)</label><select id="rvfGrade"><option value="">—</option><option value="1">الصف الأول الثانوي</option><option value="2">الصف الثاني الثانوي</option></select>' +
       '<label for="rvfText">رأيك</label><textarea id="rvfText" maxlength="400" placeholder="اكتب تجربتك مع الموقع…"></textarea><small id="rvfCount">0 / 400</small>' +
       '<p class="rvf-msg" id="rvfMsg" role="alert"></p>' +
@@ -117,8 +126,10 @@
   }
   function openForm() {
     if (!form) buildForm();
-    form.querySelector("#rvfName").value = lsGet("qs_name") || "";
-    form.querySelector("#rvfMsg").textContent = "";
+    if (lsGet(K_REV) === "1") { markReviewed(); return; }
+    form.querySelector("#rvfName").value = loginName();
+    form.querySelector("#rvfMsg").className = "rvf-msg";
+    form.querySelector("#rvfMsg").textContent = loginName() ? "" : "سجّل دخولك بالاسم أولًا ثم أضف تقييمك.";
     form.hidden = false;
     setTimeout(function () { try { form.querySelector("#rvfText").focus(); } catch (e) {} }, 50);
   }
@@ -126,10 +137,11 @@
 
   function send() {
     var msg = form.querySelector("#rvfMsg"), btn = form.querySelector("#rvfSend");
-    var name = form.querySelector("#rvfName").value.replace(/\s+/g, " ").trim();
+    var name = loginName(); // الاسم هو نفسه اسم الدخول ولا يمكن تغييره
     var text = form.querySelector("#rvfText").value.replace(/\s+/g, " ").trim();
     msg.className = "rvf-msg err";
-    if (name.length < 2) { msg.textContent = "اكتب اسمك (حرفان على الأقل)."; return; }
+    if (lsGet(K_REV) === "1") { markReviewed(); closeForm(); return; }
+    if (name.length < 2) { msg.textContent = "سجّل دخولك بالاسم أولًا ثم أضف تقييمك."; return; }
     if (text.length < 10) { msg.textContent = "اكتب رأيك في 10 أحرف على الأقل."; return; }
     var dev = lsGet("qs_device");
     if (!dev) { msg.textContent = "أعد تحميل الصفحة ثم حاول مرة أخرى."; return; }
@@ -143,14 +155,16 @@
         msg.className = "rvf-msg ok";
         msg.textContent = "شكرًا لك! وصل رأيك وسيظهر بعد المراجعة.";
         form.querySelector("#rvfText").value = "";
+        markReviewed();
         setTimeout(closeForm, 2200);
-      } else if (s === "rate_limited") msg.textContent = "أرسلت رأيًا اليوم بالفعل، جرّب غدًا.";
-      else if (s === "limit") msg.textContent = "وصلت للحد الأقصى من الآراء لهذا الجهاز.";
+      } else if (s === "rate_limited") { msg.textContent = "أضفت تقييمك بالفعل من هذا الجهاز."; markReviewed(); }
+      else if (s === "limit") { msg.textContent = "أضفت تقييمك بالفعل من هذا الجهاز."; markReviewed(); }
       else msg.textContent = "تعذر الإرسال. تأكد من الاسم والنص ثم حاول مجددًا.";
     }).catch(function () { msg.textContent = "تعذر الاتصال بالخادم. حاول لاحقًا."; })
       .then(function () { btn.disabled = false; });
   }
   document.getElementById("rvAdd").addEventListener("click", openForm);
+  if (lsGet(K_REV) === "1") markReviewed();
 
   /* ================= معرض الصور ================= */
   var photos = [], shown = 0;
