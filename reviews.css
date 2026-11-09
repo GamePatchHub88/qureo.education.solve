@@ -1,0 +1,92 @@
+/* =========================================================
+   reviews.css — آراء الطلاب + معرض الصور + شارة "مجاني"
+   خفيف: حركة بـ transform فقط، تتوقف خارج الشاشة وعند اللمس/المرور
+========================================================= */
+
+/* ---- شارة: كل التجارب مجانية ---- */
+.free-note{display:inline-flex;align-items:center;gap:8px;margin:18px 0 0;padding:8px 16px;border-radius:99px;font-size:14.5px;font-weight:700;color:#fff;background:linear-gradient(135deg,#13875a,#1fb57a);box-shadow:0 8px 20px -10px #13875a99}
+.free-note b{font-weight:800}
+.rv-free{display:inline-block;margin:10px 0 0;padding:4px 14px;border-radius:99px;font-size:13.5px;font-weight:700;color:var(--ok);background:var(--ok-bg)}
+html.view-about .rv,html.view-about .ph{display:none!important}
+
+/* ---- أقسام عامة ---- */
+.rv,.ph{padding:56px 0 8px;content-visibility:auto;contain-intrinsic-size:auto 460px}
+.rv[hidden],.ph[hidden]{display:none}
+.rv-head{text-align:center;padding:0 5vw;margin-bottom:28px}
+.rv-head h2{margin:0 0 6px;font-size:clamp(22px,3.4vw,34px);font-weight:800;line-height:1.5}
+.rv-head p{margin:0;color:var(--mute)}
+
+/* ---- آراء الطلاب (صفّان يتحركان باتجاهين) ---- */
+.rv-rows{position:relative;display:grid;gap:18px;overflow:hidden;padding:4px 0}
+.rv-rows::before,.rv-rows::after{content:"";position:absolute;top:0;bottom:0;width:clamp(30px,9vw,130px);z-index:2;pointer-events:none}
+.rv-rows::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.rv-rows::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.rv-row{direction:ltr;overflow:hidden}
+.rv-track{display:flex;gap:18px;width:max-content;padding-right:18px;animation:rvMove var(--rv-dur,60s) linear infinite;will-change:transform}
+.rv-row.rev .rv-track{animation-direction:reverse}
+.rv-row:hover .rv-track,.rv-row:focus-within .rv-track,.rv-row.paused .rv-track,.rv.rv-off .rv-track{animation-play-state:paused}
+@keyframes rvMove{to{transform:translate3d(-50%,0,0)}}
+.rv-card{direction:rtl;flex:none;width:min(82vw,350px);display:flex;flex-direction:column;justify-content:space-between;gap:18px;padding:22px 22px 18px;border-radius:18px;border:1px solid var(--line);background:color-mix(in srgb,var(--accent-2) 7%,var(--panel));box-shadow:var(--shadow)}
+.rv-card p{margin:0;font-size:15.5px;line-height:2;overflow-wrap:anywhere}
+.rv-foot{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.rv-who{min-width:0;text-align:right}
+.rv-who b{display:block;font-size:15px;line-height:1.5;overflow-wrap:anywhere}
+.rv-who span{display:block;font-size:13px;color:var(--mute);line-height:1.6;overflow-wrap:anywhere}
+.rv-q{flex:none;width:38px;height:38px;color:var(--accent-2);opacity:.9}
+.rv-empty{text-align:center;color:var(--mute);padding:8px 5vw 0}
+
+/* قليل من التقييمات: بطاقات ثابتة بدل الحركة */
+.rv-static{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;padding:4px 5vw}
+.rv-static .rv-card{width:min(100%,350px)}
+.rv-rows.is-static::before,.rv-rows.is-static::after{display:none}
+
+/* من يفضّل تقليل الحركة: تمرير أفقي يدوي */
+@media(prefers-reduced-motion:reduce){
+  .rv-track{animation:none;width:auto;padding:0 5vw;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin}
+  .rv-row{overflow:visible}
+  .rv-card{scroll-snap-align:center}
+}
+
+/* زر مشاركة الرأي */
+.rv-add{display:flex;justify-content:center;margin-top:26px;padding:0 5vw}
+.rv-btn{border:0;border-radius:14px;padding:12px 24px;cursor:pointer;font:700 15px 'Noto Kufi Arabic',sans-serif;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:var(--shadow);transition:transform .15s,filter .2s}
+.rv-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.rv-btn:disabled{opacity:.6;cursor:wait;transform:none}
+
+/* نافذة كتابة الرأي */
+.rvf-back{position:fixed;inset:0;z-index:99990;display:grid;place-items:center;padding:16px;background:rgba(5,8,20,.62);overflow:auto}
+.rvf-back[hidden]{display:none}
+.rvf{width:min(440px,100%);padding:24px 22px 20px;border-radius:20px;background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow-up)}
+.rvf h3{margin:0 0 4px;font-size:19px}
+.rvf>p{margin:0 0 14px;color:var(--mute);font-size:13.5px}
+.rvf label{display:block;margin:10px 0 4px;font-size:13.5px;font-weight:700;color:var(--mute)}
+.rvf input,.rvf select,.rvf textarea{width:100%;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--panel-2);color:var(--ink);font:inherit;font-size:16px}
+.rvf textarea{min-height:104px;resize:vertical;line-height:1.8}
+.rvf small{display:block;margin-top:4px;color:var(--mute);font-size:12px;text-align:left}
+.rvf-msg{min-height:22px;margin:8px 0 0;font-size:13.5px;font-weight:600}
+.rvf-msg.err{color:#e5484d}.rvf-msg.ok{color:var(--ok)}
+.rvf-acts{display:flex;gap:10px;margin-top:12px}
+.rvf-acts .rv-btn{flex:1}
+.rvf-acts .ghost{padding:0 18px;min-height:46px}
+
+/* ---- معرض صور الطلاب (أعمدة masonry خفيفة) ---- */
+.ph-grid{column-width:210px;column-gap:14px;max-width:var(--wrap);margin:0 auto;padding:0 5vw}
+.ph-item{display:block;width:100%;margin:0 0 14px;padding:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--panel-2);break-inside:avoid;position:relative;cursor:zoom-in;box-shadow:var(--shadow);-webkit-appearance:none;appearance:none;text-align:right;color:inherit;font:inherit}
+.ph-item img{display:block;width:100%;height:auto;background:var(--panel-2);transition:transform .35s}
+.ph-item:hover img{transform:scale(1.04)}
+.ph-cap{position:absolute;inset:auto 0 0 0;padding:26px 12px 10px;font-size:13px;line-height:1.6;color:#fff;background:linear-gradient(0deg,#050814d9,transparent);pointer-events:none}
+.ph-cap b{display:block;font-size:14px}
+.ph-more{display:flex;justify-content:center;margin:6px 0 0}
+.ph-more[hidden]{display:none}
+
+/* ---- التكبير ---- */
+.lb{position:fixed;inset:0;z-index:99995;display:flex;align-items:center;justify-content:center;padding:14px;background:rgba(5,8,20,.93);overscroll-behavior:contain}
+.lb[hidden]{display:none}
+.lb figure{margin:0;max-width:100%;text-align:center}
+.lb img{max-width:min(96vw,1200px);max-height:80vh;border-radius:12px;background:#0b1020;object-fit:contain}
+.lb figcaption{margin-top:10px;color:#dfe7ff;font-size:14px;line-height:1.7}
+.lb button{position:absolute;border:0;cursor:pointer;color:#fff;background:#ffffff1f;border-radius:50%;width:46px;height:46px;font-size:24px;line-height:1;display:grid;place-items:center}
+.lb button:hover{background:#ffffff38}
+.lb-x{top:max(14px,env(safe-area-inset-top));left:14px}
+.lb-p{top:50%;right:12px;transform:translateY(-50%)}
+.lb-n{top:50%;left:12px;transform:translateY(-50%)}
