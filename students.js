@@ -1,9 +1,9 @@
 /* بوابة الاسم + نشاط الطالب + رسائل الإدارة (نص أو صوت).
-   ليست تسجيل دخول — قاعدة بيانات Supabase فقط (دوال student_* في students-setup.sql). */
+   ليست تسجيل دخول — قاعدة بيانات Supabase فقط (خادم Node.js + MongoDB في مجلد students-api). */
 (function () {
   "use strict";
-  var SB_URL = "https://wgcfajrwfmunwoqmneww.supabase.co";
-  var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnY2ZhanJ3Zm11bndvcW1uZXd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzNDg3ODQsImV4cCI6MjA5ODkyNDc4NH0.sR7YNvM3YKGQkavCN617r9B30oEwf06dCuuRz83ojlE";
+  // خادم Node.js + MongoDB يعمل داخل مشروع البورتفوليو على Vercel (مجلد api)
+  var API_URL = "https://mohamedahmedhelmi.vercel.app/api";
   var K_DEV = "qs_device", K_ST = "qs_status", K_NAME = "qs_name", K_LOCK = "qs_lock";
   var PING_MS = 30000, MAX_REC = 60;
   var root = document.documentElement;
@@ -53,9 +53,9 @@
   function rpc(fn, args) {
     var ctl = typeof AbortController === "function" ? new AbortController() : null;
     var t = ctl ? setTimeout(function () { ctl.abort(); }, 15000) : 0;
-    return fetch(SB_URL + "/rest/v1/rpc/" + fn, {
+    return fetch(API_URL + "/rpc/" + fn, {
       method: "POST",
-      headers: { apikey: SB_KEY, Authorization: "Bearer " + SB_KEY, "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(args),
       signal: ctl ? ctl.signal : undefined
     }).then(function (r) {
