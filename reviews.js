@@ -163,6 +163,14 @@
   /* ================= معرض الصور ================= */
   var photos = [], order = [], stack, dotsBox, timer = 0, hoverOn = false, phOn = true, holdUntil = 0;
   var MAX_PHOTOS = 3; // الحد الأقصى للصور المعروضة
+  var BOX = 0.85;     // نسبة (عرض/ارتفاع) الصندوق الذي تُوضَع فيه الصور، لازم تطابق .ph-stack في CSS
+  // يضبط حجم البطاقة على نسبة أبعاد صورتها داخل الصندوق دون قص كبير أو فراغات
+  function fit(b, w, h) {
+    var ar = w && h ? w / h : BOX;
+    ar = Math.min(2, Math.max(0.5, ar)); // حدود معقولة للصور الطويلة/العريضة جدًا
+    if (ar >= BOX) { b.style.width = "100%"; b.style.height = (BOX / ar * 100) + "%"; }
+    else { b.style.height = "100%"; b.style.width = (ar / BOX * 100) + "%"; }
+  }
   function pUrl(p, kind) { return API_URL + "/public/photos/" + encodeURIComponent(p.id) + "/" + kind + "?v=" + p.v; }
 
   // يوزّع الصور فوق بعضها: الأولى في الأمام والباقي خلفها بميل خفيف
@@ -195,6 +203,8 @@
       img.alt = p.caption || (p.name ? "صورة الطالب " + p.name : "طالب أنهى المنصة");
       img.decoding = "async";
       if (i > 0) img.loading = "lazy";
+      fit(b, p.w, p.h);
+      if (!(p.w && p.h)) img.addEventListener("load", function () { fit(b, img.naturalWidth, img.naturalHeight); });
       img.src = pUrl(p, "thumb");
       b.appendChild(img);
       if (p.name || p.caption) {
