@@ -9,8 +9,7 @@
   var rv = document.getElementById("rv"), ph = document.getElementById("ph");
   if (!rv || !ph) return;
 
-  var reduce = false;
-  try { reduce = matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+  var reduce = false; // الحركة تعمل دائمًا (تتوقف عند اللمس/المرور وخارج الشاشة)
 
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -80,12 +79,7 @@
       box.appendChild(el("p", "rv-empty", "لا توجد آراء منشورة بعد. كن أول من يشارك رأيه!"));
       return;
     }
-    if (list.length <= 3) {
-      box.classList.add("is-static");
-      var st = el("div", "rv-static");
-      list.forEach(function (r) { st.appendChild(card(r, false)); });
-      box.appendChild(st);
-    } else if (list.length < 6) {
+    if (list.length < 6) {
       box.appendChild(marqueeRow(list, false));
     } else {
       var a = [], b = [];

@@ -41,10 +41,12 @@ html.view-about .rv,html.view-about .ph{display:none!important}
 .rv-rows.is-static::before,.rv-rows.is-static::after{display:none}
 
 /* من يفضّل تقليل الحركة: تمرير أفقي يدوي */
-@media(prefers-reduced-motion:reduce){
-  .rv-track{animation:none;width:auto;padding:0 5vw;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin}
-  .rv-row{overflow:visible}
-  .rv-card{scroll-snap-align:center}
+/* الحركة تعمل دائمًا حتى لو كان النظام على "تقليل الحركة"؛ نتجاوز القاعدة العامة في style.css */
+.rv .rv-track{
+  animation-name:rvMove!important;
+  animation-duration:var(--rv-dur,60s)!important;
+  animation-timing-function:linear!important;
+  animation-iteration-count:infinite!important;
 }
 
 /* زر مشاركة الرأي */
