@@ -406,33 +406,33 @@ html.gate-pending body>*:not(#nameGate):not(#chatPanel){visibility:hidden}
 /* سؤال الاختيار في الفصل 27 بلا رقم */
 .qcard.nonum h4::before{display:none;counter-increment:none}
 
-/* ================= قسم الأسئلة الشائعة (بسيط بلا ألوان ولا صناديق) ================= */
-.faq{max-width:var(--wrap);margin:0 auto;padding:64px 5vw 24px}
-.faq-wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.5fr);gap:56px;align-items:start}
-.faq-head{position:sticky;top:calc(var(--hdr) + 24px)}
-.faq-head h2{margin:0 0 14px;font-size:clamp(24px,3.2vw,34px);font-weight:800;line-height:1.5}
-.faq-head p{margin:0;color:var(--mute);line-height:2;font-size:15px}
-.faq-list{border-top:1px solid var(--line)}
-.faq-item{border-bottom:1px solid var(--line);background:none;box-shadow:none}
-.faq-item>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:22px 2px;user-select:none;color:var(--ink)}
-.faq-item>summary::-webkit-details-marker{display:none}
-.faq-n{flex:none;width:26px;direction:ltr;font-size:13px;font-weight:600;color:var(--mute);font-variant-numeric:tabular-nums;opacity:.8}
-.faq-q{flex:1;min-width:0;font-weight:600;font-size:16.5px;line-height:1.8;overflow-wrap:anywhere;opacity:.88;transition:opacity .2s}
-.faq-item>summary:hover .faq-q,.faq-item[open] .faq-q{opacity:1}
-.faq-item[open] .faq-q{font-weight:800}
-.faq-pm{flex:none;position:relative;width:18px;height:18px;color:var(--ink);background:none}
-.faq-pm::before,.faq-pm::after{content:"";position:absolute;top:50%;left:0;width:18px;height:2px;margin-top:-1px;border-radius:2px;background:currentColor;transition:transform .3s}
-.faq-pm::after{transform:rotate(90deg)}
-.faq-item[open] .faq-pm::after{transform:rotate(0)}
-.faq-a{padding:0 2px 22px;margin-inline-start:42px}
-.faq-a p{margin:0;color:var(--mute);line-height:2.05;font-size:15px}
-.faq-item[open] .faq-a{animation:faqIn .3s ease both}
-@keyframes faqIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-@media(max-width:820px){
-  .faq{padding-top:44px}
-  .faq-wrap{grid-template-columns:1fr;gap:26px}
-  .faq-head{position:static}
-  .faq-item>summary{padding:18px 0;gap:12px}
-  .faq-q{font-size:15.5px}
-  .faq-a{margin-inline-start:0;padding:0 0 18px}
+/* ================= قسم الأسئلة (نفس الهيكل الأصلي + تنسيق وحركة) ================= */
+.seo{max-width:860px;margin:0 auto;padding:64px 5vw 24px;interpolate-size:allow-keywords}
+.seo h2{margin:0 0 12px;font-size:clamp(22px,3.2vw,32px);font-weight:800;line-height:1.5;text-align:center}
+.seo>p{margin:0 auto 30px;max-width:720px;text-align:center;color:var(--mute);line-height:2;font-size:15.5px}
+.seo details{position:relative;margin-bottom:12px;border-radius:16px;border:1px solid var(--line);background:var(--panel);box-shadow:var(--shadow);overflow:hidden;transition:border-color .35s,background .35s,box-shadow .35s,transform .35s}
+.seo details::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:4px;background:linear-gradient(180deg,var(--accent),var(--accent-2));transform:scaleY(0);transform-origin:top;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.seo details:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line));transform:translateY(-2px);box-shadow:var(--shadow-up)}
+.seo details[open]{border-color:color-mix(in srgb,var(--accent) 50%,var(--line));background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 8%,var(--panel)),color-mix(in srgb,var(--accent-2) 6%,var(--panel)))}
+.seo details[open]::before{transform:scaleY(1)}
+.seo summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 24px;font-weight:700;font-size:16.5px;line-height:1.8;user-select:none;transition:color .25s}
+.seo summary::-webkit-details-marker{display:none}
+.seo summary:hover,.seo details[open] summary{color:var(--accent)}
+.seo summary::after{content:"";flex:none;width:9px;height:9px;margin-top:-4px;border:solid var(--accent);border-width:0 2.5px 2.5px 0;border-radius:1px;transform:rotate(45deg);transition:transform .45s cubic-bezier(.34,1.5,.5,1),margin .45s}
+.seo details[open] summary::after{transform:rotate(-135deg);margin-top:5px}
+.seo details>p{margin:0;padding:0 24px 20px;color:var(--mute);line-height:2.05;font-size:15px}
+.seo details[open]>p{animation:faqIn .45s cubic-bezier(.2,.7,.2,1) both}
+@keyframes faqIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+/* فتح/إغلاق سلس للارتفاع في المتصفحات الحديثة */
+@supports selector(::details-content){
+  .seo details::details-content{block-size:0;overflow:hidden;transition:block-size .45s cubic-bezier(.2,.7,.2,1),content-visibility .45s allow-discrete}
+  .seo details[open]::details-content{block-size:auto}
+}
+/* نُبقي الحركة حتى لو كان النظام على "تقليل الحركة" */
+.seo details,.seo details::before,.seo summary::after{transition-property:all!important;transition-duration:.4s!important}
+.seo details[open]>p{animation-name:faqIn!important;animation-duration:.45s!important}
+@media(max-width:640px){
+  .seo{padding-top:44px}
+  .seo summary{padding:15px 16px;font-size:15.5px}
+  .seo details>p{padding:0 16px 16px}
 }
