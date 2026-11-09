@@ -195,6 +195,11 @@
     dotsBox = document.getElementById("phDots");
     stack.textContent = ""; dotsBox.textContent = "";
     photos = photos.slice(0, MAX_PHOTOS);
+    // الصندوق يتبع أعرض صورة: عريضة = شكل أكبر وأعرض، طولية = شكل أصغر
+    var ars = photos.filter(function (p) { return p.w && p.h; }).map(function (p) { return p.w / p.h; });
+    BOX = ars.length ? Math.min(1.9, Math.max(0.85, Math.max.apply(null, ars))) : 1.6;
+    stack.style.aspectRatio = String(BOX);
+    stack.style.width = BOX >= 1.3 ? "min(94vw,780px)" : BOX >= 1.05 ? "min(90vw,520px)" : "min(84vw,360px)";
     photos.forEach(function (p, i) {
       var b = el("button", "ph-item");
       b.type = "button";
