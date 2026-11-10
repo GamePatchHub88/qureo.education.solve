@@ -3,7 +3,7 @@
    - الحركة تتوقف خارج الشاشة وعند تقليل الحركة في النظام */
 (function () {
   "use strict";
-  var API_URL = "https://qureoeducationsolve.vercel.app/api";
+  var API_URL = "https://mohamedahmedhelmi.vercel.app/api";
   var rv = document.getElementById("rv");
   if (!rv) return;
 

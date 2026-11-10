@@ -2,8 +2,8 @@
    ليست تسجيل دخول — قاعدة بيانات Supabase فقط (خادم Node.js + MongoDB في مجلد students-api). */
 (function () {
   "use strict";
-  // خادم Node.js + MongoDB يعمل داخل مشروع موقع الحلول نفسه على Vercel (مجلد api)
-  var API_URL = "https://qureoeducationsolve.vercel.app/api";
+  // خادم Node.js + MongoDB يعمل داخل مشروع البورتفوليو على Vercel (مجلد api)
+  var API_URL = "https://mohamedahmedhelmi.vercel.app/api";
   var K_DEV = "qs_device", K_ST = "qs_status", K_NAME = "qs_name", K_LOCK = "qs_lock";
   var PING_MS = 30000, MAX_REC = 60;
   var root = document.documentElement;
@@ -51,9 +51,9 @@
     } catch (e) { return ""; }
   }
 
-  function rpc(fn, args, ms) {
+  function rpc(fn, args) {
     var ctl = typeof AbortController === "function" ? new AbortController() : null;
-    var t = ctl ? setTimeout(function () { ctl.abort(); }, ms || 15000) : 0;
+    var t = ctl ? setTimeout(function () { ctl.abort(); }, 15000) : 0;
     return fetch(API_URL + "/rpc/" + fn, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -159,8 +159,6 @@
   var ICON_CHAT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-5 4V6a2 2 0 0 1 1-2Z"/></svg>';
   var ICON_MIC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V22h2v-3.1A7 7 0 0 0 19 12Z"/></svg>';
 
-  var pendingImg = "", preparing = false, prevEl, prevImg;
-
   function buildChat() {
     if (panel) return;
     fab = document.createElement("button");
@@ -180,7 +178,6 @@
       '<div class="cp-list" aria-live="polite"></div>' +
       '<div class="cp-rec" hidden><span class="cp-dot"></span><span class="cp-time">0:00</span>' +
       '<button class="cp-cancel" type="button">إلغاء</button><button class="cp-stop" type="button">إرسال التسجيل</button></div>' +
-      '<div class="cp-prev" hidden><img alt="معاينة الصورة" /><span class="cp-prevt">الصورة جاهزة — أضف تعليقًا إن أردت ثم اضغط إرسال</span><button class="cp-prevx" type="button" aria-label="إزالة الصورة">×</button></div>' +
       '<div class="cp-bar"><textarea rows="1" maxlength="1000" placeholder="اكتب رسالتك..." aria-label="نص الرسالة"></textarea>' +
       '<input class="cp-file" type="file" accept="image/*" hidden />' +
       '<button class="cp-mic cp-imgb" type="button" aria-label="إرسال صورة" title="إرسال صورة">🖼</button>' +
@@ -196,8 +193,6 @@
     micBtn = panel.querySelector(".cp-micb");
     imgBtn = panel.querySelector(".cp-imgb");
     fileIn = panel.querySelector(".cp-file");
-    prevEl = panel.querySelector(".cp-prev");
-    prevImg = prevEl.querySelector("img");
     sendBtn = panel.querySelector(".cp-send");
     closeBtn = panel.querySelector(".cp-x");
     recBar = panel.querySelector(".cp-rec");
@@ -208,13 +203,11 @@
     sendBtn.addEventListener("click", sendText);
     ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendText(); } });
     micBtn.addEventListener("click", startRec);
-    imgBtn.addEventListener("click", function () { if (!sending && !preparing) fileIn.click(); });
-    prevEl.querySelector(".cp-prevx").addEventListener("click", clearPending);
-    ta.addEventListener("input", function () { ta.style.height = "auto"; ta.style.height = Math.min(ta.scrollHeight, 90) + "px"; });
-    fileIn.addEventListener("change", function () { var f = fileIn.files && fileIn.files[0]; fileIn.value = ""; if (f) pickImage(f); });
+    imgBtn.addEventListener("click", function () { if (!sending) fileIn.click(); });
+    fileIn.addEventListener("change", function () { var f = fileIn.files && fileIn.files[0]; fileIn.value = ""; if (f) sendImage(f); });
     ta.addEventListener("paste", function (e) {
       var items = (e.clipboardData && e.clipboardData.items) || [];
-      for (var i = 0; i < items.length; i++) if (items[i].kind === "file" && /^image\//.test(items[i].type)) { e.preventDefault(); pickImage(items[i].getAsFile()); return; }
+      for (var i = 0; i < items.length; i++) if (items[i].kind === "file" && /^image\//.test(items[i].type)) { e.preventDefault(); sendImage(items[i].getAsFile()); return; }
     });
     panel.querySelector(".cp-stop").addEventListener("click", function () { stopRec(false); });
     panel.querySelector(".cp-cancel").addEventListener("click", function () { stopRec(true); });
@@ -224,8 +217,7 @@
   function fmtTime(iso) {
     try { return new Date(iso).toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" }); } catch (e) { return ""; }
   }
-  function setErr(t) { if (errEl) { errEl.classList.remove("info"); errEl.textContent = t || ""; } }
-  function setInfo(t) { if (errEl) { errEl.classList.toggle("info", !!t); errEl.textContent = t || ""; } }
+  function setErr(t) { if (errEl) errEl.textContent = t || ""; }
 
   /* ===== إشعار الرسالة الجديدة (يظهر 5 ثوانٍ) ===== */
   var NOTIF_MS = 5000;
@@ -359,7 +351,7 @@
     if (!ms.length) {
       var e = document.createElement("p");
       e.className = "cp-empty";
-      e.textContent = "لا توجد رسائل بعد. اكتب رسالتك أو أرسل صورة أو سجّل رسالة صوتية للإدارة.";
+      e.textContent = "لا توجد رسائل بعد. اكتب رسالتك أو سجّل رسالة صوتية للإدارة.";
       listEl.appendChild(e);
       return;
     }
@@ -395,9 +387,9 @@
     listEl.scrollTop = listEl.scrollHeight;
   }
 
-  function showImg(box, url, mine) {
+  function showImg(box, url) {
     var im = new Image();
-    im.alt = mine ? "صورتك" : "صورة من الإدارة"; im.src = url;
+    im.alt = "صورة من الإدارة"; im.src = url;
     box.textContent = ""; box.appendChild(im);
     box.onclick = function () {
       var d = document.createElement("div");
@@ -410,17 +402,12 @@
   }
 
   function loadImg(m, box) {
-    var mine = m.sender === "student";
-    if (imgs[m.id]) { showImg(box, imgs[m.id], mine); return; }
-    function fail() {
-      box.textContent = "تعذر تحميل الصورة · اضغط لإعادة المحاولة";
-      box.onclick = function () { box.onclick = null; box.textContent = "جاري تحميل الصورة..."; loadImg(m, box); };
-    }
-    rpc("student_image", { p_device: deviceId(), p_id: m.id }, 30000).then(function (url) {
-      if (!url || typeof url !== "string" || url.indexOf("data:image/") !== 0) { fail(); return; }
+    if (imgs[m.id]) { showImg(box, imgs[m.id]); return; }
+    rpc("student_image", { p_device: deviceId(), p_id: m.id }).then(function (url) {
+      if (!url || typeof url !== "string" || url.indexOf("data:image/") !== 0) { box.textContent = "تعذر تحميل الصورة"; return; }
       imgs[m.id] = url;
-      showImg(box, url, mine);
-    }, fail);
+      showImg(box, url);
+    }, function () { box.textContent = "تعذر تحميل الصورة"; });
   }
 
   function playVoice(m, b) {
@@ -443,7 +430,7 @@
   function afterSend(r) {
     sending = false; sendBtn.disabled = false; micBtn.disabled = false; if (imgBtn) imgBtn.disabled = false;
     if (r && r.status === "ok") {
-      setErr(""); ta.value = ""; ta.style.height = "";
+      setErr(""); ta.value = "";
       loadInbox(true);
       if (locked && !r.locked) check();
     } else if (r && r.status === "rate_limited") setErr("أرسلت رسائل كثيرة، حاول بعد قليل.");
@@ -451,91 +438,53 @@
   }
 
   function sendText() {
-    if (sending || preparing) return;
-    if (pendingImg) { sendPending(); return; }
     var t = ta.value.trim();
-    if (!t) return;
+    if (!t || sending) return;
     if (t.length > 1000) { setErr("الرسالة طويلة جدًا."); return; }
     sending = true; sendBtn.disabled = true; micBtn.disabled = true; setErr("");
     rpc("student_send", { p_device: deviceId(), p_kind: "text", p_body: t }).then(afterSend, function () { afterSend(null); });
   }
 
-  // فك ترميز الصورة: createImageBitmap (يحترم اتجاه الصورة) ثم Image كخطة بديلة
-  function viaImg(file) {
+  // تصغير الصورة وضغطها (JPEG، أطول ضلع 1280px) لتصبح أقل من ~700KB
+  function compressImg(file) {
     return new Promise(function (resolve, reject) {
+      if (!file || !/^image\//.test(file.type)) return reject(new Error("الملف ليس صورة."));
       var url = URL.createObjectURL(file), im = new Image();
-      im.onload = function () { resolve({ src: im, w: im.naturalWidth, h: im.naturalHeight, close: function () { URL.revokeObjectURL(url); } }); };
-      im.onerror = function () { URL.revokeObjectURL(url); reject(new Error("decode")); };
+      im.onload = function () {
+        URL.revokeObjectURL(url);
+        var max = 1280, q = 0.82, out = "";
+        for (var i = 0; i < 6; i++) {
+          var k = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+          var c = document.createElement("canvas");
+          c.width = Math.max(1, Math.round(im.naturalWidth * k)); c.height = Math.max(1, Math.round(im.naturalHeight * k));
+          var x = c.getContext("2d");
+          x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height);
+          x.drawImage(im, 0, 0, c.width, c.height);
+          out = c.toDataURL("image/jpeg", q);
+          if (out.length <= 700000) return resolve(out);
+          q = Math.max(0.5, q - 0.1); max = Math.round(max * 0.8);
+        }
+        reject(new Error("الصورة كبيرة جدًا."));
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); reject(new Error("تعذر قراءة الصورة.")); };
       im.src = url;
     });
   }
-  function decodeImg(file) {
-    if (typeof createImageBitmap !== "function") return viaImg(file);
-    return createImageBitmap(file, { imageOrientation: "from-image" })
-      .catch(function () { return createImageBitmap(file); })
-      .then(function (b) { return { src: b, w: b.width, h: b.height, close: function () { try { b.close(); } catch (e) {} } }; })
-      .catch(function () { return viaImg(file); });
-  }
 
-  // تصغير الصورة وضغطها (JPEG، أطول ضلع 1280px) لتصبح أقل من ~700KB
-  function compressImg(file) {
-    if (!file) return Promise.reject(new Error("لم يتم اختيار صورة."));
-    var okType = /^image\//.test(file.type) || (!file.type && /\.(jpe?g|png|webp|gif|bmp|heic|heif)$/i.test(file.name || ""));
-    if (!okType) return Promise.reject(new Error("الملف ليس صورة."));
-    if (file.size > 30 * 1024 * 1024) return Promise.reject(new Error("الصورة كبيرة جدًا (أكثر من 30MB)."));
-    return decodeImg(file).then(function (d) {
-      var max = 1280, q = 0.82, out = "";
-      try {
-        for (var i = 0; i < 8; i++) {
-          var k = Math.min(1, max / Math.max(d.w, d.h));
-          var c = document.createElement("canvas");
-          c.width = Math.max(1, Math.round(d.w * k)); c.height = Math.max(1, Math.round(d.h * k));
-          var x = c.getContext("2d");
-          x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height);
-          x.drawImage(d.src, 0, 0, c.width, c.height);
-          out = c.toDataURL("image/jpeg", q);
-          if (out.indexOf("data:image/jpeg") === 0 && out.length <= 700000) return out;
-          q = Math.max(0.5, q - 0.1); max = Math.round(max * 0.8);
-        }
-      } finally { d.close(); }
-      throw new Error("تعذر تصغير الصورة، جرّب صورة أخرى.");
-    }, function () {
-      throw new Error("تعذر قراءة الصورة. جرّب صورة بصيغة JPG أو PNG (صيغة HEIC لا تعمل على بعض الأجهزة).");
-    });
-  }
-
-  // اختيار الصورة: تُجهَّز وتظهر معاينة، ولا تُرسل إلا بعد الضغط على «إرسال»
-  function pickImage(file) {
-    if (sending || preparing || !file) return;
-    preparing = true; imgBtn.disabled = true; setInfo("جارٍ تجهيز الصورة...");
+  function sendImage(file) {
+    if (sending) return;
+    sending = true; sendBtn.disabled = true; micBtn.disabled = true; imgBtn.disabled = true; setErr("");
     compressImg(file).then(function (url) {
-      pendingImg = url; prevImg.src = url; prevEl.hidden = false; setErr(""); ta.focus();
-    }, function (e) {
-      setErr((e && e.message) || "تعذر تجهيز الصورة.");
-    }).then(function () { preparing = false; imgBtn.disabled = false; });
-  }
-
-  function clearPending() {
-    pendingImg = "";
-    if (prevEl) { prevEl.hidden = true; prevImg.removeAttribute("src"); }
-  }
-
-  function sendPending() {
-    var url = pendingImg;
-    if (!url || sending) return;
-    sending = true; sendBtn.disabled = true; micBtn.disabled = true; imgBtn.disabled = true; setInfo("جارٍ إرسال الصورة...");
-    var cap = ta.value.trim().slice(0, 1000);
-    rpc("student_send", { p_device: deviceId(), p_kind: "image", p_image: url, p_body: cap }, 60000).then(function (r) {
+      var cap = ta.value.trim().slice(0, 1000);
+      return rpc("student_send", { p_device: deviceId(), p_kind: "image", p_image: url, p_body: cap });
+    }).then(function (r) {
       afterSend(r);
-      if (r && r.status === "ok") clearPending();
-      else if (r && r.status === "rate_limited") setErr("وصلت للحد الأقصى لإرسال الصور (10 صور في الساعة)، حاول لاحقًا.");
-      else if (r && r.status === "invalid") setErr("الخادم لم يقبل الصورة. حدّث الصفحة وجرّب مرة أخرى، وإن تكرر الأمر أبلغ الإدارة.");
+      if (r && r.status === "invalid") setErr("الخادم لم يقبل الصورة (قد تكون نسخة الخادم قديمة ولم تُحدَّث بعد).");
     }, function (e) {
       afterSend(null);
-      var m = (e && e.message) || "";
-      if (/^http 413/.test(m)) setErr("حجم الصورة أكبر من المسموح، اختر صورة أصغر.");
-      else if (/^http (\d+)/.test(m)) setErr("تعذر إرسال الصورة (خطأ الخادم " + m.slice(5) + ")، حاول مرة أخرى.");
-      else setErr("انقطع الاتصال أثناء الإرسال. تحقق من الإنترنت ثم اضغط إرسال لإعادة المحاولة.");
+      var m = e && e.message || "";
+      if (/^http (\d+)/.test(m)) setErr("تعذر إرسال الصورة (خطأ الخادم " + m.slice(5) + ").");
+      else if (m && !/abort|fetch|network/i.test(m)) setErr(m);
     });
   }
 

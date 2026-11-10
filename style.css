@@ -440,12 +440,3 @@ html.gate-pending body>*:not(#nameGate):not(#chatPanel){visibility:hidden}
   .seo summary{padding:15px 16px;font-size:15.5px}
   .seo details>p{padding:0 16px 16px}
 }
-/* معاينة الصورة قبل الإرسال + تحسينات الجوال للشات */
-.cp-prev{display:flex;align-items:center;gap:10px;padding:8px 10px;border-top:1px solid var(--line);background:var(--panel-2)}
-.cp-prev[hidden]{display:none}
-.cp-prev img{width:48px;height:48px;object-fit:cover;border-radius:8px;flex:none}
-.cp-prevt{flex:1;font-size:12px;color:var(--mute);line-height:1.5}
-.cp-prevx{width:28px;height:28px;border:0;border-radius:50%;cursor:pointer;background:rgba(229,72,77,.15);color:#e5484d;font-size:18px;line-height:1;flex:none}
-.cp-err.info{color:var(--mute)}
-@media(max-width:600px){.cp-bar textarea{font-size:16px}}
-@supports(height:100dvh){#chatPanel{height:min(520px,calc(100dvh - 110px))}#chatPanel.lock{height:min(560px,calc(100dvh - 32px))}}
