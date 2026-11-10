@@ -477,9 +477,14 @@
     compressImg(file).then(function (url) {
       var cap = ta.value.trim().slice(0, 1000);
       return rpc("student_send", { p_device: deviceId(), p_kind: "image", p_image: url, p_body: cap });
-    }).then(afterSend, function (e) {
+    }).then(function (r) {
+      afterSend(r);
+      if (r && r.status === "invalid") setErr("الخادم لم يقبل الصورة (قد تكون نسخة الخادم قديمة ولم تُحدَّث بعد).");
+    }, function (e) {
       afterSend(null);
-      if (e && e.message && !/^http|abort|fetch/i.test(e.message)) setErr(e.message);
+      var m = e && e.message || "";
+      if (/^http (\d+)/.test(m)) setErr("تعذر إرسال الصورة (خطأ الخادم " + m.slice(5) + ").");
+      else if (m && !/abort|fetch|network/i.test(m)) setErr(m);
     });
   }
 
