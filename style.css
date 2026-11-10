@@ -387,6 +387,10 @@ html.gate-pending body>*:not(#nameGate):not(#chatPanel){visibility:hidden}
 .cm-me{align-self:flex-start;background:var(--panel-2);border:1px solid var(--line)}
 .cm-ad{align-self:flex-end;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-ink)}
 .cm-txt{white-space:pre-wrap;overflow-wrap:anywhere}
+.cm-img{display:grid;place-items:center;min-width:140px;min-height:90px;max-width:100%;padding:0;border:0;border-radius:10px;overflow:hidden;cursor:zoom-in;background:rgba(0,0,0,.12);color:inherit;font:inherit;font-size:12px}
+.cm-img img{display:block;max-width:100%;max-height:260px;width:auto;height:auto}
+.cm-lb{position:fixed;inset:0;z-index:100002;background:rgba(0,0,0,.9);display:grid;place-items:center;padding:12px;cursor:zoom-out}
+.cm-lb img{max-width:96vw;max-height:92vh;border-radius:10px}
 .cm-voice{border:0;border-radius:10px;padding:8px 12px;cursor:pointer;font:inherit;font-weight:700;background:rgba(0,0,0,.12);color:inherit}
 .cp-bar,.cp-rec{display:flex;align-items:flex-end;gap:8px;padding:10px;border-top:1px solid var(--line)}
 .cp-bar[hidden],.cp-rec[hidden]{display:none}

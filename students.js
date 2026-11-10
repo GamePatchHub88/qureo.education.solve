@@ -154,7 +154,7 @@
 
   /* ================= محادثة الإدارة ================= */
   var fab, badge, panel, listEl, noteEl, errEl, ta, micBtn, sendBtn, closeBtn, recBar, recTime;
-  var shownIds = "", audios = {}, rec = null, sending = false;
+  var shownIds = "", audios = {}, imgs = {}, rec = null, sending = false;
 
   var ICON_CHAT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-5 4V6a2 2 0 0 1 1-2Z"/></svg>';
   var ICON_MIC = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V22h2v-3.1A7 7 0 0 0 19 12Z"/></svg>';
@@ -264,7 +264,7 @@
       if (m && m.id === lastNotifId) return;
       if (m) lastNotifId = m.id;
       if (chatOpen) return;
-      showNotif(m && m.body, m && m.kind === "voice");
+      showNotif(m && m.kind === "image" ? "🖼 صورة" + (m.body ? " · " + m.body : "") : m && m.body, m && m.kind === "voice");
     }, function () { if (!chatOpen) showNotif("", false); });
   }
 
@@ -354,6 +354,16 @@
         b.textContent = "▶ رسالة صوتية · " + fmtDur(m.duration);
         b.addEventListener("click", function () { playVoice(m, b); });
         row.appendChild(b);
+      } else if (m.kind === "image") {
+        var box = document.createElement("button");
+        box.type = "button"; box.className = "cm-img"; box.textContent = "جاري تحميل الصورة...";
+        loadImg(m, box);
+        row.appendChild(box);
+        if (m.body) {
+          var cap = document.createElement("div");
+          cap.className = "cm-txt"; cap.textContent = m.body;
+          row.appendChild(cap);
+        }
       } else {
         var p = document.createElement("div");
         p.className = "cm-txt"; p.textContent = m.body || "";
@@ -365,6 +375,29 @@
       listEl.appendChild(row);
     });
     listEl.scrollTop = listEl.scrollHeight;
+  }
+
+  function showImg(box, url) {
+    var im = new Image();
+    im.alt = "صورة من الإدارة"; im.src = url;
+    box.textContent = ""; box.appendChild(im);
+    box.onclick = function () {
+      var d = document.createElement("div");
+      d.className = "cm-lb";
+      var big = new Image(); big.alt = "صورة"; big.src = url;
+      d.appendChild(big);
+      d.addEventListener("click", function () { d.remove(); });
+      document.body.appendChild(d);
+    };
+  }
+
+  function loadImg(m, box) {
+    if (imgs[m.id]) { showImg(box, imgs[m.id]); return; }
+    rpc("student_image", { p_device: deviceId(), p_id: m.id }).then(function (url) {
+      if (!url || typeof url !== "string" || url.indexOf("data:image/") !== 0) { box.textContent = "تعذر تحميل الصورة"; return; }
+      imgs[m.id] = url;
+      showImg(box, url);
+    }, function () { box.textContent = "تعذر تحميل الصورة"; });
   }
 
   function playVoice(m, b) {
