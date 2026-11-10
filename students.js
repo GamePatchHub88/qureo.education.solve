@@ -153,7 +153,7 @@
   }
 
   /* ================= محادثة الإدارة ================= */
-  var fab, badge, panel, listEl, noteEl, errEl, ta, micBtn, sendBtn, closeBtn, recBar, recTime;
+  var fab, badge, panel, listEl, noteEl, errEl, ta, micBtn, sendBtn, closeBtn, recBar, recTime, imgBtn, fileIn;
   var shownIds = "", audios = {}, imgs = {}, rec = null, sending = false;
 
   var ICON_CHAT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-5 4V6a2 2 0 0 1 1-2Z"/></svg>';
@@ -179,7 +179,9 @@
       '<div class="cp-rec" hidden><span class="cp-dot"></span><span class="cp-time">0:00</span>' +
       '<button class="cp-cancel" type="button">إلغاء</button><button class="cp-stop" type="button">إرسال التسجيل</button></div>' +
       '<div class="cp-bar"><textarea rows="1" maxlength="1000" placeholder="اكتب رسالتك..." aria-label="نص الرسالة"></textarea>' +
-      '<button class="cp-mic" type="button" aria-label="تسجيل رسالة صوتية">' + ICON_MIC + '</button>' +
+      '<input class="cp-file" type="file" accept="image/*" hidden />' +
+      '<button class="cp-mic cp-imgb" type="button" aria-label="إرسال صورة" title="إرسال صورة">🖼</button>' +
+      '<button class="cp-mic cp-micb" type="button" aria-label="تسجيل رسالة صوتية">' + ICON_MIC + '</button>' +
       '<button class="cp-send" type="button">إرسال</button></div>' +
       '<p class="cp-err" role="alert"></p>';
     document.body.appendChild(panel);
@@ -188,7 +190,9 @@
     noteEl = panel.querySelector(".cp-note");
     errEl = panel.querySelector(".cp-err");
     ta = panel.querySelector("textarea");
-    micBtn = panel.querySelector(".cp-mic");
+    micBtn = panel.querySelector(".cp-micb");
+    imgBtn = panel.querySelector(".cp-imgb");
+    fileIn = panel.querySelector(".cp-file");
     sendBtn = panel.querySelector(".cp-send");
     closeBtn = panel.querySelector(".cp-x");
     recBar = panel.querySelector(".cp-rec");
@@ -199,6 +203,12 @@
     sendBtn.addEventListener("click", sendText);
     ta.addEventListener("keydown", function (e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendText(); } });
     micBtn.addEventListener("click", startRec);
+    imgBtn.addEventListener("click", function () { if (!sending) fileIn.click(); });
+    fileIn.addEventListener("change", function () { var f = fileIn.files && fileIn.files[0]; fileIn.value = ""; if (f) sendImage(f); });
+    ta.addEventListener("paste", function (e) {
+      var items = (e.clipboardData && e.clipboardData.items) || [];
+      for (var i = 0; i < items.length; i++) if (items[i].kind === "file" && /^image\//.test(items[i].type)) { e.preventDefault(); sendImage(items[i].getAsFile()); return; }
+    });
     panel.querySelector(".cp-stop").addEventListener("click", function () { stopRec(false); });
     panel.querySelector(".cp-cancel").addEventListener("click", function () { stopRec(true); });
   }
@@ -418,7 +428,7 @@
   }
 
   function afterSend(r) {
-    sending = false; sendBtn.disabled = false; micBtn.disabled = false;
+    sending = false; sendBtn.disabled = false; micBtn.disabled = false; if (imgBtn) imgBtn.disabled = false;
     if (r && r.status === "ok") {
       setErr(""); ta.value = "";
       loadInbox(true);
@@ -433,6 +443,44 @@
     if (t.length > 1000) { setErr("الرسالة طويلة جدًا."); return; }
     sending = true; sendBtn.disabled = true; micBtn.disabled = true; setErr("");
     rpc("student_send", { p_device: deviceId(), p_kind: "text", p_body: t }).then(afterSend, function () { afterSend(null); });
+  }
+
+  // تصغير الصورة وضغطها (JPEG، أطول ضلع 1280px) لتصبح أقل من ~700KB
+  function compressImg(file) {
+    return new Promise(function (resolve, reject) {
+      if (!file || !/^image\//.test(file.type)) return reject(new Error("الملف ليس صورة."));
+      var url = URL.createObjectURL(file), im = new Image();
+      im.onload = function () {
+        URL.revokeObjectURL(url);
+        var max = 1280, q = 0.82, out = "";
+        for (var i = 0; i < 6; i++) {
+          var k = Math.min(1, max / Math.max(im.naturalWidth, im.naturalHeight));
+          var c = document.createElement("canvas");
+          c.width = Math.max(1, Math.round(im.naturalWidth * k)); c.height = Math.max(1, Math.round(im.naturalHeight * k));
+          var x = c.getContext("2d");
+          x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height);
+          x.drawImage(im, 0, 0, c.width, c.height);
+          out = c.toDataURL("image/jpeg", q);
+          if (out.length <= 700000) return resolve(out);
+          q = Math.max(0.5, q - 0.1); max = Math.round(max * 0.8);
+        }
+        reject(new Error("الصورة كبيرة جدًا."));
+      };
+      im.onerror = function () { URL.revokeObjectURL(url); reject(new Error("تعذر قراءة الصورة.")); };
+      im.src = url;
+    });
+  }
+
+  function sendImage(file) {
+    if (sending) return;
+    sending = true; sendBtn.disabled = true; micBtn.disabled = true; imgBtn.disabled = true; setErr("");
+    compressImg(file).then(function (url) {
+      var cap = ta.value.trim().slice(0, 1000);
+      return rpc("student_send", { p_device: deviceId(), p_kind: "image", p_image: url, p_body: cap });
+    }).then(afterSend, function (e) {
+      afterSend(null);
+      if (e && e.message && !/^http|abort|fetch/i.test(e.message)) setErr(e.message);
+    });
   }
 
   function sendVoice(url, dur) {
