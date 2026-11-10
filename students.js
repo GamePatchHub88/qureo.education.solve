@@ -2,8 +2,8 @@
    ليست تسجيل دخول — قاعدة بيانات Supabase فقط (خادم Node.js + MongoDB في مجلد students-api). */
 (function () {
   "use strict";
-  // خادم Node.js + MongoDB يعمل داخل مشروع البورتفوليو على Vercel (مجلد api)
-  var API_URL = "https://mohamedahmedhelmi.vercel.app/api";
+  // خادم Node.js + MongoDB يعمل داخل مشروع موقع الحلول نفسه على Vercel (مجلد api)
+  var API_URL = "https://qureoeducationsolve.vercel.app/api";
   var K_DEV = "qs_device", K_ST = "qs_status", K_NAME = "qs_name", K_LOCK = "qs_lock";
   var PING_MS = 30000, MAX_REC = 60;
   var root = document.documentElement;
