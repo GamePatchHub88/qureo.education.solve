@@ -1,5 +1,5 @@
 /* ===== المحرر الحر — جافا سكربت · بايثون · HTML/CSS ===== */
-.icon.ed-open{width:auto;padding:0 12px;display:inline-flex;align-items:center;gap:7px;font:600 13px 'Noto Kufi Arabic',sans-serif;white-space:nowrap}
+.icon.ed-open{width:auto;padding:0 12px;display:inline-flex;align-items:center;gap:7px;font:600 13px 'Cairo',sans-serif;white-space:nowrap}
 .icon.ed-open b{font:600 14px 'JetBrains Mono',ui-monospace,monospace;color:var(--accent);direction:ltr}
 @media(max-width:520px){.icon.ed-open span{display:none}.icon.ed-open{padding:0 10px}}
 
@@ -9,7 +9,7 @@ body.ed-lock{overflow:hidden}
 .ed-box{width:min(1280px,100%);height:min(900px,100%);display:flex;flex-direction:column;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-up);overflow:hidden}
 .ed-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--panel-2)}
 .ed-head h2{margin:0;font-size:16px;font-weight:800;margin-inline-end:auto;display:flex;align-items:center;gap:8px}
-.ed-btn{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:600 13px 'Noto Kufi Arabic',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
+.ed-btn{min-height:38px;padding:0 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:600 13px 'Cairo',sans-serif;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s,transform .1s}
 .ed-btn:hover{border-color:var(--accent);background:var(--panel-2)}
 .ed-btn:active{transform:scale(.96)}
 .ed-btn:focus-visible,.ed-sel:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -18,7 +18,7 @@ body.ed-lock{overflow:hidden}
 .ed-btn.stop{background:#e5484d;color:#fff;border-color:transparent}
 .ed-btn.x{width:38px;padding:0;font-size:18px}
 .ed-btn.done{background:var(--ok-bg);color:var(--ok);border-color:transparent}
-.ed-sel{min-height:38px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:13px 'Noto Kufi Arabic',sans-serif;max-width:170px}
+.ed-sel{min-height:38px;padding:0 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:13px 'Cairo',sans-serif;max-width:170px}
 
 .ed-main{flex:1;min-height:0;display:grid;grid-template-rows:minmax(0,1.25fr) minmax(0,1fr)}
 @media(min-width:900px){.ed-main{grid-template-rows:none;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}}
@@ -49,8 +49,8 @@ body.ed-lock{overflow:hidden}
 /* الإخراج */
 .ed-out{flex:1;min-height:0;overflow:auto;margin:0;padding:12px 14px;background:var(--code-bg);color:var(--code-ink);font:400 14px/1.7 'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;direction:ltr;text-align:left;scrollbar-width:thin;scrollbar-color:#ffffff33 transparent}
 .ed-out .ln{white-space:pre-wrap;word-break:break-word;padding:1px 0;border-bottom:1px solid #ffffff0a}
-.ed-out .warn{color:var(--t-a)}.ed-out .err{color:var(--t-t)}.ed-out .info{color:var(--t-p)}.ed-out .sys{color:#7f8bb3;font-style:italic;font-family:'Noto Kufi Arabic',sans-serif}
-.ed-out .ph{color:#5d6a92;font-family:'Noto Kufi Arabic',sans-serif;direction:rtl;text-align:right}
+.ed-out .warn{color:var(--t-a)}.ed-out .err{color:var(--t-t)}.ed-out .info{color:var(--t-p)}.ed-out .sys{color:#7f8bb3;font-style:italic;font-family:'Cairo',sans-serif}
+.ed-out .ph{color:#5d6a92;font-family:'Cairo',sans-serif;direction:rtl;text-align:right}
 .ed-status{display:flex;align-items:center;gap:10px;padding:7px 12px;border-top:1px solid var(--line);background:var(--panel-2);color:var(--mute);font-size:12.5px;flex-wrap:wrap}
 .ed-status .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
 .ed-status.busy .dot{background:var(--t-a);animation:edp 1s infinite}
@@ -73,7 +73,7 @@ body.ed-lock{overflow:hidden}
 .k-snip{background:#bb9af733;color:#bb9af7}.k-kw{background:#7dcfff22;color:#7dcfff}.k-cls{background:#e0af6833;color:#e0af68}.k-fn{background:#7aa2f733;color:#7aa2f7}.k-prop{background:#73daca33;color:#73daca}.k-var{background:#9ece6a2b;color:#9ece6a}
 .ac-l{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ac-l b{color:var(--accent);font-weight:700}
-.ac-d{flex:none;max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#8f9bc4;font:11.5px 'Noto Kufi Arabic',sans-serif;direction:rtl}
+.ac-d{flex:none;max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#8f9bc4;font:11.5px 'Cairo',sans-serif;direction:rtl}
 @media(max-width:520px){.ac-d{display:none}.ed-ac{min-width:180px}}
 
 /* ===== بايثون و HTML/CSS ===== */

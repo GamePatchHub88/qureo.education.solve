@@ -51,7 +51,7 @@ html.view-about .rv{display:none!important}
 
 /* زر مشاركة الرأي */
 .rv-add{display:flex;justify-content:center;margin-top:26px;padding:0 5vw}
-.rv-btn{border:0;border-radius:14px;padding:12px 24px;cursor:pointer;font:700 15px 'Noto Kufi Arabic',sans-serif;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:var(--shadow);transition:transform .15s,filter .2s}
+.rv-btn{border:0;border-radius:14px;padding:12px 24px;cursor:pointer;font:700 15px 'Cairo',sans-serif;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:var(--shadow);transition:transform .15s,filter .2s}
 .rv-btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
 .rv-btn:disabled{opacity:.6;cursor:wait;transform:none}
 
