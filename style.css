@@ -440,3 +440,134 @@ html.gate-pending body>*:not(#nameGate):not(#chatPanel){visibility:hidden}
   .seo summary{padding:15px 16px;font-size:15.5px}
   .seo details>p{padding:0 16px 16px}
 }
+
+
+/* =====================================================================
+   ترقية الثيم v2 — ألوان أهدأ للعين، تباين أفضل، خط قراءة أوضح،
+   وتفاصيل أرقى للبطاقات والهيدر والبحث. (يُضاف في آخر الملف عمدًا)
+   ===================================================================== */
+:root{
+  --bg:#f3f6fc;--panel:#ffffff;--panel-2:#f7f9fe;--ink:#0c1530;--mute:#53607f;--line:#dde4f1;
+  --accent-text:#0b6aa6;
+  --ring:color-mix(in srgb,var(--accent-2) 55%,transparent);
+  --shadow:0 1px 2px #0c153010,0 10px 28px -16px #0c153030;
+  --shadow-up:0 2px 4px #0c153014,0 22px 44px -18px #0c153048;
+  --font-read:'IBM Plex Sans Arabic','Noto Kufi Arabic',Tahoma,system-ui,sans-serif;
+}
+:root[data-theme=dark]{
+  --bg:#070b19;--panel:#0f162d;--panel-2:#0b1226;--ink:#eaf0ff;--mute:#a1aed0;--line:#1e2949;
+  --accent-text:#86deff;
+  --shadow:0 1px 2px #0007,0 12px 30px -16px #000b;
+  --shadow-up:0 2px 4px #0008,0 24px 46px -18px #000d;
+}
+
+/* ===== خط القراءة والأساسيات ===== */
+body{font-family:var(--font-read);font-size:16px;line-height:1.85;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.brand,summary{font-family:'Noto Kufi Arabic',Tahoma,sans-serif}
+.intro,.note,.exp-list p,.exp-intro,.seo p,.seo details>p,.books-sub{font-family:var(--font-read)}
+::selection{background:color-mix(in srgb,var(--accent) 38%,transparent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+html{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--mute) 45%,transparent) transparent;scroll-padding-top:calc(var(--hdr) + 90px)}
+body{transition:background .35s,color .35s}
+.top,.picker,.tools input,details.lesson,.qcard,.seg,.tips,.seo details{transition-property:background-color,border-color,box-shadow,color,transform;transition-duration:.3s}
+
+/* شريط تقدّم القراءة */
+#readBar{position:fixed;inset:0 0 auto 0;height:3px;z-index:80;pointer-events:none;background:transparent}
+#readBar i{display:block;height:100%;width:100%;transform-origin:right center;transform:scaleX(0);background:linear-gradient(270deg,var(--accent),var(--accent-2));box-shadow:0 0 10px var(--accent)}
+@media print{#readBar{display:none}}
+
+/* رابط تخطي المحتوى (لوحة المفاتيح) */
+.skip{position:fixed;top:-60px;inset-inline-start:12px;z-index:90;padding:10px 18px;border-radius:12px;background:var(--navy);color:#fff;font-weight:700;text-decoration:none;transition:top .2s}
+.skip:focus{top:calc(10px + env(safe-area-inset-top))}
+
+/* ===== الهيدر ===== */
+.top{border-bottom:0;box-shadow:0 1px 0 #ffffff14,0 10px 30px -18px #000a}
+.top::after{content:"";position:absolute;inset:auto 0 -1px 0;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--accent) 55%,transparent),transparent);pointer-events:none}
+.brand{font-size:17px}
+.icon{border-radius:12px;backdrop-filter:blur(6px)}
+.icon:hover{background:#ffffff2e;border-color:#ffffff40}
+#theme{font-size:17px}
+
+/* ===== الهيرو ===== */
+.hero{isolation:isolate;background:
+  radial-gradient(720px 360px at 88% 0%,#7c8cff40,transparent 70%),
+  radial-gradient(560px 320px at 6% 100%,#4fd4ff30,transparent 70%),
+  linear-gradient(165deg,var(--navy),var(--navy-2))}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:radial-gradient(#ffffff1c 1px,transparent 1.2px);background-size:24px 24px;
+  -webkit-mask-image:linear-gradient(180deg,#000 10%,transparent 90%);mask-image:linear-gradient(180deg,#000 10%,transparent 90%)}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;z-index:-1;background:linear-gradient(90deg,transparent,#4fd4ff66,transparent)}
+.hero h1{letter-spacing:-.2px;text-wrap:balance;background:linear-gradient(95deg,#ffffff 15%,#b9e8ff 60%,#c8cfff);-webkit-background-clip:text;background-clip:text}
+.hero p{font-family:var(--font-read);font-size:clamp(15px,1.7vw,17.5px);line-height:2;color:#cdd6ee}
+.stats span{border-color:#ffffff30;background:#ffffff12;backdrop-filter:blur(6px);font-weight:600}
+.hero-mac{box-shadow:0 30px 60px -24px #000c,0 0 0 1px #ffffff14,0 0 80px -30px #4fd4ff66}
+/* لحظة دخول واحدة فقط للهيرو */
+@keyframes heroIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero-text{animation:heroIn .7s cubic-bezier(.2,.7,.2,1) both}
+
+/* ===== الصف/اللغة ===== */
+.seg{border-radius:18px;background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(8px)}
+.seg button{border-radius:13px;position:relative}
+.seg button.on{background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 8px 20px -10px var(--accent-2),inset 0 1px 0 #ffffff55}
+.seg button:not(.on):hover{background:color-mix(in srgb,var(--accent) 10%,var(--panel-2))}
+
+/* ===== النصائح ===== */
+.tips{border-radius:20px}
+.tips-grid li{transition:transform .2s,border-color .2s}
+.tips-grid li:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+
+/* ===== اختيار الفصل والبحث ===== */
+.picker{border-radius:18px;background:color-mix(in srgb,var(--panel) 90%,transparent);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px)}
+.picker select{border-radius:13px;background-color:var(--panel-2);transition:border-color .2s,box-shadow .2s}
+.picker select:hover{border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.picker select:focus-visible{outline:0;border-color:var(--accent);box-shadow:0 0 0 4px var(--ring)}
+.picker .nav{border-radius:13px;box-shadow:inset 0 1px 0 #ffffff55,0 6px 14px -8px var(--accent-2)}
+.tools input{border-radius:14px;padding-inline:18px;box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s}
+.tools input:focus-visible{outline:0;border-color:var(--accent);box-shadow:0 0 0 4px var(--ring)}
+.ghost{border-radius:14px;font-weight:600}
+
+/* ===== الدروس والأسئلة ===== */
+details.lesson{border-radius:18px;transition:border-color .25s,box-shadow .25s}
+details.lesson:hover{box-shadow:var(--shadow-up)}
+details.lesson>summary{padding:17px 22px;font-size:17px}
+details.lesson[open]>summary{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 9%,var(--panel)),var(--panel));border-bottom:1px solid var(--line)}
+.count{background:color-mix(in srgb,var(--accent-2) 14%,var(--bg));color:var(--ink);font-weight:600}
+.qcard{border-radius:16px}
+.qcard h4{font-family:var(--font-read);font-weight:600;font-size:15.5px}
+.qcard h4::before{border-radius:9px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 38%,transparent),color-mix(in srgb,var(--accent-2) 30%,transparent))}
+.qcard.show{border-color:color-mix(in srgb,var(--ok) 38%,var(--line))}
+.reveal{border-radius:11px;box-shadow:0 6px 14px -8px #1a2347aa}
+.ans .t{border-radius:11px;border:1px solid color-mix(in srgb,var(--ok) 30%,transparent)}
+.note{font-family:var(--font-read);line-height:1.95;border-radius:12px}
+
+/* ===== نافذة الكود ===== */
+.mac{border-radius:15px;box-shadow:var(--shadow-up),0 0 0 1px var(--code-line)}
+.mac pre{font-size:14.5px;line-height:1.85}
+.bar{background:linear-gradient(180deg,color-mix(in srgb,var(--code-bar) 92%,#fff 3%),var(--code-bar))}
+.bar button{border-radius:9px;font-weight:600}
+.bar button:hover,.bar button.done{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}
+
+/* ===== أزرار شرح الأكواد ===== */
+.exp-btn{border-radius:999px;font-weight:700;box-shadow:var(--shadow)}
+.exp{border-radius:18px}
+.exp-list li{border-radius:13px}
+
+/* ===== الأسئلة الشائعة والتذييل ===== */
+.seo summary:hover,.seo details[open] summary{color:var(--accent-text)}
+.seo summary::after{border-color:var(--accent-text)}
+footer{background:linear-gradient(180deg,var(--navy),var(--navy-2));border-top:1px solid #ffffff12}
+.foot-links a{color:#bfe9ff;text-underline-offset:4px}
+
+/* ===== زر الرجوع للأعلى والإشعارات ===== */
+#top{border-radius:15px;box-shadow:0 10px 24px -10px var(--accent-2),var(--shadow-up)}
+#toast{border-radius:14px;background:color-mix(in srgb,var(--navy) 94%,transparent);backdrop-filter:blur(10px)}
+
+/* ===== جوال ===== */
+@media(max-width:640px){
+  body{font-size:15.5px}
+  .brand{font-size:15px}
+  details.lesson{border-radius:16px}
+  details.lesson>summary{padding:14px 15px}
+  .picker{backdrop-filter:none;background:var(--panel)}
+}
+@media(prefers-reduced-motion:reduce){.hero-text{animation:none}#readBar i{transition:none}}
