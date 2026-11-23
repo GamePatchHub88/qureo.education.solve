@@ -37,6 +37,7 @@
 <link rel="stylesheet" href="editor.css">
 <link rel="stylesheet" href="about.css">
 <link rel="stylesheet" href="reviews.css">
+<link rel="stylesheet" href="modern.css">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3874361127677144"
      crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="ca-pub-3874361127677144">
@@ -46,7 +47,12 @@
 <a class="skip" href="#chapter">تخطي إلى المحتوى</a>
 <div id="readBar" aria-hidden="true"><i></i></div>
 <header class="top">
-  <a class="brand" href="#"><img class="logo-img" src="icon.svg" alt="" width="36" height="36"> كيريو مصر</a>
+  <a class="brand" href="#"><img class="logo-img" src="icon.svg" alt="" width="36" height="36"><span class="brand-t">كيريو مصر<small>حلول المرحلة الثانوية</small></span></a>
+  <nav class="top-nav" aria-label="روابط الموقع">
+    <a href="#chapter">الحلول</a>
+    <a href="#faqT">الأسئلة الشائعة</a>
+    <a href="#about">عن المطور</a>
+  </nav>
   <div class="top-end">
     <a class="icon dev-link" href="#about" aria-label="عن المطور" title="عن المطور"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Zm0 2c-4.4 0-8 2.2-8 5v1h16v-1c0-2.8-3.6-5-8-5Z"/></svg><span>عن المطور</span></a>
     <button id="edBtn" class="icon ed-open" type="button" aria-label="فتح المحرر الحر (جافا سكربت وبايثون وHTML/CSS)" title="المحرر الحر: جافا سكربت · بايثون · HTML/CSS"><b>‹/›</b><span>المحرر</span></button>
@@ -252,11 +258,31 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
   </section>
 </section>
 
-<footer>
-  موقع تعليمي مستقل، وليس الموقع الرسمي لمنصة QUREO أو وزارة التربية والتعليم. جميع العلامات التجارية ملك لأصحابها.
-  <p class="foot-links"><a href="#about">عن المطور</a></p>
-  <p class="foot-links">🎁 كل التجارب مجانية — الحلول والمحرر بدون أي رسوم أو اشتراك</p>
-  <p class="rights">© 2026 جميع الحقوق محفوظة — محمد أحمد حلمي</p>
+<footer class="site-foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="#"><img class="logo-img" src="icon.svg" alt="" width="40" height="40"><span class="brand-t">كيريو مصر<small>حلول المرحلة الثانوية</small></span></a>
+      <p>حلول منصة كيريو للبرمجة والذكاء الاصطناعي، أكواد جاهزة للنسخ ومحرر مجاني للتجربة.</p>
+    </div>
+    <nav class="foot-col" aria-label="روابط سريعة">
+      <h4>روابط سريعة</h4>
+      <a href="#chapter">الحلول</a>
+      <a href="#faqT">الأسئلة الشائعة</a>
+      <a href="#about">عن المطور</a>
+    </nav>
+    <div class="foot-col">
+      <h4>تواصل</h4>
+      <a href="https://wa.me/201110742678" target="_blank" rel="noopener noreferrer">واتس آب</a>
+      <a href="https://www.facebook.com/mohamed.dev27" target="_blank" rel="noopener noreferrer">فيس بوك</a>
+      <a href="https://www.linkedin.com/in/mohammad-ahmed-helmy-aboura-6ab350370/" target="_blank" rel="noopener noreferrer">لينكد إن</a>
+      <a href="mailto:mohamedahmedhelmyaboura@gmail.com">البريد الإلكتروني</a>
+    </div>
+  </div>
+  <p class="foot-free">🎁 كل التجارب مجانية — الحلول والمحرر بدون أي رسوم أو اشتراك</p>
+  <div class="foot-bottom">
+    <p class="foot-note">موقع تعليمي مستقل، وليس الموقع الرسمي لمنصة QUREO أو وزارة التربية والتعليم. جميع العلامات التجارية ملك لأصحابها.</p>
+    <p class="rights">© 2026 جميع الحقوق محفوظة — محمد أحمد حلمي</p>
+  </div>
 </footer>
 <button id="top" type="button" aria-label="العودة للأعلى">↑</button>
 <div id="codeToast" role="status" aria-live="polite"></div>

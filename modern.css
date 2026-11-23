@@ -1,0 +1,66 @@
+/* ===== modern.css — تحسينات شاملة (يُحمَّل آخرًا ليتغلب على باقي الملفات) ===== */
+:root{--r-lg:20px;--ease:cubic-bezier(.2,.7,.2,1)}
+html{scroll-padding-top:calc(var(--hdr) + 16px)}
+body{text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+
+/* ---------- Header ---------- */
+.top{--hdr:68px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;min-height:var(--hdr);padding-block:10px}
+.brand-t{display:flex;flex-direction:column;line-height:1.25;font-size:17px}
+.brand-t small{font-size:11px;font-weight:500;color:#9fb0d8;letter-spacing:0}
+.logo-img{transition:transform .35s var(--ease)}
+.brand:hover .logo-img{transform:rotate(-8deg) scale(1.06)}
+.top-nav{display:flex;justify-content:center;gap:4px}
+.top-nav a{position:relative;padding:8px 16px;border-radius:99px;color:#cfd8f2;text-decoration:none;font-size:14px;font-weight:600;transition:background .2s,color .2s}
+.top-nav a:hover{background:#ffffff1a;color:#fff}
+.top-nav a::after{content:"";position:absolute;inset:auto 50% 3px 50%;height:2px;border-radius:2px;background:var(--accent);transition:inset .3s var(--ease)}
+.top-nav a:hover::after{inset:auto 22% 3px 22%}
+.top-end{gap:8px}
+.icon{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:auto;min-width:40px;padding:0 12px;font-size:14px;font-weight:600;text-decoration:none}
+.icon svg{width:17px;height:17px}
+.icon b{font-family:'JetBrains Mono',monospace;font-size:13px}
+#theme{padding:0;width:40px;font-size:18px}
+.me{width:38px;height:38px;transition:transform .3s var(--ease)}
+.me:hover{transform:scale(1.08)}
+@media(max-width:860px){.top-nav{display:none}.top{grid-template-columns:1fr auto}}
+@media(max-width:560px){
+  .brand-t small{display:none}
+  .icon>span{display:none}
+  .icon{width:40px;padding:0}
+  .top-end{gap:6px}
+  .me{display:none}
+}
+
+/* ---------- Footer ---------- */
+.site-foot{position:relative;margin-top:56px;padding:0 var(--gut) calc(24px + env(safe-area-inset-bottom));text-align:start;color:#a9b6da;font-size:14px;
+  background:radial-gradient(600px 240px at 90% 0,#7c8cff22,transparent 70%),radial-gradient(500px 220px at 5% 100%,#4fd4ff1c,transparent 70%),linear-gradient(180deg,var(--navy),var(--navy-2));border-top:0}
+.site-foot::before{content:"";position:absolute;inset:0 0 auto 0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),var(--accent-2),transparent)}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding:48px 0 32px}
+.foot-brand p{margin:14px 0 0;max-width:38ch;line-height:2;color:#9ba9d0}
+.foot-col{display:flex;flex-direction:column;gap:6px}
+.foot-col h4{margin:0 0 8px;color:#fff;font-size:15px;font-weight:700}
+.foot-col a{width:fit-content;color:#b9c6ea;text-decoration:none;padding:3px 0;transition:color .2s,transform .2s}
+.foot-col a:hover{color:var(--accent);transform:translateX(-4px)}
+.foot-free{margin:0 0 22px;padding:12px 18px;border:1px solid #ffffff1f;border-radius:14px;background:#ffffff0a;text-align:center;color:#d6def5;font-weight:600}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:20px;border-top:1px solid #ffffff14}
+.foot-note{margin:0;max-width:62ch;font-size:12.5px;line-height:1.9;color:#8e9bc2}
+.site-foot .rights{margin:0;color:#fff;font-size:13.5px}
+@media(max-width:760px){
+  .foot-grid{grid-template-columns:1fr 1fr;gap:28px;padding-top:36px}
+  .foot-brand{grid-column:1/-1}
+  .foot-bottom{flex-direction:column;align-items:flex-start}
+}
+
+/* ---------- عام: بطاقات وأزرار وحركة ---------- */
+.hero{padding-block:clamp(40px,7vw,84px)}
+.picker,.tools input,.tips,.seo details,.seg{border-radius:var(--r-lg)}
+.seo details{transition:box-shadow .25s,transform .25s}
+.seo details:hover{box-shadow:var(--shadow);transform:translateY(-1px)}
+.seo details[open]{box-shadow:var(--shadow)}
+.ghost,.dev-btn,.book-btn{transition:transform .2s var(--ease),box-shadow .2s,background .2s}
+.ghost:hover,.dev-btn:hover,.book-btn:hover{transform:translateY(-2px)}
+.ghost:active,.dev-btn:active,.book-btn:active{transform:scale(.97)}
+#top{border-radius:16px}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--mute) 45%,transparent);border-radius:10px;border:2px solid var(--bg)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media print{.site-foot{display:none}}
