@@ -12,7 +12,7 @@ html.view-about .seo{display:none!important}
 .dev-link[aria-current="page"]{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-ink);border-color:transparent}
 
 /* البطاقة الرئيسية */
-.dev-hero{display:flex;align-items:center;gap:28px;padding:clamp(22px,4vw,40px);border-radius:24px;color:#fff;background:radial-gradient(60% 120% at 100% 0%,#4fd4ff2e,transparent 60%),radial-gradient(50% 100% at 0% 100%,#7c8cff33,transparent 60%),linear-gradient(160deg,var(--navy),var(--navy-2));box-shadow:var(--shadow-up);border:1px solid #ffffff14}
+.dev-hero{display:flex;align-items:center;gap:28px;padding:clamp(22px,4vw,40px);border-radius:24px;color:#fff;background:radial-gradient(60% 120% at 100% 0%,#8b5cf62e,transparent 60%),radial-gradient(50% 100% at 0% 100%,#22d3a633,transparent 60%),linear-gradient(160deg,var(--navy),var(--navy-2));box-shadow:var(--shadow-up);border:1px solid #ffffff14}
 .dev-photo{width:132px;height:132px;flex:none;border-radius:50%;object-fit:cover;border:4px solid var(--accent);box-shadow:0 10px 30px -8px #0008}
 .dev-photo.ph{display:grid;place-items:center;font-size:54px;font-weight:800;background:var(--navy-2);color:#fff}
 .dev-hero-text{min-width:0}
