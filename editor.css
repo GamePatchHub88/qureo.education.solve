@@ -43,7 +43,7 @@ body.ed-lock{overflow:hidden}
 .mac .ed-pre{padding:14px 16px;overflow:hidden;pointer-events:none;color:var(--code-ink);background:none}
 .ed-pre code{font:inherit}
 #edCode{resize:none;background:transparent;color:transparent;-webkit-text-fill-color:transparent;caret-color:#fff;outline:0;z-index:1}
-#edCode::selection{background:#4fd4ff55;-webkit-text-fill-color:transparent}
+#edCode::selection{background:#ff8a3d55;-webkit-text-fill-color:transparent}
 #edCode::-webkit-scrollbar{width:9px;height:9px}#edCode::-webkit-scrollbar-thumb{background:#ffffff2e;border-radius:9px}
 
 /* الإخراج */
