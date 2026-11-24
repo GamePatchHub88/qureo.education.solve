@@ -56,7 +56,7 @@
     var t = ctl ? setTimeout(function () { ctl.abort(); }, 15000) : 0;
     return fetch(API_URL + "/rpc/" + fn, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: Object.assign({ "Content-Type": "application/json" }, window.__qsHeaders ? window.__qsHeaders() : {}),
       body: JSON.stringify(args),
       signal: ctl ? ctl.signal : undefined
     }).then(function (r) {

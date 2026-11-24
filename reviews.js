@@ -18,7 +18,7 @@
   function get(path) {
     var ctl = typeof AbortController === "function" ? new AbortController() : null;
     var t = ctl ? setTimeout(function () { ctl.abort(); }, 12000) : 0;
-    return fetch(API_URL + path, { signal: ctl ? ctl.signal : undefined }).then(function (r) {
+    return fetch(API_URL + path, { headers: window.__qsHeaders ? window.__qsHeaders() : {}, signal: ctl ? ctl.signal : undefined }).then(function (r) {
       clearTimeout(t);
       if (!r.ok) throw new Error("http " + r.status);
       return r.json();
@@ -139,7 +139,7 @@
     if (!dev) { msg.textContent = "أعد تحميل الصفحة ثم حاول مرة أخرى."; return; }
     btn.disabled = true;
     fetch(API_URL + "/rpc/review_submit", {
-      method: "POST", headers: { "Content-Type": "application/json" },
+      method: "POST", headers: Object.assign({ "Content-Type": "application/json" }, window.__qsHeaders ? window.__qsHeaders() : {}),
       body: JSON.stringify({ p_device: dev, p_name: name, p_text: text, p_grade: form.querySelector("#rvfGrade").value })
     }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (res) {
       var s = res && res.status;

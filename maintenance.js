@@ -17,6 +17,41 @@
   function readCache() { try { return JSON.parse(localStorage.getItem(K) || "null"); } catch (e) { return null; } }
   function writeCache(v) { try { localStorage.setItem(K, JSON.stringify(v)); } catch (e) {} }
 
+  /* ---------- رمز الوصول الخاص (لأشخاص معينين أثناء الإيقاف) ---------- */
+  var KA = "qs_access", code = "", allowedLabel = "";
+  try {
+    var m = /[?&]access=([A-Za-z0-9]{8,40})(&|$)/.exec(location.search);
+    if (m && !preview) {
+      localStorage.setItem(KA, m[1]);
+      var u = location.pathname + location.search.replace(/([?&])access=[^&]*&?/, "$1").replace(/[?&]$/, "") + location.hash;
+      history.replaceState(null, "", u);
+    }
+    code = (!preview && localStorage.getItem(KA)) || "";
+  } catch (e) {}
+  // رؤوس تضيفها بقية السكربتات لطلبات الخادم كي يسمح لها الخادم أثناء الإيقاف
+  window.__qsHeaders = function () { return code ? { "X-Access-Code": code } : {}; };
+
+  function verifyCode(c) {
+    return fetch(API + "/public/site-access", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: c })
+    }).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); });
+  }
+
+  function showNotice(label) {
+    ensureCss();
+    var go = function () {
+      if (document.getElementById("qsAccNote")) return;
+      var n = document.createElement("div");
+      n.id = "qsAccNote";
+      n.setAttribute("role", "status");
+      n.innerHTML = '<span class="qa-i">🔒</span><span class="qa-t"></span><button type="button" aria-label="إغلاق">×</button>';
+      n.querySelector(".qa-t").textContent = "الموقع مغلق حاليًا للزوار، وهو متاح لك أنت فقط" + (label ? " يا " + label : "") + ".";
+      n.querySelector("button").onclick = function () { n.remove(); };
+      document.body.appendChild(n);
+    };
+    if (document.body) go(); else document.addEventListener("DOMContentLoaded", go);
+  }
+
   /* ---------- التصميم ---------- */
   var css =
     "html.qs-maint,html.qs-maint body{overflow:hidden!important;height:100%}" +
@@ -51,6 +86,15 @@
     "#qsMaint .qm-bar{height:5px;border-radius:9px;margin:28px auto 0;max-width:260px;background:var(--qm-line);overflow:hidden}" +
     "#qsMaint .qm-bar b{display:block;height:100%;width:38%;border-radius:9px;background:linear-gradient(90deg,var(--qm-a),var(--qm-b));animation:qmbar 1.8s ease-in-out infinite}" +
     "#qsMaint .qm-foot{margin-top:22px;font-size:12.5px;color:var(--qm-mute);opacity:.85}" +
+    "#qsMaint .qm-acc{margin-top:18px}#qsMaint .qm-acc>button{background:none;border:0;color:var(--qm-mute);font:inherit;font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:4px;padding:4px 8px}" +
+    "#qsMaint .qm-acc form{display:none;gap:8px;justify-content:center;margin-top:10px}#qsMaint .qm-acc.open form{display:flex}#qsMaint .qm-acc.open>button{display:none}" +
+    "#qsMaint .qm-acc input{width:min(220px,60%);padding:10px 14px;border-radius:12px;border:1px solid var(--qm-line);background:rgba(127,127,127,.12);color:inherit;font:600 14px monospace;direction:ltr;text-align:center;letter-spacing:1px;text-transform:uppercase}" +
+    "#qsMaint .qm-acc form button{padding:10px 18px;border:0;border-radius:12px;font:700 14px inherit;font-family:inherit;color:#04293a;cursor:pointer;background:linear-gradient(135deg,var(--qm-a),var(--qm-b))}" +
+    "#qsMaint .qm-err{min-height:18px;margin-top:8px;font-size:12.5px;color:#f87171}" +
+    "#qsAccNote{position:fixed;z-index:2147482000;bottom:max(14px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);max-width:calc(100vw - 24px);display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:99px;direction:rtl;" +
+    "font:600 13px 'Noto Kufi Arabic',Tahoma,sans-serif;color:#e9eefc;background:rgba(14,21,49,.94);border:1px solid rgba(79,212,255,.45);box-shadow:0 12px 34px -8px rgba(0,0,0,.55);animation:qmin .6s both}" +
+    "html[data-theme=light] #qsAccNote{color:#0f1a33;background:rgba(255,255,255,.96)}" +
+    "#qsAccNote button{background:none;border:0;color:inherit;font-size:20px;line-height:1;cursor:pointer;opacity:.7;padding:0 2px}" +
     "@keyframes qmin{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}" +
     "@keyframes qmf{0%,100%{transform:translate(0,0)}50%{transform:translate(26px,-22px)}}" +
     "@keyframes qmr{to{transform:rotate(360deg)}}" +
@@ -92,9 +136,25 @@
       '<div class="qm-badge"><i></i> الموقع متوقف مؤقتًا</div>' +
       '<h1 class="qm-t"></h1><p class="qm-m"></p>' +
       '<div class="qm-bar"><b></b></div>' +
+      '<div class="qm-acc"><button type="button">لديك رمز وصول خاص؟</button>' +
+      '<form autocomplete="off"><input type="text" maxlength="40" placeholder="الرمز" aria-label="رمز الوصول"><button type="submit">دخول</button></form>' +
+      '<div class="qm-err" role="alert"></div></div>' +
       '<div class="qm-foot">كيريو مصر · محمد أحمد حلمي</div>' +
       "</div>";
     document.body.appendChild(el);
+    var acc = el.querySelector(".qm-acc"), inp = acc.querySelector("input"), err = acc.querySelector(".qm-err");
+    if (preview) acc.style.display = "none";
+    acc.querySelector(":scope>button").onclick = function () { acc.classList.add("open"); inp.focus(); };
+    acc.querySelector("form").onsubmit = function (ev) {
+      ev.preventDefault();
+      var c = inp.value.replace(/\s+/g, "");
+      if (c.length < 8) { err.textContent = "الرمز غير صحيح"; return; }
+      err.textContent = "";
+      verifyCode(c).then(function (r) {
+        if (r && r.ok) { try { localStorage.setItem(KA, c); } catch (e) {} location.reload(); }
+        else err.textContent = "الرمز غير صحيح أو أُلغي";
+      }).catch(function () { err.textContent = "تعذر التحقق الآن، حاول بعد قليل"; });
+    };
     fill(state);
   }
 
@@ -142,11 +202,18 @@
     }
 
     var cached = readCache();
-    if (cached && cached.enabled) show(cached); // ظهور فوري لمن زار الموقع من قبل
+    if (cached && cached.enabled && !code) show(cached); // ظهور فوري لمن زار الموقع من قبل (إلا صاحب رمز وصول)
 
     fetchStatus().then(function (s) {
       if (s.enabled) {
         writeCache({ enabled: true, title: s.title || "", message: s.message || "" });
+        if (code) {
+          // صاحب رمز: نتحقق منه؛ إن صحّ يدخل مع إشعار، وإلا يرى صفحة الإيقاف
+          return verifyCode(code).then(function (r) {
+            if (r && r.ok) { hide(); showNotice(r.label); resolve(false); }
+            else { code = ""; try { localStorage.removeItem(KA); } catch (e) {} show(s); resolve(true); watch(); }
+          }, function () { show(s); resolve(true); watch(); });
+        }
         show(s);
         resolve(true);
         watch();
