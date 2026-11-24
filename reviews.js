@@ -163,6 +163,10 @@
   function start() {
     if (started) return;
     started = true;
+    // أثناء إيقاف الموقع لا نطلب التقييمات من الخادم
+    (window.__qsReady || Promise.resolve(false)).then(function (stopped) { if (!stopped) load(); });
+  }
+  function load() {
     get("/public/reviews").then(function (d) {
       renderReviews((d && d.reviews) || []);
       rv.hidden = false;

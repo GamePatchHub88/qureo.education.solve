@@ -582,6 +582,10 @@
     document.addEventListener("visibilitychange", function () { if (!document.hidden) check(); });
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
-  else start();
+  // أثناء إيقاف الموقع (من لوحة المدير) لا نتصل بالخادم إطلاقًا
+  function boot() {
+    (window.__qsReady || Promise.resolve(false)).then(function (stopped) { if (!stopped) start(); });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
 })();
