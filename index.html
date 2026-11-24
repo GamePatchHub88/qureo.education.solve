@@ -299,14 +299,16 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
 <button id="top" type="button" aria-label="العودة للأعلى">↑</button>
 <div id="codeToast" role="status" aria-live="polite"></div>
 <div id="toast" role="status" aria-live="polite"></div>
-<script src="grade2.js"></script>
-<script src="grade2js.js"></script>
-<script src="explain.js"></script>
-<script src="script.js"></script>
-<script src="editor.js"></script>
-<script src="about.js"></script>
-<script src="students.js"></script>
-<script src="reviews.js"></script>
+<script>
+/* ملفات الحلول لا تُحمَّل إلا بعد التأكد أن الموقع مفتوح لهذا الزائر (أثناء الإيقاف لا تُحمَّل إطلاقًا) */
+(function(){
+  var f=["grade2.js","grade2js.js","explain.js","script.js","editor.js","about.js","students.js","reviews.js"];
+  (window.__qsReady||Promise.resolve(false)).then(function(stopped){
+    if(stopped)return;
+    f.forEach(function(u){var s=document.createElement("script");s.src=u;s.async=false;document.body.appendChild(s)});
+  });
+})();
+</script>
 <script>
 (function(){
   var bar=document.querySelector("#readBar i"),tk=false;
