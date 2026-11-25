@@ -31,6 +31,30 @@
   // رؤوس تضيفها بقية السكربتات لطلبات الخادم كي يسمح لها الخادم أثناء الإيقاف
   window.__qsHeaders = function () { return code ? { "X-Access-Code": code } : {}; };
 
+  /* ---------- مفتاح تسجيل بيانات الزوار على القاعدة (يتحكم فيه المدير) ----------
+     window.__qsRec(force) => Promise<boolean>: true = التسجيل يعمل، false = متوقف (لا بوابة اسم ولا نبضات ولا رسائل ولا تقييمات)
+     النتيجة تُحفظ دقيقة في المتصفح والطلب نفسه مخزَّن على CDN، فلا يضغط على الخادم */
+  var KR = "qs_rec", REC_TTL = 60000, recBusy = null;
+  window.__qsRec = function (force) {
+    var c = null;
+    try { var o = JSON.parse(localStorage.getItem(KR) || "null"); if (o && typeof o.on === "boolean") c = o; } catch (e) {}
+    if (!force && c && Date.now() - c.t < REC_TTL) return Promise.resolve(c.on);
+    if (recBusy) return recBusy;
+    var ctl = typeof AbortController === "function" ? new AbortController() : null;
+    var t = ctl ? setTimeout(function () { ctl.abort(); }, 5000) : 0;
+    recBusy = fetch(API + "/public/recording", { signal: ctl ? ctl.signal : undefined }).then(function (r) {
+      clearTimeout(t);
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json();
+    }).then(function (d) {
+      var on = !(d && d.enabled === false);
+      try { localStorage.setItem(KR, JSON.stringify({ on: on, t: Date.now() })); } catch (e) {}
+      return on;
+    }).catch(function () { clearTimeout(t); return c ? c.on : true; })
+      .then(function (v) { recBusy = null; return v; });
+    return recBusy;
+  };
+
   function verifyCode(c) {
     return fetch(API + "/public/site-access", {
       method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: c })

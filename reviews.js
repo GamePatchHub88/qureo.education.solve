@@ -116,7 +116,30 @@
     form.addEventListener("click", function (e) { if (e.target === form) closeForm(); });
     form.querySelector("#rvfSend").addEventListener("click", send);
   }
+  // رسالة قصيرة تحت الزر عندما تكون التقييمات مغلقة (يوقفها المدير لتقليل الاستهلاك)
+  var closedT;
+  function showClosed() {
+    var box = document.querySelector(".rv-add");
+    if (!box) return;
+    var n = document.getElementById("rvClosed");
+    if (!n) {
+      n = el("p", "rv-closed", "التقييمات مغلقة الآن لتقليل الاستهلاك، حاول لاحقًا.");
+      n.id = "rvClosed";
+      n.setAttribute("role", "status");
+      n.style.cssText = "margin:10px auto 0;max-width:420px;padding:9px 14px;border-radius:10px;font-size:14px;line-height:1.8;text-align:center;background:rgba(240,180,41,.14);border:1px solid rgba(240,180,41,.55)";
+      box.appendChild(n);
+    }
+    clearTimeout(closedT);
+    closedT = setTimeout(function () { if (n.parentNode) n.parentNode.removeChild(n); }, 7000);
+  }
   function openForm() {
+    if (lsGet(K_REV) === "1") { markReviewed(); return; }
+    (window.__qsRec ? window.__qsRec() : Promise.resolve(true)).then(function (on) {
+      if (!on) { closeForm(); showClosed(); return; }
+      openFormNow();
+    });
+  }
+  function openFormNow() {
     if (!form) buildForm();
     if (lsGet(K_REV) === "1") { markReviewed(); return; }
     form.querySelector("#rvfName").value = loginName();
@@ -143,7 +166,8 @@
       body: JSON.stringify({ p_device: dev, p_name: name, p_text: text, p_grade: form.querySelector("#rvfGrade").value })
     }).then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (res) {
       var s = res && res.status;
-      if (s === "ok") {
+      if (s === "paused") { closeForm(); showClosed(); try { window.__qsRec && window.__qsRec(true); } catch (e) {} }
+      else if (s === "ok") {
         msg.className = "rvf-msg ok";
         msg.textContent = "شكرًا لك! وصل رأيك وسيظهر بعد المراجعة.";
         form.querySelector("#rvfText").value = "";

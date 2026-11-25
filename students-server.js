@@ -13,6 +13,8 @@ const SUPABASE_ANON_KEY =
   process.env.SUPABASE_ANON_KEY ||
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndnY2ZhanJ3Zm11bndvcW1uZXd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzNDg3ODQsImV4cCI6MjA5ODkyNDc4NH0.sR7YNvM3YKGQkavCN617r9B30oEwf06dCuuRz83ojlE";
 const ADMIN_EMAIL = (process.env.ADMIN_EMAIL || "").trim().toLowerCase();
+// إيقاف التسجيل من متغيرات Vercel دون أي اتصال بالقاعدة: RECORDING=off (احذفه أو اجعله on لإعادة التشغيل)
+const ENV_OFF = /^(off|0|false)$/i.test(String(process.env.RECORDING || "").trim());
 const ALLOWED = (process.env.ALLOWED_ORIGINS || "").split(",").map((s) => s.trim()).filter(Boolean);
 
 // اتصال واحد يُعاد استخدامه (مهم على Vercel)
@@ -91,6 +93,17 @@ app.get("/api/health", async (_req, res) => {
 /* ---------- للطلاب: نفس أسماء الدوال القديمة وتنسيق الإجابات ---------- */
 const rpc = express.Router();
 rpc.use(limiter);
+// عند إيقاف التسجيل لا يُكتب ولا يُقرأ أي شيء من قاعدة بيانات الطلاب/الرسائل/التقييمات
+rpc.use(async (_req, res, next) => {
+  try {
+    if (ENV_OFF) return res.json({ status: "paused" });
+    if (!(await (await getLogic()).recordingState()).enabled) return res.json({ status: "paused" });
+    next();
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: explainError(e) });
+  }
+});
 const UA = (r) => r.headers["user-agent"] || "";
 // عنوان IP الحقيقي للزائر خلف Vercel (الأولوية لرؤوس المنصة ثم req.ip)
 const IP = (r) => {
@@ -124,6 +137,16 @@ const cacheJson = (fn) => async (req, res) => {
   }
 };
 pub.get("/reviews", cacheJson((l) => l.publicReviews()));
+// حالة التسجيل (مخزَّنة على CDN 30 ثانية): enabled=false تعني أن الموقع لا يسجّل شيئًا على القاعدة
+pub.get("/recording", async (_req, res) => {
+  try {
+    const enabled = ENV_OFF ? false : (await (await getLogic()).recordingState()).enabled;
+    res.set("Cache-Control", "public, s-maxage=30, stale-while-revalidate=120").json({ enabled });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: explainError(e) });
+  }
+});
 // صور الطلاب أُزيلت نهائيًا؛ يبقى هذا المسار فارغًا فقط حتى لا يظهر خطأ في نسخة موقع الطلاب القديمة
 pub.get("/photos", (_req, res) => res.set("Cache-Control", "public, s-maxage=300").json({ photos: [] }));
 app.use("/api/public", pub);
@@ -184,6 +207,10 @@ admin.get("/solutions/stats", wrap((l) => l.adminStats()));
 admin.post("/students/bulk", wrap((l, r) => l.adminBulk((r.body || {}).ids, (r.body || {}).action)));
 admin.post("/broadcast", wrap((l, r) => l.adminBroadcast(r.body || {})));
 admin.post("/solutions/reviews/publish-all", wrap((l) => l.adminReviewsPublishAll()));
+
+/* مفتاح تسجيل بيانات الموقع: GET للحالة، PUT {enabled:true|false} للإيقاف/إعادة التشغيل */
+admin.get("/solutions/recording", wrap(async (l) => ({ enabled: ENV_OFF ? false : (await l.recordingState()).enabled, env_off: ENV_OFF })));
+admin.put("/solutions/recording", wrap((l, r) => l.setRecording(!!(r.body || {}).enabled)));
 
 /* أدوات موقع الحلول: التقييمات */
 admin.get("/solutions/reviews", wrap((l) => l.adminReviews()));

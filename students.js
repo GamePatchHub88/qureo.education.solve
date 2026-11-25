@@ -547,6 +547,7 @@
   /* ================= الفحص / نبضة النشاط ================= */
   function applyCheck(r) {
     var st = r && r.status;
+    if (st === "paused") { goPaused(); return; } // الإدارة أوقفت التسجيل: لا بوابة ولا رسائل
     if (st === "approved") {
       lsSet(K_ST, "approved");
       if (r.name) lsSet(K_NAME, r.name);
@@ -576,15 +577,39 @@
     });
   }
 
+  var started = false, pingT = 0, resumeT = 0;
+  function onVis() { if (!document.hidden && started) check(); }
+
   function start() {
+    if (started) return;
+    started = true;
+    clearInterval(resumeT);
     check();
-    setInterval(function () { if (!document.hidden) check(); }, PING_MS);
-    document.addEventListener("visibilitychange", function () { if (!document.hidden) check(); });
+    pingT = setInterval(function () { if (!document.hidden) check(); }, PING_MS);
+    document.addEventListener("visibilitychange", onVis);
+  }
+
+  /* وضع «التسجيل متوقف»: الموقع مفتوح للجميع بلا بوابة اسم ولا نبضات ولا رسائل، ولا طلب للخادم إلا فحص خفيف
+     (مخزَّن على CDN) كل دقيقتين لمعرفة هل أُعيد تشغيل التسجيل */
+  function goPaused() {
+    if (started) { started = false; clearInterval(pingT); document.removeEventListener("visibilitychange", onVis); }
+    leaveChat();
+    allow();
+    if (!resumeT) resumeT = setInterval(watchResume, 120000);
+  }
+  function watchResume() {
+    if (document.hidden || started) return;
+    if (window.__qsRec) window.__qsRec(true).then(function (on) { if (on) start(); });
   }
 
   // أثناء إيقاف الموقع (من لوحة المدير) لا نتصل بالخادم إطلاقًا
   function boot() {
-    (window.__qsReady || Promise.resolve(false)).then(function (stopped) { if (!stopped) start(); });
+    (window.__qsReady || Promise.resolve(false)).then(function (stopped) {
+      if (stopped) return;
+      (window.__qsRec ? window.__qsRec() : Promise.resolve(true)).then(function (on) {
+        if (on) start(); else goPaused();
+      });
+    });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();

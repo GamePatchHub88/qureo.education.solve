@@ -148,6 +148,22 @@ function makeLogic({ db, ObjectId }) {
   const reviews = db.collection("qureo_reviews"); // تقييمات الطلاب
   const bans = db.collection("qureo_bans"); // أجهزة محظورة بالكامل (تظهر لها المحادثة مع الإدارة فقط)
   const convmeta = db.collection("qureo_convmeta"); // تثبيت المحادثات وملاحظات المدير الخاصة
+  const settings = db.collection("qureo_settings"); // إعدادات الموقع (مثل مفتاح تسجيل بيانات الزوار)
+
+  // مفتاح تسجيل بيانات الموقع على القاعدة: افتراضيًا يعمل. كاش 15 ثانية حتى لا تُقرأ القاعدة مع كل طلب
+  let recCache = null;
+  async function recordingState() {
+    if (recCache && Date.now() - recCache.t < 15000) return recCache.v;
+    const d = await settings.findOne({ _id: "recording" });
+    const v = { enabled: !d || d.enabled !== false };
+    recCache = { v, t: Date.now() };
+    return v;
+  }
+  async function setRecording(enabled) {
+    await settings.updateOne({ _id: "recording" }, { $set: { enabled: !!enabled, updated_at: new Date() } }, { upsert: true });
+    recCache = null;
+    return { enabled: !!enabled };
+  }
   // كاش قصير جدًا لقائمة المحادثات (يُبطَل عند أي كتابة) حتى لا يضغط الاستطلاع الدوري على القاعدة
   let convCache = null;
   const bustConv = () => { convCache = null; };
@@ -940,7 +956,7 @@ function makeLogic({ db, ObjectId }) {
     publicReviews, reviewSubmit, adminReviews, adminReviewSave, adminReviewDelete,
     adminStats, adminBulk, adminBroadcast, adminReviewsPublishAll,
     adminConversations, adminSearchMessages, adminMarkUnread, adminReadAll, adminDeleteMessage, adminConvMeta, adminBans,
-    ensureIndexes,
+    ensureIndexes, recordingState, setRecording,
   };
 }
 
