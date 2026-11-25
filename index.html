@@ -39,6 +39,7 @@
 <link rel="stylesheet" href="about.css">
 <link rel="stylesheet" href="reviews.css">
 <link rel="stylesheet" href="modern.css">
+<link rel="stylesheet" href="exam.css">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3874361127677144"
      crossorigin="anonymous"></script>
 <meta name="google-adsense-account" content="ca-pub-3874361127677144">
@@ -51,6 +52,7 @@
   <a class="brand" href="#"><img class="logo-img" src="icon.svg" alt="" width="36" height="36"><span class="brand-t">كيريو مصر<small>حلول المرحلة الثانوية</small></span></a>
   <nav class="top-nav" aria-label="روابط الموقع">
     <a href="#chapter">الحلول</a>
+    <a href="#exam">امتحان تجريبي</a>
     <a href="#faqT">الأسئلة الشائعة</a>
     <a href="#about">عن المطور</a>
   </nav>
@@ -81,6 +83,7 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
     <div class="seg" role="tablist" aria-label="الصف الدراسي">
       <button type="button" role="tab" data-sec="g1" class="on" aria-selected="true">الصف الأول الثانوي</button>
       <button type="button" role="tab" data-sec="g2" aria-selected="false">الصف الثاني الثانوي</button>
+      <button type="button" role="tab" data-sec="exam" aria-selected="false">📝 الامتحان التجريبي</button>
       <button type="button" role="tab" data-sec="books" aria-selected="false">📚 الكتب</button>
     </div>
     <div class="seg seg-sub" id="subLang1" role="tablist" aria-label="لغة البرمجة">
@@ -147,6 +150,7 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
       </article>
     </div>
   </section>
+  <section id="exam" class="exam" aria-label="الامتحان التجريبي توفاس" hidden></section>
   <p id="empty" class="empty" hidden>لا توجد نتائج. جرّب كلمة أخرى.</p>
 </main>
 
@@ -280,6 +284,7 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
       <button type="button" data-sec="g1">الصف الأول · جافا سكربت</button>
       <button type="button" data-sec="g2py">الصف الثاني · بايثون</button>
       <button type="button" data-sec="g2js">الصف الثاني · جافا سكربت</button>
+      <button type="button" data-sec="exam">الامتحان التجريبي (توفاس)</button>
       <button type="button" data-sec="books">الكتب</button>
     </nav>
     <nav class="foot-col" aria-label="روابط سريعة">
@@ -302,7 +307,7 @@ console.<span class="f">log</span>(author);<span class="cur"></span></code></pre
 <script>
 /* ملفات الحلول لا تُحمَّل إلا بعد التأكد أن الموقع مفتوح لهذا الزائر (أثناء الإيقاف لا تُحمَّل إطلاقًا) */
 (function(){
-  var f=["grade2.js","grade2js.js","explain.js","script.js","editor.js","about.js","students.js","reviews.js"];
+  var f=["grade2.js","grade2js.js","explain.js","script.js","exam.js","editor.js","about.js","students.js","reviews.js"];
   (window.__qsReady||Promise.resolve(false)).then(function(stopped){
     if(stopped)return;
     f.forEach(function(u){var s=document.createElement("script");s.src=u;s.async=false;document.body.appendChild(s)});
