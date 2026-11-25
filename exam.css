@@ -172,8 +172,8 @@
 .qx-crumb{flex:1;display:flex;gap:8px;align-items:center;justify-content:flex-start;font-size:13px;color:#222;min-width:0;padding-inline-start:14px}
 .qx-crumb span{text-decoration:underline;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .qx-crumb em{font-style:normal;font-weight:800}
-.qx-me{display:flex;align-items:center;gap:12px;direction:ltr}
-.qx-timer{font:700 19px 'JetBrains Mono',monospace;color:#1b2440;padding:4px 12px;border-radius:9px;background:#e4e8f4;transition:.3s}
+.qx-me{display:flex;align-items:center;gap:12px;direction:ltr;flex:none}
+.qx-timer{white-space:nowrap;min-width:64px;text-align:center;font:700 19px 'JetBrains Mono',ui-monospace,Menlo,monospace;color:#1b2440;padding:4px 12px;border-radius:9px;background:#e4e8f4;transition:.3s}
 .qx-timer.warn{background:#fff0c2;color:#8a5a00}
 .qx-timer.danger{background:#fde0e0;color:#b3261e;animation:exPulse 1s infinite}
 .qx-lv{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:#3b8ee6;color:#fff;font:700 22px 'JetBrains Mono',monospace;box-shadow:0 2px 6px #0003}
@@ -264,6 +264,13 @@
   .qx-card,.qx-cb{min-height:0}
   .qx-crumb{display:none}
   .qx-me{margin-inline-start:auto}
+}
+@media(max-width:900px){
+  /* مؤقّت ثابت على الهاتف: يبقى ظاهرًا أثناء التمرير */
+  .qx-timer{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:10px;z-index:9999;display:block;font-size:17px;padding:6px 12px;background:#1b2440;color:#fff;box-shadow:0 4px 14px #0005}
+  .qx-timer.warn{background:#f0b429;color:#3a2600}
+  .qx-timer.danger{background:#e5484d;color:#fff}
+  .qx-me{min-height:38px;min-width:64px}
 }
 @media(max-width:600px){
   .qx-top{padding:8px 12px;min-height:56px}
