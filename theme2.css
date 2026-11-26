@@ -39,7 +39,7 @@ mark{background:color-mix(in srgb,var(--accent) 50%,transparent)}
 /* ---------- 2) شريط الإعلان ---------- */
 .ann{position:relative;z-index:35;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:9px 48px 9px 16px;font-size:13.5px;font-weight:600;line-height:1.7;text-align:center;color:#e9efff;background:linear-gradient(90deg,#10182d,#16213d,#10182d)}
 .ann[hidden]{display:none}
-.ann-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 #b8f23d88;animation:annPulse 2s infinite;flex:none}
+.ann-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 #b8f23d88;flex:none}
 @keyframes annPulse{70%{box-shadow:0 0 0 9px #b8f23d00}100%{box-shadow:0 0 0 0 #b8f23d00}}
 .ann a{display:inline-flex;align-items:center;gap:6px;padding:2px 12px;border-radius:99px;background:#ffffff1f;color:inherit;text-decoration:none;font-weight:700;font-size:12.5px;transition:.2s}
 .ann a:hover{background:#fff;color:#0b1122}
@@ -86,7 +86,7 @@ a.pt-tile:hover{transform:translateY(-2px);box-shadow:0 0 0 2px var(--accent),0 
 .hero::before{inset:-25%;background:
   radial-gradient(38% 46% at 18% 28%,#b8f23d2b,transparent 70%),
   radial-gradient(42% 52% at 84% 18%,#8b7bff38,transparent 70%),
-  radial-gradient(38% 46% at 62% 92%,#2dd4bf2b,transparent 70%);animation:aurora 16s ease-in-out infinite alternate;filter:blur(8px)}
+  radial-gradient(38% 46% at 62% 92%,#2dd4bf2b,transparent 70%)}
 .hero::after{inset:0;background-image:linear-gradient(#ffffff0b 1px,transparent 1px),linear-gradient(90deg,#ffffff0b 1px,transparent 1px);background-size:46px 46px;-webkit-mask-image:radial-gradient(70% 80% at 50% 35%,#000,transparent);mask-image:radial-gradient(70% 80% at 50% 35%,#000,transparent)}
 @keyframes aurora{to{transform:translate3d(3%,-4%,0) scale(1.08) rotate(3deg)}}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:9px;margin:0 0 18px;padding:6px 14px 6px 12px;border-radius:99px;font:600 13px var(--font-d);color:#dff7a8;background:#b8f23d14;border:1px solid #b8f23d40}
@@ -97,10 +97,10 @@ a.pt-tile:hover{transform:translateY(-2px);box-shadow:0 0 0 2px var(--accent),0 
 .btn-main,.btn-sec{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:0 24px;border-radius:16px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;border:1px solid transparent;transition:transform .25s var(--ease),box-shadow .25s,background .2s}
 .btn-main{background:linear-gradient(120deg,var(--accent),var(--accent-2));color:var(--accent-ink);box-shadow:0 14px 30px -14px #b8f23dcc}
 .btn-main:hover{transform:translateY(-3px);box-shadow:0 20px 34px -14px #b8f23de6}
-.btn-sec{background:#ffffff10;color:#fff;border-color:#ffffff2a;backdrop-filter:blur(6px)}
+.btn-sec{background:#ffffff10;color:#fff;border-color:#ffffff2a;}
 .btn-sec:hover{background:#ffffff1f;transform:translateY(-3px)}
 .btn-sec b{font-family:'JetBrains Mono',monospace;color:var(--accent)}
-.stats span{border-radius:14px;padding:8px 16px;background:#ffffff0d;border:1px solid #ffffff20;backdrop-filter:blur(6px);color:#dde5fb}
+.stats span{border-radius:14px;padding:8px 16px;background:#ffffff0d;border:1px solid #ffffff20;color:#dde5fb}
 .stats b{color:var(--accent);font-family:var(--font-d)}
 .hero-mac{position:relative;border-radius:20px;border:1px solid #ffffff1c;background:#0a0f1c;box-shadow:0 34px 60px -26px #000,0 0 0 1px #b8f23d1f,0 0 80px -30px #b8f23d66}
 .hero-mac::before{content:"JS · PY · HTML";position:absolute;top:-14px;inset-inline-start:22px;padding:3px 12px;border-radius:99px;font:700 11px 'JetBrains Mono',monospace;color:var(--accent-ink);background:var(--accent);box-shadow:0 6px 14px -6px #b8f23d;z-index:1;direction:ltr}
@@ -227,3 +227,7 @@ a.pt-card:hover .go{opacity:1}
 @media(max-width:560px){.hero-cta{flex-direction:column}.hero-cta>*{width:100%}}
 
 @media print{.ann,.pt-top,.foot-partners,.steps{display:none!important}}
+
+/* أداء: إيقاف الحركات الثقيلة على الشاشات الصغيرة وعند عدم الحاجة */
+@media(max-width:760px){.hero::after{display:none!important}.pt-track{animation-duration:calc(var(--pt-dur,30s)*1.4)}}
+.pt-rail,.rv-row{contain:layout paint}
