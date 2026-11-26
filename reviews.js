@@ -38,19 +38,27 @@
   /* ================= آراء الطلاب ================= */
   var QUOTE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.5 4C3 4 2 5 2 6.6V12c0 1.6 1 2.6 2.5 2.6h2.3c-.2 2-1.2 3.2-3.1 3.6l.5 1.8C7.6 19.4 10 17 10 13V6.6C10 5 9 4 7.5 4h-3Zm11 0C14 4 13 5 13 6.6V12c0 1.6 1 2.6 2.5 2.6h2.3c-.2 2-1.2 3.2-3.1 3.6l.5 1.8C18.6 19.4 21 17 21 13V6.6C21 5 20 4 18.5 4h-3Z"/></svg>';
 
+  function hue(str) {
+    var h = 0;
+    for (var i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) % 360;
+    return h;
+  }
   function card(r, dup) {
     var c = el("article", "rv-card");
     if (dup) c.setAttribute("aria-hidden", "true");
-    c.appendChild(el("p", null, r.text));
-    var foot = el("div", "rv-foot");
+    var top = el("div", "rv-top");
+    var av = el("span", "rv-av", (r.name || "؟").trim().charAt(0));
+    av.style.setProperty("--h", hue(r.name || ""));
     var who = el("div", "rv-who");
     who.appendChild(el("b", null, r.name));
     who.appendChild(el("span", null, r.role || "طالب"));
     var q = el("span", "rv-q");
     q.innerHTML = QUOTE;
-    foot.appendChild(q);
-    foot.appendChild(who);
-    c.appendChild(foot);
+    top.appendChild(av);
+    top.appendChild(who);
+    top.appendChild(q);
+    c.appendChild(top);
+    c.appendChild(el("p", null, r.text));
     return c;
   }
 
@@ -73,6 +81,8 @@
     var box = document.getElementById("rvRows");
     box.textContent = "";
     box.classList.remove("is-static");
+    var cnt = document.getElementById("rvCount");
+    if (cnt) { cnt.hidden = !list.length; cnt.firstChild.textContent = list.length; }
     if (!list.length) {
       box.appendChild(el("p", "rv-empty", "لا توجد آراء منشورة بعد. كن أول من يشارك رأيه!"));
       return;
